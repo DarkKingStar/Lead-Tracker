@@ -74,10 +74,10 @@ const styles = StyleSheet.create({
     },
     item: {
       flex: 0.48,
-      backgroundColor: 'pink',
+      backgroundColor: '#fcc',
       borderRadius: 10,
       borderWidth: 3,
-      borderColor: 'white',
+      borderColor: '#fff',
       shadowOffset: {width: 0, height: 4},
       shadowColor: '#0000002B',
       shadowOpacity: 0.8,
