@@ -1,32 +1,29 @@
-import { ScrollView, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
-import UserDetails from '../../components/Userdetails'
-import Menu from '../../components/Menu';
 
-export default function HomeScreen() {
+export default function LeadScreen() {
   return (
     <View style={styles.container}>
-      <UserDetails/>
-      <ScrollView><Menu/></ScrollView>
+      <Text style={styles.title}>Lead</Text>
+      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      {/* <EditScreenInfo path="app/(tabs)/two.tsx" /> */}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    textAlign: 'center',
   },
   separator: {
     marginVertical: 30,
     height: 1,
-    width: '100%',
-    backgroundColor: '#FF008C',
+    width: '80%',
   },
 });
