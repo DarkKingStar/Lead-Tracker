@@ -1,18 +1,53 @@
 import { Pressable, StyleSheet, Image } from 'react-native';
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { Text, View } from '../../components/Themed';
 import { router } from 'expo-router';
 import {divStyles} from '../../styles/DivElement';
 import {textStyles} from '../../styles/TextElement';
 import TextInputField from '../../components/TextInputField';
 import PasswordInputField from '../../components/PasswordInputField';
+import { useAuth } from '../../context/AuthContext';
 
 export default function LoginScreen() {
+  const {OnLogin,OnValidateUsername} = useAuth();
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isUsernameWrong, setIsUsernameWrong] =  useState<boolean>(false);
   const [isPasswordWrong, setIsPasswordWrong] =  useState<boolean>(false);
   const [isValidUsername, setIsValidUserName] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
+  useEffect(()=>{
+    const handleValidateUsername = async() =>{
+      const flag = await OnValidateUsername(username);
+      if(flag){
+        setIsValidUserName(true);
+      }else{
+        setIsValidUserName(false);
+      }
+    }
+    handleValidateUsername();
+  },[username])
+  
+  const handleLogin = async() =>{
+    const flag = await OnLogin(username, password);
+    if(flag){
+      setIsUsernameWrong(false);
+      setIsPasswordWrong(false);
+      router.push('/(auth)/otpverify');
+    } 
+    else{
+      if(isValidUsername){
+        setErrorMessage("Invalid Username");
+        setIsPasswordWrong(true);
+        setIsUsernameWrong(true);
+      }else{
+        setErrorMessage("Invalid Password");
+        setIsPasswordWrong(true);
+        setIsUsernameWrong(false);
+      }
+    }
+  }
   return (
     <View style={divStyles.EntryPageContainer}>
       <View>
@@ -34,7 +69,7 @@ export default function LoginScreen() {
       RightIconColor={password !== '' ? "#000000" : "#C9C9C9"} 
       textValue={password}
       setTextValue={setPassword}/>
-      <Pressable style={divStyles.submitButton} onPress={()=> router.push('/(auth)/otpverify')}>
+      <Pressable style={divStyles.submitButton} onPress={()=> handleLogin()}>
         <Text style={textStyles.buttonText}>Login</Text>
       </Pressable>
       <Pressable onPress={()=> router.push('/(auth)/forgotpassword')}>

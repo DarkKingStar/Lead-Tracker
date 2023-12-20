@@ -50,6 +50,8 @@ function RootLayoutNav() {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="Notification" options={{ presentation: 'modal' }} />
         <Stack.Screen name="Search" options={{ presentation: 'transparentModal', headerShown: false }} />
+        <Stack.Screen name="Setting" options={{ presentation: 'transparentModal', headerShown: false }} />
+        <Stack.Screen name="Chatpage" options={{ presentation: 'transparentModal', headerShown: false}} />
       </Stack>
     </ThemeProvider>
     </AuthProvider>

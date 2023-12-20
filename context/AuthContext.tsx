@@ -3,11 +3,15 @@ import { createContext, useEffect, useState, useContext } from "react";
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 
+
 interface AuthProps {
-  authState?: {token: string| null; authenticated: boolean | null};
-  userData?: {};
+  authState: {token: string| null; authenticated: boolean | null};
+  userData: {userId: string| null; degid: string| null; degname: string| null;
+  fullname: string| null; contactno: string| null; email:string| null; username: string| null;
+   image:string| null; imageURL:string| null;
+  };
   OnValidateUsername: (username: string) => Promise<boolean>;
-  OnLogin?: (username: string, password: string) => Promise<boolean>;
+  OnLogin: (username: string, password: string) => Promise<boolean>;
   OnLogout: () => Promise<void>;
   OnSendPassword: (username: string) => Promise<boolean>;
   OnCheckOTP: (k1: string, k2: string, k3: string, k4: string) => Promise<string>;
@@ -18,13 +22,30 @@ interface AuthProps {
   }>
 }
 
-const AuthContext = createContext<AuthProps | undefined >(undefined);
+
+const AuthContext = createContext<AuthProps>({
+  authState: { token: null, authenticated: null },
+  userData: {userId:  null, degid:  null, degname: null,
+    fullname:null, contactno:null, email:null, username: null, image: null, imageURL: null
+    },
+  OnValidateUsername: async (username: string) => false,
+  OnLogin: async (username: string, password: string) => false,
+  OnLogout: async () => {},
+  OnSendPassword: async (username: string) => false,
+  OnCheckOTP: async (k1: string, k2: string, k3: string, k4: string) => '',
+  OnResendOTP: async () => false,
+  OnResetPassword: async (currentPassword: string, newPassword: string, confirmPassword: string) => ({
+    error: false,
+    message: '',
+  }),
+});
 
 export const useAuth = () =>{
   return useContext(AuthContext);
 }
 
-export const AuthProvider = ({children}: any) : JSX.Element =>{
+
+export const AuthProvider = ({children}: any) =>{
   const  [authState,setAuthState] = useState<{token: string | null;authenticated: boolean | null;}>({token: null,authenticated: null});
   const [userData, setUserData] = useState<any>(null);
   
@@ -91,37 +112,45 @@ export const AuthProvider = ({children}: any) : JSX.Element =>{
   };
 
 
-  const  OnValidateUsername = async (username: string): Promise<boolean> => {
+  const  ValidateUsername = async (username: string): Promise<boolean> => {
     const formData: FormData = new FormData();
     formData.append('txt_username', username);
     const fetchData = await fetchAPIPostData(CHECK_USERNAME, formData);
     return fetchData?.username === username ? true : false;
   };
-  const OnLogin = async (username: string, password: string): Promise<boolean> => {
-        await OnLogout();
+  const Login = async (username: string, password: string): Promise<boolean> => {
+        await Logout();
         const formData: FormData = new FormData();
         formData.append('txt_username', username);
         formData.append('txt_password', password);
         const fetchData = await fetchAPIPostData(LOGIN, formData);
         if (!fetchData.error) {
-          setUserData(fetchData);
+          setUserData({userId: fetchData?.user_details_id,
+            degid: fetchData?.designation_id,
+            degname: fetchData?.designation,
+            fullname: fetchData?.name,
+            contactno: fetchData?.contact_no,
+            email: fetchData?.email,
+            username: fetchData?.user_name,
+            image: fetchData?.image,
+            imageURl: fetchData?.image_path});
           setAuthState((prev)=>({...prev,token:fetchData?.token}))
           return true;
         } else {
           return false;
         }
   };
-  const OnLogout = async (): Promise<void> => {
+  const Logout = async (): Promise<void> => {
     setAuthState({token: null, authenticated: null});
     setUserData(null);
   };
-  const OnSendPassword = async (username: string): Promise<boolean> => {
+  const SendPassword = async (username: string): Promise<boolean> => {
     const formData: FormData = new FormData();
     formData.append('txt_username', username);
     const fetchData = await fetchAPIPostData(FORGOT_PASSWORD, formData);
     return fetchData?.error === true ? false : true;
   };
-  const OnCheckOTP = async (k1: string, k2: string, k3: string, k4: string): Promise<string> => {
+  const CheckOTP = async (k1: string, k2: string, k3: string, k4: string): Promise<string> => {
     const formData: FormData = new FormData();
     formData.append('txt_otp1', k1);
     formData.append('txt_otp2', k2);
@@ -136,13 +165,13 @@ export const AuthProvider = ({children}: any) : JSX.Element =>{
       return 'Entered OTP is Incorrect!';
     }
   };
-  const OnResendOTP = async (): Promise<boolean> => {
+  const ResendOTP = async (): Promise<boolean> => {
     const formData: FormData = new FormData();
     formData.append('txt_token', authState.token || '');
     const fetchData = await fetchAPIPostData(RESEND_OTP, formData);
     return fetchData?.error === true ? false : true;
   };
-  const OnResetPassword = async(currentPassword: string, newPassword: string, confirmPassword: string): Promise<{error: boolean;message: string;}>  =>{
+  const ResetPassword = async(currentPassword: string, newPassword: string, confirmPassword: string): Promise<{error: boolean;message: string;}>  =>{
     const formData = new FormData();
     formData.append('txt_current_password', currentPassword);
     formData.append("txt_new_password", newPassword);
@@ -153,18 +182,21 @@ export const AuthProvider = ({children}: any) : JSX.Element =>{
     return {error:  fetchData?.error || false , message : fetchData?.message || 'Unable to Change Password'};
   }
   
-  return <AuthContext.Provider 
-  value={{
+  const value={
     authState,
     userData,
-    OnLogin,
-    OnValidateUsername,
-    OnLogout,
-    OnSendPassword,
-    OnCheckOTP,
-    OnResendOTP,
-    OnResetPassword
-  }}>
+    OnLogin: Login,
+    OnValidateUsername: ValidateUsername,
+    OnLogout: Logout,
+    OnSendPassword: SendPassword,
+    OnCheckOTP : CheckOTP,
+    OnResendOTP : ResendOTP,
+    OnResetPassword: ResetPassword
+  }
+
+
+  return <AuthContext.Provider 
+  value={value}>
     {children}
   </AuthContext.Provider>
 }

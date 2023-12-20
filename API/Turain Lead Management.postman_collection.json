@@ -1,0 +1,270 @@
+{
+	"info": {
+		"_postman_id": "45cf57e1-939b-44ec-bae6-ab5a6553a567",
+		"name": "Turain Lead Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26559429"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "txt_username",
+							"value": "sanjit",
+							"type": "text"
+						},
+						{
+							"key": "txt_password",
+							"value": "123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}login",
+					"host": [
+						"{{base_url}}login"
+					],
+					"query": [
+						{
+							"key": "txt_username",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "txt_password",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OTP Verify",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "txt_otp1",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "txt_otp2",
+							"value": "4",
+							"type": "text"
+						},
+						{
+							"key": "txt_otp3",
+							"value": "6",
+							"type": "text"
+						},
+						{
+							"key": "txt_otp4",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "txt_token",
+							"value": "3c59dc048e8850243be8079a5c74d079",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/otp_verify",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"otp_verify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OTP Resend",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "txt_token",
+							"value": "3c59dc048e8850243be8079a5c74d079",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}resend_otp",
+					"host": [
+						"{{base_url}}resend_otp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Forgot Password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "txt_username",
+							"value": "sanjit",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}forgot_password",
+					"host": [
+						"{{base_url}}forgot_password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Username",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "txt_username",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}check_username",
+					"host": [
+						"{{base_url}}check_username"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "txt_current_password",
+							"value": "123",
+							"type": "text"
+						},
+						{
+							"key": "txt_new_password",
+							"value": "1234",
+							"type": "text"
+						},
+						{
+							"key": "txt_confirm_password",
+							"value": "1234",
+							"type": "text"
+						},
+						{
+							"key": "txt_user_details_id",
+							"value": "22",
+							"type": "text"
+						},
+						{
+							"key": "txt_token",
+							"value": "b6d767d2f8ed5d21a44b0e5886680cb9",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}change_password",
+					"host": [
+						"{{base_url}}change_password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Dashboard",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}dashboard/:{{txt_user_details_id}}/:{{txt_token}}",
+					"host": [
+						"{{base_url}}dashboard"
+					],
+					"path": [
+						":{{txt_user_details_id}}",
+						":{{txt_token}}"
+					],
+					"variable": [
+						{
+							"key": "{{txt_user_details_id}}",
+							"value": "8"
+						},
+						{
+							"key": "{{txt_token}}",
+							"value": "c9f0f895fb98ab9159f51fd0297e236d"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lead Details List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}lead_details_list/:{{txt_user_details_id}}/:{{txt_lead_status}}",
+					"host": [
+						"{{base_url}}lead_details_list"
+					],
+					"path": [
+						":{{txt_user_details_id}}",
+						":{{txt_lead_status}}"
+					],
+					"variable": [
+						{
+							"key": "{{txt_user_details_id}}",
+							"value": "8"
+						},
+						{
+							"key": "{{txt_lead_status}}",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

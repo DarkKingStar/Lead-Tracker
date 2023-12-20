@@ -1,7 +1,5 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
-import React,{useContext} from 'react'
-import { AntDesign } from '@expo/vector-icons';
-import { useAuth } from '../context/AuthContext';
+import { useAuth} from '../context/AuthContext';
 
 
 const UserDetails = () => {
@@ -10,11 +8,11 @@ const UserDetails = () => {
   return (
     <View style={styles.container}>
       <View style={styles.avatarholder}>
-        <Image source={{uri : userData?.image_path }} style={styles.avatar}/>
+        <Image source={{uri : `${userData?.imageURL}` }} style={styles.avatar}/>
       </View>
       <View style={styles.userContainer}>
-        <Text style={styles.UserName}>{userData?.name || 'User FULL Name'}</Text>
-        <Text style={styles.Designation}>{userData?.designation_id||'Designation'}</Text>
+        <Text style={styles.UserName}>{userData?.fullname || 'User FULL Name'}</Text>
+        <Text style={styles.Designation}>{userData?.degname||'Designation'}</Text>
       </View>
     </View>
   )
