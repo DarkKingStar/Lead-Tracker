@@ -18,7 +18,7 @@ const ContainPage: React.FC<ContainPageProps>  = ({leadId, userId}) => {
       try{
         const response = await axios.get(`${LEAD_LIST}/${userId}/${leadId}`);
         setLeadList(response?.data);
-        if(response?.data?.["client-list"].length>0){
+        if(response?.status){
           setLoading(false);
         }
       }catch(err:any){

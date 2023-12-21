@@ -62,8 +62,8 @@ function RootLayoutNav() {
     
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false, animation: 'slide_from_right' }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false, animation: 'slide_from_right' }} />
         <Stack.Screen name="Notification" options={{ presentation: 'modal' }} />
         <Stack.Screen name="Search" options={{ presentation: 'transparentModal', headerShown: false, animation: "fade" }} />
         <Stack.Screen name="Setting" options={{ presentation: 'transparentModal', headerShown: false, animation: "fade" }} />

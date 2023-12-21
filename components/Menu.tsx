@@ -31,13 +31,13 @@ const Menu = () => {
         fetchMenuData();
     },[])
     const gotoPage = ( leadid: string, userid: string) =>{
-        router.push({pathname:'/(tabs)/lead', params:{leadId:leadid, userId: userid}})
+        router.push(`/(tabs)/lead/${leadid}/${userid}`)
     }
     return (
     <View style={styles.container}>
-        {menuData?.map((chunk: Array<Array<{}>>, index: number) => (
+        {menuData?.map((chunk: any, index: number) => (
             <View key={index} style={styles.row}>
-                {chunk?.map((item: {}, itemIndex: number) => (
+                {chunk?.map((item: any, itemIndex: number) => (
                     <View key={itemIndex} style={styles.item}>
                         <Pressable onPress={()=>gotoPage(item.lead_status_id, '8' )}>{/* {userData.userId} */}
                             <MenuItem heading={item.lead_status} totaltask={item.total_lead} taskdone={item.lead_count_status_wise} img={item.image_url}/>
@@ -59,19 +59,20 @@ const styles = StyleSheet.create({
     row: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginBottom: 16,
+      marginBottom: 3,
+      alignSelf: 'center',
+
     },
     item: {
-      flex: 1,
+      flex: 0.5,
       backgroundColor: '#fcc',
-      marginHorizontal: 5,
       borderRadius: 10,
       borderWidth: 3,
       borderColor: '#fff',
       shadowOffset: {width: 0, height: 4},
       shadowColor: '#0000002B',
       shadowOpacity: 0.8,
-      padding: 16,
+      padding: 14,
     },
   });
 

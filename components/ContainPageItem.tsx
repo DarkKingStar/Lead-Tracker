@@ -14,7 +14,7 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({leadlist, loading}) =>
     }else{
     return (
         <>
-        {leadlist?.["client-list"]?.map((item: Array<Array<{}>>, index: number) => (
+        {leadlist?.["client-list"]?.map((item: any, index: number) => (
         <View  key={index} style={{margin:20, padding: 10, backgroundColor: '#FFEEF7', borderRadius: 8}}>
         <View style={styles.container}>
           <View style={{flex:1}}>
