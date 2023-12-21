@@ -9,13 +9,14 @@ import PasswordInputField from '../../components/PasswordInputField';
 import { useAuth } from '../../context/AuthContext';
 
 export default function LoginScreen() {
-  const {OnLogin,OnValidateUsername} = useAuth();
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isUsernameWrong, setIsUsernameWrong] =  useState<boolean>(false);
   const [isPasswordWrong, setIsPasswordWrong] =  useState<boolean>(false);
   const [isValidUsername, setIsValidUserName] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+
+  const {OnLogin,OnValidateUsername} = useAuth();
 
   useEffect(()=>{
     const handleValidateUsername = async() =>{
@@ -27,17 +28,18 @@ export default function LoginScreen() {
       }
     }
     handleValidateUsername();
-  },[username])
+  },[username]);
   
   const handleLogin = async() =>{
     const flag = await OnLogin(username, password);
     if(flag){
+      setErrorMessage("");
       setIsUsernameWrong(false);
       setIsPasswordWrong(false);
       router.push('/(auth)/otpverify');
     } 
     else{
-      if(isValidUsername){
+      if(!isValidUsername){
         setErrorMessage("Invalid Username");
         setIsPasswordWrong(true);
         setIsUsernameWrong(true);
@@ -69,6 +71,7 @@ export default function LoginScreen() {
       RightIconColor={password !== '' ? "#000000" : "#C9C9C9"} 
       textValue={password}
       setTextValue={setPassword}/>
+      {errorMessage!='' && <Text style={{margin: 10, color: '#FF007F', fontSize: 16}}>{errorMessage}</Text>}
       <Pressable style={divStyles.submitButton} onPress={()=> handleLogin()}>
         <Text style={textStyles.buttonText}>Login</Text>
       </Pressable>

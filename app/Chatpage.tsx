@@ -20,11 +20,11 @@ const Chatpage = () => {
             <Pressable style={styles.callbtn}>
               <FontAwesome name="phone" size={22} color="#000" />
             </Pressable>
-        </View>
+          </View>
 
-        <ChatMessageBox/>
+          <ChatMessageBox/>
 
-        <ChatBox/>
+          <ChatBox/>
       </View>
    
   )
@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
         flex: 1, 
         backgroundColor: '#ffffff', 
         marginTop:100, 
-        justifyContent: 'flex-end',
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
     },

@@ -11,9 +11,7 @@ const ChatBox = () => {
       <Pressable onPress={()=>router.push('/Setting')}>
         <View style={styles.inputarea}>
           <View style={styles.inputholder}>
-              <Text
-              style={styles.inputtext}
-              >Write a Message</Text>
+              <Text style={styles.inputtext}>Write a Message</Text>
               <View style={styles.sendIconHolder}>
                   <FontAwesome  name="paper-plane" size={16} color={'#FFFFFF'} />
               </View>
@@ -29,6 +27,7 @@ export default ChatBox
 const styles = StyleSheet.create({
     container:{
         flex: 1,
+        justifyContent: 'flex-end',
     },
     messagearea:{
         padding: 12,

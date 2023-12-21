@@ -1,30 +1,32 @@
-import { Image, Pressable, TextInput, StyleSheet } from 'react-native';
-import React,{useEffect, useState,useRef} from 'react';
+import { Image, Pressable, TextInput, StyleSheet, Alert } from 'react-native';
+import React,{useState,useRef} from 'react';
 import { Text, View } from '../../components/Themed';
 import { router } from 'expo-router';
 import {divStyles} from '../../styles/DivElement';
 import {textStyles} from '../../styles/TextElement';
+import { useAuth } from '../../context/AuthContext';
 
 export default function verifyotpScreen() {
   const [otp, setOtp] = useState(['', '', '', '']);
-  const [displayMessage,  setDisplayMessage] = useState(null);
+  const [displayMessage,  setDisplayMessage] = useState<string>('');
   const refs = useRef<TextInput[]>([]);
   
+  const {OnCheckOTP, OnResendOTP, userData} = useAuth();
 
 
   const handleResendOTP = async() =>{
-    // const resendOtpflag =  await resendOTP();
-    // if (resendOtpflag) {
-    //   Alert.alert(
-    //     'Resend OTP',
-    //     `OTP has been resent successfully to ${userData?.contact_no}`,
-    //   );
-    // } else {
-    //   Alert.alert(
-    //     'Resend OTP',
-    //     'Failed to resend OTP. Please try again.',
-    //   );
-    // }
+    const resendOtpflag =  await OnResendOTP();
+    if (resendOtpflag) {
+      Alert.alert(
+        'Resend OTP',
+        `OTP has been resent successfully to ${userData.contactno}`,
+      );
+    } else {
+      Alert.alert(
+        'Resend OTP',
+        'Failed to resend OTP. Please try again.',
+      );
+    }
   }
   const handleOtpChange = (index: number, value: string) => {
     const newOtp = [...otp];
@@ -49,9 +51,15 @@ export default function verifyotpScreen() {
   
         
   const handleVerifyOtp = async() => {
-    // const Otpflag = await checkOTP(otp[0],otp[1],otp[2],otp[3]);
-    // setDisplayMessage(Otpflag);
-    setOtp(['', '', '', '']);
+    const OtpData = await OnCheckOTP(otp[0],otp[1],otp[2],otp[3]);
+    if(!OtpData?.error){
+      setDisplayMessage('');
+      router.push('/(tabs)')
+    }else{
+      setDisplayMessage(OtpData?.message);
+      setOtp(['', '', '', '']);
+      refs.current[0].focus();
+    }
   };
   return (
     <View style={divStyles.EntryPageContainer}>
@@ -84,7 +92,8 @@ export default function verifyotpScreen() {
           />
         ))}
       </View>
-      <Pressable style={[divStyles.submitButton, {marginTop: 60}]} onPress={()=>router.push('/(tabs)')}>
+      {displayMessage!='' && <Text style={{margin: 10, color: '#FF007F', fontSize: 16}}>{displayMessage}</Text>}
+      <Pressable style={[divStyles.submitButton, {marginTop: 60}]} onPress={()=>handleVerifyOtp()}>
         <Text style={textStyles.buttonText}>Verify</Text>
       </Pressable>
       <Pressable onPress={() => handleResendOTP()}>

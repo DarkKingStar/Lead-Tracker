@@ -1,18 +1,45 @@
-import { Pressable, StyleSheet, Image } from 'react-native';
-import React,{useState} from 'react';
+import { Pressable, StyleSheet, Image, Alert } from 'react-native';
+import React,{useEffect, useState} from 'react';
 import { Text, View } from '../../components/Themed';
 import { router } from 'expo-router';
 import {divStyles} from '../../styles/DivElement';
 import {textStyles} from '../../styles/TextElement';
 import TextInputField from '../../components/TextInputField';
-import PasswordInputField from '../../components/PasswordInputField';
+import { useAuth } from '../../context/AuthContext';
 
 export default function ForgotPassswordScreen() {
   const [username, setUsername] = useState<string>('');
-  const [isUsernameFocused, setIsUsernameFocused] = useState<boolean>(false);
   const [isUsernameWrong, setIsUsernameWrong] =  useState<boolean>(false);
   const [isValidUsername, setIsValidUserName] = useState<boolean>(false);
-  
+  const {OnSendPassword,OnValidateUsername} = useAuth();
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
+  useEffect(()=>{
+    const handleValidateUsername = async() =>{
+      const flag = await OnValidateUsername(username);
+      if(flag){
+        setIsUsernameWrong(false);
+        setIsValidUserName(true);
+      }else{
+        setIsValidUserName(false);
+      }
+    }
+    handleValidateUsername();
+  },[username]);
+  const handleForgotPassword = async() =>{
+    const flagData = await OnSendPassword(username);
+    if(!flagData.error){
+      setIsUsernameWrong(false);
+      Alert.alert(
+        'Password Send!',
+        `Password has been resent successfully to Your Registed Phone Number`,
+        [{ text: 'Go Back To Login', onPress: () => router.push('/(auth)/')}]
+      );
+    }else{
+      setIsUsernameWrong(true);
+      setErrorMessage(flagData?.message);
+    }
+  }
   return (
     <View style={styles.container}>
       <View style={divStyles.EntryPageContainer}>
@@ -28,12 +55,9 @@ export default function ForgotPassswordScreen() {
       RightIconColor={isValidUsername ? "#008000" : "#C9C9C9"} 
       textValue={username}
       setTextValue={setUsername}/>
-      <Text style={{marginTop: 10, color: 'red', textAlign: 'center', fontSize: 16}}>
-        {isUsernameWrong && 'Incorrect username'}
-      </Text>
-      
+      {errorMessage!='' && <Text style={{margin: 10, color: '#FF007F', fontSize: 16}}>{errorMessage}</Text>}
       <View style={{width: '100%'}}>
-      <Pressable style={divStyles.submitButton} onPress={() => router.push('/(auth)/')} >
+      <Pressable style={divStyles.submitButton} onPress={() => handleForgotPassword()} >
           <Text style={textStyles.buttonText}>Send Password</Text>
       </Pressable>
       </View>

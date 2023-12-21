@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 const ChatMessageBox = () => {
   return (
-    <View>
+    <ScrollView contentContainerStyle={{flex:1, backgroundColor: '#fcf'}}>
     {/* { chatmesssage.map((item,index)=>( */}
     
     <View  style={styles.chatbubble}>
@@ -12,7 +13,7 @@ const ChatMessageBox = () => {
         <Text style={styles.time}>12:56</Text>
     </View>
     {/* ))} */}
-</View>
+</ScrollView>
   )
 }
 

@@ -1,17 +1,20 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
+import { Image } from 'expo-image';
 import { useAuth} from '../context/AuthContext';
-
 
 const UserDetails = () => {
    const {userData} = useAuth();
-
   return (
     <View style={styles.container}>
       <View style={styles.avatarholder}>
-        <Image source={{uri : `${userData?.imageURL}` }} style={styles.avatar}/>
+        <Image 
+        source={userData?.imageURL}
+        placeholder={"LEHLk~WB2yk8pyo0adR*.7kCMdnj"}
+        contentFit="cover"
+        style={styles.avatar}/>
       </View>
       <View style={styles.userContainer}>
-        <Text style={styles.UserName}>{userData?.fullname || 'User FULL Name'}</Text>
+        <Text style={styles.UserName}>{userData?.fullname }</Text>
         <Text style={styles.Designation}>{userData?.degname||'Designation'}</Text>
       </View>
     </View>
@@ -50,6 +53,8 @@ const styles = StyleSheet.create({
     borderWidth: 5,
   },
   avatar:{
+    width:50,
+    height:50,
     borderRadius: 50,
     backgroundColor: '#fff',
   },

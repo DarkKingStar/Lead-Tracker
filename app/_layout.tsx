@@ -1,10 +1,10 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { SplashScreen, Stack } from 'expo-router';
-import { useEffect } from 'react';
+import { SplashScreen, Stack, router } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { useColorScheme } from 'react-native';
-import { AuthProvider } from '../context/AuthContext';
+import { AuthProvider, useAuth } from '../context/AuthContext';
 export {ErrorBoundary} from 'expo-router';
 
 export const unstable_settings = {
@@ -32,19 +32,31 @@ export default function RootLayout() {
     }
   }, [loaded]);
 
+
   if (!loaded) {
     return null;
   }
 
-  return <RootLayoutNav />;
+  return (
+    <AuthProvider>
+      <RootLayoutNav />
+    </AuthProvider>
+  );
 }
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
-
+  const {authState} = useAuth();
+  useEffect(() => {
+    // Check if the token is not null and the user is authenticated
+    if (authState.token == null && authState.authenticated == null ) {
+      router.push('/(auth)/');
+    } else {
+      router.push('/(tabs)/');
+    }
+  }, [authState]); 
   return (
-    <AuthProvider>
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -54,6 +66,5 @@ function RootLayoutNav() {
         <Stack.Screen name="Chatpage" options={{ presentation: 'transparentModal', headerShown: false}} />
       </Stack>
     </ThemeProvider>
-    </AuthProvider>
   );
 }
