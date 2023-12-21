@@ -5,15 +5,49 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 const ChatMessageBox = () => {
   return (
-    <ScrollView contentContainerStyle={{flex:1, backgroundColor: '#fcf'}}>
-    {/* { chatmesssage.map((item,index)=>( */}
-    
+    <>
     <View  style={styles.chatbubble}>
         <Text style={styles.chattext}>keqwefr olwrokgrgwt boigtwkge geottgwemgw twepottwgtm4t wetotjwgwe oiqrt m3iq</Text>
-        <Text style={styles.time}>12:56</Text>
+        <Text style={styles.time}>1</Text>
     </View>
-    {/* ))} */}
-</ScrollView>
+    <View  style={styles.chatbubble}>
+        <Text style={styles.chattext}>keqwefr olwrokgrgwt boigtwkge geottgwemgw twepottwgtm4t wetotjwgwe oiqrt m3iq</Text>
+        <Text style={styles.time}>2</Text>
+    </View>
+    <View  style={styles.chatbubble}>
+        <Text style={styles.chattext}>keqwefr olwrokgrgwt boigtwkge geottgwemgw twepottwgtm4t wetotjwgwe oiqrt m3iq</Text>
+        <Text style={styles.time}>3</Text>
+    </View>
+    <View  style={styles.chatbubble}>
+        <Text style={styles.chattext}>keqwefr olwrokgrgwt boigtwkge geottgwemgw twepottwgtm4t wetotjwgwe oiqrt m3iq</Text>
+        <Text style={styles.time}>4</Text>
+    </View>
+    <View  style={styles.chatbubble}>
+        <Text style={styles.chattext}>keqwefr olwrokgrgwt boigtwkge geottgwemgw twepottwgtm4t wetotjwgwe oiqrt m3iq</Text>
+        <Text style={styles.time}>5</Text>
+    </View>
+    <View  style={styles.chatbubble}>
+        <Text style={styles.chattext}>keqwefr olwrokgrgwt boigtwkge geottgwemgw twepottwgtm4t wetotjwgwe oiqrt m3iq</Text>
+        <Text style={styles.time}>6</Text>
+    </View>
+    <View  style={styles.chatbubble}>
+        <Text style={styles.chattext}>keqwefr olwrokgrgwt boigtwkge geottgwemgw twepottwgtm4t wetotjwgwe oiqrt m3iq</Text>
+        <Text style={styles.time}>7</Text>
+    </View>
+    <View  style={styles.chatbubble}>
+        <Text style={styles.chattext}>keqwefr olwrokgrgwt boigtwkge geottgwemgw twepottwgtm4t wetotjwgwe oiqrt m3iq</Text>
+        <Text style={styles.time}>8</Text>
+    </View>
+    <View  style={styles.chatbubble}>
+        <Text style={styles.chattext}>keqwefr olwrokgrgwt boigtwkge geottgwemgw twepottwgtm4t wetotjwgwe oiqrt m3iq</Text>
+        <Text style={styles.time}>9</Text>
+    </View>
+    <View  style={styles.chatbubble}>
+        <Text style={styles.chattext}>keqwefr olwrokgrgwt boigtwkge geottgwemgw twepottwgtm4t wetotjwgwe oiqrt m3iq</Text>
+        <Text style={styles.time}>10</Text>
+    </View>
+    
+    </>
   )
 }
 

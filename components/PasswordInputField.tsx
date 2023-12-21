@@ -10,10 +10,11 @@ interface PasswordInputFieldProps{
     LeftIconColor: string;
     RightIconColor: string;
     textValue: string;
+    placeholdertext: string;
     setTextValue: Dispatch<SetStateAction<string>>;
 }
 
-const PasswordInputField: React.FC<PasswordInputFieldProps> = ({FocusColor,NotFocusColor, LeftIconColor, RightIconColor, textValue, setTextValue}) => {
+const PasswordInputField: React.FC<PasswordInputFieldProps> = ({FocusColor,NotFocusColor, LeftIconColor, RightIconColor, textValue, placeholdertext, setTextValue}) => {
     const [InputIsFocus,setInputIsFocus] = useState<boolean>(false);
     const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
     return (
@@ -21,7 +22,7 @@ const PasswordInputField: React.FC<PasswordInputFieldProps> = ({FocusColor,NotFo
         <FontAwesome name="lock" size={20} color={LeftIconColor} />
         <TextInput
           style={textStyles.inputText}
-          placeholder="Password"
+          placeholder={placeholdertext}
           secureTextEntry={!isShowPassword}
           onChangeText={(text) => setTextValue(text)}
           value={textValue}

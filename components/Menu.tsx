@@ -1,63 +1,52 @@
 import {Animated, View, Text, StyleSheet, Pressable } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import MenuItem from './MenuItem'
+import { useAuth } from '../context/AuthContext'
+import axios from 'axios'
+import { DASHBOARD } from '../context/BaseConfig'
+import { router } from 'expo-router'
+
+
 
 
 const Menu = () => {
-    // const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
-    const gotoPage = () =>{
-        
+    const [menuData,setmenuData] = useState<any>(null);
+    const {userData, authState} = useAuth();
+    useEffect(()=>{
+        const fetchMenuData = async()=>{
+            if(userData.userId && authState.token){
+                try{
+                    const response = await axios.get(`${DASHBOARD}/8/c9f0f895fb98ab9159f51fd0297e236d`); //${userData.userId}/${authState.token}
+                    // console.log(JSON.stringify(response?.data?.dashboard,null,2));
+                    const newArray = Array.from({ length: Math.ceil(response?.data?.dashboard?.length/2)}, (_,index)=>
+                        response?.data?.dashboard?.slice(index*2, index * 2 + 2)
+                    );
+                    // console.log(JSON.stringify(newArray,null,2));
+                    setmenuData(newArray);
+                }catch(err){
+                    console.log(err);
+                }
+            }
+        }
+        fetchMenuData();
+    },[])
+    const gotoPage = ( leadid: string, userid: string) =>{
+        router.push({pathname:'/(tabs)/lead', params:{leadId:leadid, userId: userid}})
     }
     return (
     <View style={styles.container}>
-        <View style={styles.row}>
-            {/* <AnimatedLinearGradient colors={['#FFEEF7', '#F4BEDC']} style={styles.item}> */}
-            <View style={styles.item}>
-                <Pressable onPress={()=>gotoPage()}>
-                <MenuItem heading='Meetings' totaltask={10} taskdone={10} img='meetings'/>
-                </Pressable>
+        {menuData?.map((chunk: Array<Array<{}>>, index: number) => (
+            <View key={index} style={styles.row}>
+                {chunk?.map((item: {}, itemIndex: number) => (
+                    <View key={itemIndex} style={styles.item}>
+                        <Pressable onPress={()=>gotoPage(item.lead_status_id, '8' )}>{/* {userData.userId} */}
+                            <MenuItem heading={item.lead_status} totaltask={item.total_lead} taskdone={item.lead_count_status_wise} img={item.image_url}/>
+                        </Pressable>
+                    </View>
+                ))}
             </View>
-            {/* </AnimatedLinearGradient> */}
-            {/* <AnimatedLinearGradient colors={['#FFEEF7', '#F4BEDC']} style={styles.item}> */}
-            <View style={styles.item}>
-                <Pressable onPress={()=>gotoPage()}>
-                <MenuItem heading='Total Leads' totaltask={10} taskdone={8} img='totalleads'/>
-                </Pressable>
-            </View>
-            {/* </AnimatedLinearGradient> */}
-        </View>
-        <View style={styles.row}>
-            {/* <AnimatedLinearGradient colors={['#FFEEF7', '#F4BEDC']} style={styles.item}> */}
-            <View style={styles.item}>
-                <Pressable onPress={()=>gotoPage()}>
-                <MenuItem heading='Proposal Seats' totaltask={14} taskdone={5} img='proposalseats'/>
-                </Pressable>
-            </View>
-            {/* </AnimatedLinearGradient> */}
-            {/* <AnimatedLinearGradient colors={['#FFEEF7', '#F4BEDC']} style={styles.item}> */}
-            <View style={styles.item}>
-                <Pressable onPress={()=>gotoPage()}>
-                <MenuItem heading='Leads Converted' totaltask={10} taskdone={6} img='leadconverted'/>
-                </Pressable>
-            </View>
-            {/* </AnimatedLinearGradient> */}
-        </View>
-        <View style={styles.row}>
-            {/* <AnimatedLinearGradient colors={['#FFEEF7', '#F4BEDC']} style={styles.item}> */}
-            <View style={styles.item}>
-                <Pressable onPress={()=>gotoPage()}>
-                <MenuItem heading='Meetings' totaltask={15} taskdone={5} img='meetings'/>
-                </Pressable>
-            </View>
-            {/* </AnimatedLinearGradient> */}
-            {/* <AnimatedLinearGradient colors={['#FFEEF7', '#F4BEDC']} style={styles.item}> */}
-            <View style={styles.item}>            
-                <Pressable onPress={()=>gotoPage()}>
-                <MenuItem heading='Total Leads' totaltask={10} taskdone={2} img='totalleads'/>
-                </Pressable>
-            </View>
-            {/* </AnimatedLinearGradient> */}
-        </View>
+        ))}
+       
     </View>
   )
 }
@@ -73,8 +62,9 @@ const styles = StyleSheet.create({
       marginBottom: 16,
     },
     item: {
-      flex: 0.48,
+      flex: 1,
       backgroundColor: '#fcc',
+      marginHorizontal: 5,
       borderRadius: 10,
       borderWidth: 3,
       borderColor: '#fff',

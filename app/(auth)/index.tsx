@@ -70,6 +70,7 @@ export default function LoginScreen() {
       LeftIconColor={password !== '' ? "#000000" : "#C9C9C9"}
       RightIconColor={password !== '' ? "#000000" : "#C9C9C9"} 
       textValue={password}
+      placeholdertext={"Password"}
       setTextValue={setPassword}/>
       {errorMessage!='' && <Text style={{margin: 10, color: '#FF007F', fontSize: 16}}>{errorMessage}</Text>}
       <Pressable style={divStyles.submitButton} onPress={()=> handleLogin()}>

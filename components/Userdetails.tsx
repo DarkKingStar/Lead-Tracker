@@ -5,7 +5,7 @@ import { useAuth} from '../context/AuthContext';
 const UserDetails = () => {
    const {userData} = useAuth();
   return (
-    <View style={styles.container}>
+    <View style={styles.detailscontainer}>
       <View style={styles.avatarholder}>
         <Image 
         source={userData?.imageURL}
@@ -21,7 +21,7 @@ const UserDetails = () => {
   )
 }
 const styles = StyleSheet.create({
-  container:{
+  detailscontainer:{
     backgroundColor:'#FF7EC5',
     borderBottomRightRadius: 50,
     borderBottomLeftRadius: 50,

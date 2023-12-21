@@ -3,34 +3,43 @@ import React from 'react'
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { router } from 'expo-router';
 
+interface ContainPageItemProps{
+    leadlist: any;
+    loading : boolean
+}
 
-const ContainPageItem = () => {
+const ContainPageItem: React.FC<ContainPageItemProps> = ({leadlist, loading}) => {
+    if(loading){
+        return(<Text>Loading</Text>)
+    }else{
     return (
-        <View style={{margin:20, padding: 10, backgroundColor: '#FFEEF7', borderRadius: 8}}>
+        <>
+        {leadlist?.["client-list"]?.map((item: Array<Array<{}>>, index: number) => (
+        <View  key={index} style={{margin:20, padding: 10, backgroundColor: '#FFEEF7', borderRadius: 8}}>
         <View style={styles.container}>
           <View style={{flex:1}}>
             <View style={{marginBottom: 14}}>
                 <Text style={[styles.name, styles.left]}>
-                    Goutam Mukharjee
+                    {item?.name}
                 </Text>
             </View>
             <View style={styles.row}>
                 <View style={[styles.col, styles.left]}>
                     <FontAwesome name='globe' size={14} color='blue'/>
-                    <Text style={styles.labeltext}>Website</Text>
+                    <Text style={styles.labeltext}>{item?.mode_of_business}</Text>
                 </View>
                 <View style={[styles.col, styles.right]}>
-                    <Text style={styles.labeltext}>X Leads</Text>
+                    <Text style={styles.labeltext}>{item?.lead_status}</Text>
                     <FontAwesome name='paperclip' size={14} color='blue'/>
                 </View>
             </View>
             <View style={styles.row}>
                 <View style={[styles.col, styles.left]}>
                     <FontAwesome name='comment' size={14} color='blue'/>                    
-                    <Text style={styles.labeltext}>SMS</Text>
+                    <Text style={styles.labeltext}>{item?.lead_location}</Text>
                 </View>
                 <View style={[styles.col, styles.right]}>
-                    <Text style={styles.labeltext}>XX Leads</Text>
+                    <Text style={styles.labeltext}>{item?.client_details_id}</Text>
                     <FontAwesome name='paperclip' size={14} color='blue'/>                    
                 </View>
             </View>
@@ -38,10 +47,10 @@ const ContainPageItem = () => {
             <View style={styles.row}>
                 <View style={[styles.col, styles.left]}>
                     <FontAwesome name='calendar' size={14} color='blue'/>                    
-                    <Text style={styles.labeltext}>DD/MM/YYYY</Text>
+                    <Text style={styles.labeltext}>{item?.lead_status_date}</Text>
                 </View>
                 <View style={[styles.col, styles.right]}>
-                    <Text style={styles.labeltext}>XX:XX ZM</Text>
+                    <Text style={styles.labeltext}>{item?.lead_status_time}</Text>
                     <FontAwesome name='clock-o' size={14} color='blue'/>                    
                 </View>
             </View>
@@ -78,7 +87,10 @@ const ContainPageItem = () => {
                 </View>
             </View>
         </View>
-      )
+        ))}
+        </>
+        )
+    }
 }
 
 export default ContainPageItem

@@ -6,3 +6,5 @@ export const RESEND_OTP = `${BASE_URL}/resend_otp`;
 export const FORGOT_PASSWORD = `${BASE_URL}/forgot_password`;
 export const CHECK_USERNAME = `${BASE_URL}/check_username`;
 export const RESET_PASSWORD = `${BASE_URL}/change_password`;
+export const DASHBOARD = `${BASE_URL}/dashboard`;
+export const LEAD_LIST = `${BASE_URL}/lead_details_list`;

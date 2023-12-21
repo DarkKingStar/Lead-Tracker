@@ -4,6 +4,7 @@ import { router } from 'expo-router';
 import { Image } from 'react-native';
 import ChatBox from '../components/ChatBox';
 import ChatMessageBox from '../components/ChatMessageBox';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 const Chatpage = () => {
@@ -21,9 +22,12 @@ const Chatpage = () => {
               <FontAwesome name="phone" size={22} color="#000" />
             </Pressable>
           </View>
-
-          <ChatMessageBox/>
-
+          <View style={{height: '75%'}}>
+          <ScrollView>
+            <ChatMessageBox/>
+          </ScrollView>
+          </View>
+          
           <ChatBox/>
       </View>
    
@@ -35,8 +39,8 @@ export default Chatpage
 const styles = StyleSheet.create({
     container:{
         flex: 1, 
-        backgroundColor: '#ffffff', 
-        marginTop:100, 
+        backgroundColor: 'white', 
+        marginTop:190, 
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
     },

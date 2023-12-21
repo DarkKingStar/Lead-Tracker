@@ -1,21 +1,17 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
 import MenuProgressBar from './MenuProgressBar';
+import { Image } from 'expo-image';
 
 interface MenuItemProps {
-    heading: string; // Assuming 'heading' should be a string, adjust the type accordingly
+    heading: string; 
     totaltask: number;
     taskdone: number;
-    img: string; // Assuming 'img' should be a string, adjust the type accordingly
+    img: string; 
   }
 
   const MenuItem: React.FC<MenuItemProps> = ({ heading, totaltask, taskdone, img }) => {
-//   const imagefile = {
-//     leadconverted : require('../assets/icons/leadconverted.png'),
-//     meetings : require('../assets/icons/meetings.png'),
-//     proposalseats : require('../assets/icons/proposalseats.png'),
-//     totalleads : require('../assets/icons/totalleads.png'),
-//   }
+
   return (
     <View>
     <View style={styles.container}>
@@ -24,10 +20,7 @@ interface MenuItemProps {
       <Text style={styles.task}>{taskdone} of {totaltask}</Text>
     </View>
     <View style={styles.iconholder}>
-     {/* {img == "meetings" && <Image style={styles.icon} source={imagefile.meetings} />}
-     {img == "leadconverted" && <Image style={styles.icon} source={imagefile.leadconverted} />}
-     {img == "proposalseats" && <Image style={styles.icon} source={imagefile.proposalseats} />}
-     {img == "totalleads" && <Image style={styles.icon} source={imagefile.totalleads} />} */}
+     <Image style={styles.icon} source={img} />
     </View>
     </View>
     <MenuProgressBar progress={(Number(taskdone)/Number(totaltask))*100}/>

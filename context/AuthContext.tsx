@@ -52,35 +52,11 @@ export const AuthProvider = ({children}: any) =>{
     const getSecureStoreValue = async () : Promise<void> => {
       const sessionUserData = await fetchSessionJsonData('userData');
       const sessionAuthState = await fetchSessionJsonData('authState');
-      // console.log(userData);
       setAuthState(sessionAuthState);
       setUserData(sessionUserData);
     };
     getSecureStoreValue();
   }, []);
-  console.log(userData);
-console.log(authState);
-  // useEffect(()=>{
-  //   const setSecureStoreValueforuserData = async () : Promise<void> => {
-  //     try{
-  //       await setSessionJsonData('userData', userData);
-  //     } catch (err: any) {
-  //       console.log(err.message);
-  //     }
-  //   }
-  //   setSecureStoreValueforuserData();
-  // },[userData]);
-
-  // useEffect(()=>{
-  //   const setSecureStoreValue = async () : Promise<void> => {
-  //     try{
-  //       await setSessionJsonData('authState', authState);
-  //     } catch (err: any) {
-  //       console.log(err.message);
-  //     }
-  //   }
-  //   setSecureStoreValue();
-  // },[authState]);
 
   const fetchSessionJsonData = async (key: string) : Promise<any> => {
     try{
@@ -128,7 +104,7 @@ console.log(authState);
         formData.append('txt_password', password);
         const fetchData = await fetchAPIPostData(LOGIN, formData);
         if (!fetchData.error) {
-          setUserData({userId: fetchData?.user_details_id,
+          const userDataTemp = {userId: fetchData?.user_details_id,
             degid: fetchData?.designation_id,
             degname: fetchData?.designation,
             fullname: fetchData?.name,
@@ -136,10 +112,11 @@ console.log(authState);
             email: fetchData?.email,
             username: fetchData?.user_name,
             image: fetchData?.image,
-            imageURL: fetchData?.image_path});
+            imageURL: fetchData?.image_path};
+          setUserData(userDataTemp);
           setAuthState((prev)=>({...prev,token:fetchData?.token}))
-          await setSessionJsonData('userData', userData);
-          await setSessionJsonData('authState', authState);
+          await setSessionJsonData('userData', userDataTemp);
+          await setSessionJsonData('authState', {...authState,token:fetchData?.token});
           return true;
         } else {
           return false;
@@ -149,6 +126,8 @@ console.log(authState);
     setAuthState({token: null, authenticated: null});
     setUserData({userId:  null, degid:  null, degname: null,
       fullname:null, contactno:null, email:null, username: null, image: null, imageURL: null});
+    await setSessionJsonData('authState', {token: null, authenticated: null});
+    
   };
   const SendPassword = async (username: string): Promise<{error: boolean;message: string;}> => {
     const formData: FormData = new FormData();
@@ -164,9 +143,9 @@ console.log(authState);
     formData.append('txt_otp4', k4);
     formData.append('txt_token', authState.token || '');
     const fetchData = await fetchAPIPostData(OTP_VERIFY, formData);
-    if (fetchData.error !== true) {
+    if (!fetchData?.error) {
       setAuthState((prev)=>({...prev, authenticated:true}));
-      await setSessionJsonData('authState', authState);
+      await setSessionJsonData('authState', {...authState, authenticated:true});
     }
     return {error:  fetchData?.error || false , message : fetchData?.message || ''};
   };

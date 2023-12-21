@@ -5,6 +5,7 @@ import { SplashScreen, Stack, router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { useColorScheme } from 'react-native';
 import { AuthProvider, useAuth } from '../context/AuthContext';
+
 export {ErrorBoundary} from 'expo-router';
 
 export const unstable_settings = {
@@ -51,19 +52,23 @@ function RootLayoutNav() {
     // Check if the token is not null and the user is authenticated
     if (authState.token == null && authState.authenticated == null ) {
       router.push('/(auth)/');
-    } else {
+    } else if(authState.token != null && authState.authenticated == null){
+      router.push('/(auth)/otpverify');
+    }else{
       router.push('/(tabs)/');
     }
   }, [authState]); 
   return (
+    
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="Notification" options={{ presentation: 'modal' }} />
-        <Stack.Screen name="Search" options={{ presentation: 'transparentModal', headerShown: false }} />
-        <Stack.Screen name="Setting" options={{ presentation: 'transparentModal', headerShown: false }} />
-        <Stack.Screen name="Chatpage" options={{ presentation: 'transparentModal', headerShown: false}} />
+        <Stack.Screen name="Search" options={{ presentation: 'transparentModal', headerShown: false, animation: "fade" }} />
+        <Stack.Screen name="Setting" options={{ presentation: 'transparentModal', headerShown: false, animation: "fade" }} />
+        <Stack.Screen name="Chatpage" options={{ presentation: 'transparentModal', headerShown: false, animation: "slide_from_bottom"}} />
+        <Stack.Screen name="ChangePassword" options={{ presentation: 'modal',title:"Reset Password", animation: "slide_from_bottom"}} />
       </Stack>
     </ThemeProvider>
   );
