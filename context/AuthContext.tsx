@@ -128,7 +128,6 @@ export const AuthProvider = ({children}: any) =>{
     setUserData({userId:  null, degid:  null, degname: null,
       fullname:null, contactno:null, email:null, username: null, image: null, imageURL: null});
     await setSessionJsonData('authState', {token: null, authenticated: null});
-    router.push('/(auth)')
   };
   const SendPassword = async (username: string): Promise<{error: boolean;message: string;}> => {
     const formData: FormData = new FormData();
