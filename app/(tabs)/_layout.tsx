@@ -100,6 +100,6 @@ function HeaderRight() {
 
 function HeaderLeft() {
   return (
-    <><Image source={require("../../assets/images/icon.png")} style={{width: 50,height: 50}}/></>
+    <><Image source={require("../../assets/images/icon.png")} style={{marginLeft:5, width: 50,height: 50}}/></>
   )
 }

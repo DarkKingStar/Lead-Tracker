@@ -1,10 +1,10 @@
 import { Image, Pressable, TextInput, StyleSheet, Alert } from 'react-native';
 import React,{useState,useRef} from 'react';
-import { Text, View } from '../../components/Themed';
+import { Text, View } from '../components/Themed';
 import { router } from 'expo-router';
-import {divStyles} from '../../styles/DivElement';
-import {textStyles} from '../../styles/TextElement';
-import { useAuth } from '../../context/AuthContext';
+import {divStyles} from '../styles/DivElement';
+import {textStyles} from '../styles/TextElement';
+import { useAuth } from '../context/AuthContext';
 
 export default function verifyotpScreen() {
   const [otp, setOtp] = useState(['', '', '', '']);
@@ -64,7 +64,7 @@ export default function verifyotpScreen() {
   return (
     <View style={divStyles.EntryPageContainer}>
       <View>
-        <Image source={require('../../assets/images/icon.png')} style={divStyles.EntryPageLogo} />
+        <Image source={require('../assets/images/icon.png')} style={divStyles.EntryPageLogo} />
       </View>
       <Text style={textStyles.PageHeading}>Verify OTP</Text>
         <Text style={textStyles.PageSubHeading}>We have to sent the code verification to your mobile number</Text>        

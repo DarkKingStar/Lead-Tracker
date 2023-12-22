@@ -29,7 +29,7 @@ const Menu = () => {
             }
         }
         fetchMenuData();
-    },[])
+    },[userData])
     const gotoPage = ( leadid: string, userid: string) =>{
         router.replace(`/(tabs)/lead/${leadid}/${userid}`)
     }

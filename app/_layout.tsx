@@ -3,14 +3,15 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack, router } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { SafeAreaView, useColorScheme } from 'react-native';
+import { SafeAreaView, View, useColorScheme } from 'react-native';
 import { AuthProvider, useAuth } from '../context/AuthContext';
+import FlashMessage from "react-native-flash-message";
 
 export {ErrorBoundary} from 'expo-router';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(auth)',
+  initialRouteName: '(tabs)',
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -50,21 +51,23 @@ function RootLayoutNav() {
   const {authState} = useAuth();
   useEffect(() => {
     // Check if the token is not null and the user is authenticated
-    if (authState.token == null && authState.authenticated == null ) {
-      router.replace('/(auth)/');
+    if (authState.token != null && authState.authenticated != null ) {
+      router.push('/(tabs)');
     } else if(authState.token != null && authState.authenticated == null){
-      router.replace('/(auth)/otpverify');
+      router.push('/otpverify');
     }else{
-      router.replace('/(tabs)/');
+      router.push('/login')
     }
-  }, [authState]); 
+  }, [authState.token, authState.authenticated]); 
   return (
     <>
-      {/* <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}> */}
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <SafeAreaView style={{flex:1}}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false, animation: 'slide_from_right' }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: false, animation: 'slide_from_right' }} />
+        <Stack.Screen name="login" options={{ headerShown: false, animation: 'slide_from_left' }} />
+        <Stack.Screen name="otpverify" options={{ headerShown: false, animation: 'slide_from_left' }} />
+        <Stack.Screen name="forgotpassword" options={{ headerShown: false, animation: 'slide_from_left' }} />
         <Stack.Screen name="Notification" options={{ presentation: 'modal', animation: 'slide_from_right'}} />
         <Stack.Screen name="Search" options={{ presentation: 'transparentModal', headerShown: false, animation: "fade" }} />
         <Stack.Screen name="Setting" options={{ presentation: 'transparentModal', headerShown: false, animation: "fade" }} />
@@ -72,7 +75,9 @@ function RootLayoutNav() {
         <Stack.Screen name="ChangePassword" options={{ presentation: 'modal',title:"Reset Password", animation: "slide_from_left"}} />
         <Stack.Screen name="EditProfile" options={{ presentation: 'modal',title:"Edit Profile", animation: "slide_from_right"}} />
       </Stack>
+      <FlashMessage position="top" /> 
       </SafeAreaView>
-    {/* </ThemeProvider> */}</>
+    </ThemeProvider>
+    </>
   );
 }

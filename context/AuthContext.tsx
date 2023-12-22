@@ -2,7 +2,6 @@ import {  LOGIN,  CHECK_USERNAME,  FORGOT_PASSWORD,  RESEND_OTP,  OTP_VERIFY, RE
 import { createContext, useEffect, useState, useContext } from "react";
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
-import { router } from 'expo-router';
 
 
 interface AuthProps {
@@ -127,7 +126,8 @@ export const AuthProvider = ({children}: any) =>{
     setAuthState({token: null, authenticated: null});
     setUserData({userId:  null, degid:  null, degname: null,
       fullname:null, contactno:null, email:null, username: null, image: null, imageURL: null});
-    await setSessionJsonData('authState', {token: null, authenticated: null});
+    await SecureStore.deleteItemAsync('authState');
+    await SecureStore.deleteItemAsync('userData');
   };
   const SendPassword = async (username: string): Promise<{error: boolean;message: string;}> => {
     const formData: FormData = new FormData();

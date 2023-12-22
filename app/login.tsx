@@ -1,12 +1,12 @@
 import { Pressable, StyleSheet, Image } from 'react-native';
 import React,{useEffect, useState} from 'react';
-import { Text, View } from '../../components/Themed';
+import { Text, View } from '../components/Themed';
 import { router } from 'expo-router';
-import {divStyles} from '../../styles/DivElement';
-import {textStyles} from '../../styles/TextElement';
-import TextInputField from '../../components/TextInputField';
-import PasswordInputField from '../../components/PasswordInputField';
-import { useAuth } from '../../context/AuthContext';
+import {divStyles} from '../styles/DivElement';
+import {textStyles} from '../styles/TextElement';
+import TextInputField from '../components/TextInputField';
+import PasswordInputField from '../components/PasswordInputField';
+import { useAuth } from '../context/AuthContext';
 
 export default function LoginScreen() {
   const [username, setUsername] = useState<string>('');
@@ -36,7 +36,6 @@ export default function LoginScreen() {
       setErrorMessage("");
       setIsUsernameWrong(false);
       setIsPasswordWrong(false);
-      router.replace('/(auth)/otpverify');
     } 
     else{
       if(!isValidUsername){
@@ -53,7 +52,7 @@ export default function LoginScreen() {
   return (
     <View style={divStyles.EntryPageContainer}>
       <View>
-        <Image source={require('../../assets/images/icon.png')} style={divStyles.EntryPageLogo} />
+        <Image source={require('../assets/images/icon.png')} style={divStyles.EntryPageLogo} />
       </View>
       <Text style={textStyles.PageHeading}>Hello Again!</Text>
       <Text style={textStyles.PageSubHeading}>Hi! Welcome Back! You've been missed.</Text>
@@ -76,7 +75,7 @@ export default function LoginScreen() {
       <Pressable style={divStyles.submitButton} onPress={()=> handleLogin()}>
         <Text style={textStyles.buttonText}>Login</Text>
       </Pressable>
-      <Pressable onPress={()=> router.replace('/(auth)/forgotpassword')}>
+      <Pressable onPress={()=> router.replace('/forgotpassword')}>
         <Text style={{marginTop: 25, color: '#FF007F', fontSize: 16}}>Forgot Password?</Text>
       </Pressable>
     </View>
