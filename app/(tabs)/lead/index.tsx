@@ -8,9 +8,7 @@ export default function LeadScreen() {
   return (
     <View style={styles.container}>
       <UserDetails/>
-      
         <ContainPage leadId={'1'} userId={'8'}/>
-      
     </View>
   );
 }

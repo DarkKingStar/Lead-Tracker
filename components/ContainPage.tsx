@@ -12,23 +12,34 @@ interface ContainPageProps{
 const ContainPage: React.FC<ContainPageProps>  = ({leadId, userId}) => {
   const [leadlist,setLeadList] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  
+  const [pagination,setPagination] = useState<number>(1);
+  const [hasPageNext, setHasPageNext] = useState<boolean>(true);
+  useEffect(()=>{
+    setPagination(0);
+  },[leadId, userId])
   useEffect(()=>{
     const fetchLeadList = async()=>{
       try{
-        const response = await axios.get(`${LEAD_LIST}/${userId}/${leadId}`);
-        setLeadList(response?.data);
-        if(response?.status){
+        const response = await axios.get(`${LEAD_LIST}/${userId}/${leadId}/${pagination}`);
+        let jsonData = response?.data;
+        if(jsonData?.['client-list']?.length==0){
+          setHasPageNext(false);
           setLoading(false);
+        }
+        else{
+          setLeadList((prevArray: any) => [...prevArray, ...jsonData?.['client-list']]);
+          if(response?.status){
+            setLoading(false);
+          }
         }
       }catch(err:any){
         console.log(err.message);
       }
     }
     fetchLeadList();
-  },[leadId,userId]);
+  },[pagination]);
   return (
-    <ContainPageItem leadlist={leadlist} loading={loading} />
+    <ContainPageItem leadlist={leadlist} loading={loading} setPagination={setPagination} hasPageNext={hasPageNext}/>
   )
 }
 

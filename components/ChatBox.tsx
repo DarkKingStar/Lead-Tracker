@@ -7,8 +7,7 @@ import ChatMessageBox from './ChatMessageBox';
 
 const ChatBox = () => {
   return (
-    <View style={styles.container}>
-      <Pressable onPress={()=>router.replace('/Setting')}>
+      <Pressable onPress={()=>router.replace('/Setting')} style={styles.container}>
         <View style={styles.inputarea}>
           <View style={styles.inputholder}>
               <Text style={styles.inputtext}>Write a Message</Text>
@@ -18,7 +17,6 @@ const ChatBox = () => {
           </View>
         </View>
       </Pressable>
-    </View>
   )
 }
 
@@ -26,8 +24,8 @@ export default ChatBox
 
 const styles = StyleSheet.create({
     container:{
-        flex: 1,
         justifyContent: 'flex-end',
+        backgroundColor: 'transparent',
     },
     messagearea:{
         padding: 12,
@@ -42,7 +40,7 @@ const styles = StyleSheet.create({
     },
     inputholder:{
         backgroundColor:'white',
-        margin: 8,
+        margin: 4,
         borderRadius: 30,
         display: 'flex',
         flexDirection: 'row',

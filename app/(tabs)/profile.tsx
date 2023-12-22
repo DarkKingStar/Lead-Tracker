@@ -6,6 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import { divStyles } from '../../styles/DivElement';
 import { textStyles } from '../../styles/TextElement';
 import { router } from 'expo-router';
+import ProfileInfo from '../../components/ProfileInfo';
 
 export default function ProfileScreen() {
 
@@ -32,70 +33,35 @@ export default function ProfileScreen() {
         contentFit="cover"
         style={styles.avatar}/>
       </View>
-      <Pressable style={styles.editiconholder}>
-        <Feather name="edit" size={20} color="black" /> 
-      </Pressable>
-      <View style={{paddingHorizontal: 12}}>
-        <View style={styles.itemdiv}>
-          <Text style={styles.title}>{"Name: "}</Text>
-          <Text style={styles.uservalue}>{userData.fullname}</Text>
-          <Text></Text>
-        </View>
-        <View style={styles.itemdiv}>
-          <Text style={styles.title}>{"Designation: "}</Text>
-          <Text style={styles.uservalue}>{userData.degname}</Text>
-          <Text></Text>
-        </View>
-        <View style={styles.itemdiv}>
-          <Text style={styles.title}>{"Email: "}</Text>
-          <Text style={styles.uservalue}>{userData.email}</Text>
-          <Text></Text>
-
-        </View>
-        <View style={styles.itemdiv}>
-          <Text style={styles.title}>{"Phone: "}</Text>
-          <Text style={styles.uservalue}>{userData.contactno}</Text>
-          <Text></Text>
-
-        </View>
-
-        <Pressable style={[divStyles.submitButton,{marginVertical:5, padding: 8,}]} onPress={()=>{}}>
+      
+        <ProfileInfo/>
+        <Pressable style={[divStyles.submitButton, styles.allBtn]} onPress={()=>router.push("/EditProfile")}>
           <Text style={textStyles.buttonText}>Edit Profile</Text>
         </Pressable>
-        <Pressable style={[divStyles.submitButton,{marginVertical:5, padding: 8,}]} onPress={()=>router.replace('/ChangePassword')}>
+        <Pressable style={[divStyles.submitButton,styles.allBtn]} onPress={()=>router.push('/ChangePassword')}>
           <Text style={textStyles.buttonText}>Change Password</Text>
         </Pressable>
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-        <Pressable style={[divStyles.submitButton,{marginVertical:0, padding: 8, backgroundColor:"#A3B8C5"}]} onPress={()=>handleLogout()}>
+        <Pressable style={[divStyles.submitButton,styles.allBtn,{marginVertical:0, padding: 8,marginBottom:10, backgroundColor:"#A3B8C5"}]} onPress={()=>handleLogout()}>
           <Text style={[textStyles.buttonText,{color: '#ff0000'}]}>Logout</Text>
         </Pressable>
-      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    justifyContent: 'space-between',
   },
-  itemdiv:{
-    flexDirection:'row',
-    borderBottomWidth:2,
-    alignItems: 'center',
-    borderColor: '#0044FF',
-    padding: 12,
-    borderRadius: 5,
-    margin: 5
+  allBtn:{
+    marginVertical:5, 
+    padding: 8,
+    borderRadius: 25,
+    width: '80%',
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    width: '40%',
-  },
-  uservalue:{
-    fontSize: 16,
-    fontWeight: '500',
-  },
+  
+ 
   separator: {
     marginVertical: 30,
     height: 1,
@@ -123,7 +89,7 @@ const styles = StyleSheet.create({
     width:106,
     height:106,
     alignSelf: 'center',
-    marginTop: -45,
+    marginTop: -80,
     alignItems: 'center',
     justifyContent: 'center',
     boxShadowColor: '#00000054',
@@ -140,9 +106,5 @@ const styles = StyleSheet.create({
     borderColor:'#000',
     borderWidth: 2,
   },
-  editiconholder:{
-    padding: 10,    
-    alignSelf: 'center',
-    marginTop: -40,
-  },
+ 
 });
