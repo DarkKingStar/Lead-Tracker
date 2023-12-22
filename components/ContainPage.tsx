@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import ContainPageItem from './ContainPageItem'
 import { useLocalSearchParams } from 'expo-router';
@@ -28,9 +28,7 @@ const ContainPage: React.FC<ContainPageProps>  = ({leadId, userId}) => {
     fetchLeadList();
   },[leadId,userId]);
   return (
-    <View>
-      <ContainPageItem leadlist={leadlist} loading={loading} />
-    </View>
+    <ContainPageItem leadlist={leadlist} loading={loading} />
   )
 }
 

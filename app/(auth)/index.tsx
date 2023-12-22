@@ -36,7 +36,7 @@ export default function LoginScreen() {
       setErrorMessage("");
       setIsUsernameWrong(false);
       setIsPasswordWrong(false);
-      router.push('/(auth)/otpverify');
+      router.replace('/(auth)/otpverify');
     } 
     else{
       if(!isValidUsername){
@@ -76,7 +76,7 @@ export default function LoginScreen() {
       <Pressable style={divStyles.submitButton} onPress={()=> handleLogin()}>
         <Text style={textStyles.buttonText}>Login</Text>
       </Pressable>
-      <Pressable onPress={()=> router.push('/(auth)/forgotpassword')}>
+      <Pressable onPress={()=> router.replace('/(auth)/forgotpassword')}>
         <Text style={{marginTop: 25, color: '#FF007F', fontSize: 16}}>Forgot Password?</Text>
       </Pressable>
     </View>

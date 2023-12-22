@@ -51,11 +51,11 @@ function RootLayoutNav() {
   useEffect(() => {
     // Check if the token is not null and the user is authenticated
     if (authState.token == null && authState.authenticated == null ) {
-      router.push('/(auth)/');
+      router.replace('/(auth)/');
     } else if(authState.token != null && authState.authenticated == null){
-      router.push('/(auth)/otpverify');
+      router.replace('/(auth)/otpverify');
     }else{
-      router.push('/(tabs)/');
+      router.replace('/(tabs)/');
     }
   }, [authState]); 
   return (

@@ -14,7 +14,7 @@ export default function HomeScreen() {
     navigation.addListener('beforeRemove', (e) => {
         e.preventDefault();
         if(authState.token !=null){
-          router.push('/(tabs)/');
+          router.replace('/(tabs)/');
         }
         // navigation.dispatch(e.data.action);
     });

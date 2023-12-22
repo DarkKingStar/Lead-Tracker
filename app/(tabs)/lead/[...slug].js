@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { Text, View } from '../../../components/Themed';
 import UserDetails from '../../../components/Userdetails';
-import { ScrollView } from 'react-native-gesture-handler';
 import ContainPage from '../../../components/ContainPage';
 import { useLocalSearchParams } from 'expo-router';
 
@@ -11,10 +10,7 @@ export default function LeadScreen() {
   return (
     <View style={styles.container}>
       <UserDetails/>
-      <ScrollView>
-        <ContainPage leadId={slug[0]} userId={slug[1]}/>
-       
-      </ScrollView>
+      <ContainPage leadId={slug[0]} userId={slug[1]}/> 
     </View>
   );
 }

@@ -54,7 +54,7 @@ export default function verifyotpScreen() {
     const OtpData = await OnCheckOTP(otp[0],otp[1],otp[2],otp[3]);
     if(!OtpData?.error){
       setDisplayMessage('');
-      router.push('/(tabs)')
+      router.replace('/(tabs)')
     }else{
       setDisplayMessage(OtpData?.message);
       setOtp(['', '', '', '']);

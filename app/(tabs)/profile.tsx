@@ -62,7 +62,7 @@ export default function ProfileScreen() {
         <Pressable style={[divStyles.submitButton,{marginVertical:5, padding: 8,}]} onPress={()=>{}}>
           <Text style={textStyles.buttonText}>Edit Profile</Text>
         </Pressable>
-        <Pressable style={[divStyles.submitButton,{marginVertical:5, padding: 8,}]} onPress={()=>router.push('/ChangePassword')}>
+        <Pressable style={[divStyles.submitButton,{marginVertical:5, padding: 8,}]} onPress={()=>router.replace('/ChangePassword')}>
           <Text style={textStyles.buttonText}>Change Password</Text>
         </Pressable>
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />

@@ -8,7 +8,7 @@ import ChatMessageBox from './ChatMessageBox';
 const ChatBox = () => {
   return (
     <View style={styles.container}>
-      <Pressable onPress={()=>router.push('/Setting')}>
+      <Pressable onPress={()=>router.replace('/Setting')}>
         <View style={styles.inputarea}>
           <View style={styles.inputholder}>
               <Text style={styles.inputtext}>Write a Message</Text>

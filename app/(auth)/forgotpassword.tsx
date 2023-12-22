@@ -33,7 +33,7 @@ export default function ForgotPassswordScreen() {
       Alert.alert(
         'Password Send!',
         `Password has been resent successfully to Your Registed Phone Number`,
-        [{ text: 'Go Back To Login', onPress: () => router.push('/(auth)/')}]
+        [{ text: 'Go Back To Login', onPress: () => router.replace('/(auth)/')}]
       );
     }else{
       setIsUsernameWrong(true);

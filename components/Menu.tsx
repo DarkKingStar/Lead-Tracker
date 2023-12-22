@@ -31,7 +31,7 @@ const Menu = () => {
         fetchMenuData();
     },[])
     const gotoPage = ( leadid: string, userid: string) =>{
-        router.push(`/(tabs)/lead/${leadid}/${userid}`)
+        router.replace(`/(tabs)/lead/${leadid}/${userid}`)
     }
     return (
     <View style={styles.container}>
