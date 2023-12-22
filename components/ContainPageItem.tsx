@@ -97,12 +97,14 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, loading , s
         return <ListItem item={item} index={index}/>;
     };
     const noDataFound = ()=>{
-        return(
+        return(<>
+            {leadlist.length == 0 &&
             <View style={{display: 'flex',marginTop: '50%', justifyContent: 'center',alignSelf:'center', alignItems: 'center'}}>
                 <AntDesign name="frown" size={54} color="black" />
                 <Text style={styles.title}>Oops! no record found</Text>
                 <Text>Go to home screen!</Text>
             </View>
+            }</>
         )
     }
 

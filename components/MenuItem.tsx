@@ -2,6 +2,8 @@ import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
 import MenuProgressBar from './MenuProgressBar';
 import { Image } from 'expo-image';
+import Colors from '../constants/Colors';
+import { useColorScheme } from 'react-native';
 
 interface MenuItemProps {
     heading: string; 
@@ -11,7 +13,7 @@ interface MenuItemProps {
   }
 
   const MenuItem: React.FC<MenuItemProps> = ({ heading, totaltask, taskdone, img }) => {
-
+    const colorScheme = useColorScheme();
   return (
     <View>
     <View style={styles.container}>
@@ -19,7 +21,7 @@ interface MenuItemProps {
       <Text style={styles.heading}>{heading}</Text>
       <Text style={styles.task}>{taskdone} of {totaltask}</Text>
     </View>
-    <View style={styles.iconholder}>
+    <View style={[styles.iconholder,{backgroundColor: `${Colors[colorScheme ?? 'light'].white}`}]}>
      <Image style={styles.icon} source={img} />
     </View>
     </View>
@@ -41,7 +43,6 @@ const styles = StyleSheet.create({
     height: 30,
     padding: 8,
     borderRadius: 5,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
     borderColor:'#FF008C',

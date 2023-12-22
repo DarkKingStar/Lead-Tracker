@@ -5,7 +5,7 @@ import { SplashScreen, Stack, router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { SafeAreaView, View, useColorScheme } from 'react-native';
 import { AuthProvider, useAuth } from '../context/AuthContext';
-import FlashMessage from "react-native-flash-message";
+import FlashMessage, { showMessage } from "react-native-flash-message";
 
 export {ErrorBoundary} from 'expo-router';
 
@@ -52,6 +52,13 @@ function RootLayoutNav() {
   useEffect(() => {
     // Check if the token is not null and the user is authenticated
     if (authState.token != null && authState.authenticated != null ) {
+      showMessage({
+        message: "Session Valid",
+        type: "success",
+        backgroundColor: "#00000066", // background color
+        color: "#ffffff", // text color
+        position: 'center',
+      })
       router.push('/(tabs)');
     } else if(authState.token != null && authState.authenticated == null){
       router.push('/otpverify');
@@ -75,7 +82,7 @@ function RootLayoutNav() {
         <Stack.Screen name="ChangePassword" options={{ presentation: 'modal',title:"Reset Password", animation: "slide_from_left"}} />
         <Stack.Screen name="EditProfile" options={{ presentation: 'modal',title:"Edit Profile", animation: "slide_from_right"}} />
       </Stack>
-      <FlashMessage position="top" /> 
+      <FlashMessage/> 
       </SafeAreaView>
     </ThemeProvider>
     </>

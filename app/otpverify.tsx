@@ -111,6 +111,7 @@ otpInput: {
   width: 50,
   height: 50,
   borderWidth: 1,
+  color: '#000',
   borderColor: 'black',
   backgroundColor: '#E9E9E9',
   borderRadius: 10,
