@@ -7,25 +7,25 @@ import { useColorScheme } from 'react-native';
 
 interface MenuItemProps {
     heading: string; 
-    totaltask: number;
+    totallead: number;
     taskdone: number;
     img: string; 
   }
 
-  const MenuItem: React.FC<MenuItemProps> = ({ heading, totaltask, taskdone, img }) => {
+  const MenuItem: React.FC<MenuItemProps> = ({ heading, totallead, taskdone, img }) => {
     const colorScheme = useColorScheme();
   return (
     <View>
     <View style={styles.container}>
     <View style={styles.menuDesc}>
       <Text style={styles.heading}>{heading}</Text>
-      <Text style={styles.task}>{taskdone} of {totaltask}</Text>
+      <Text style={styles.task}>{taskdone} of {totallead}</Text>
     </View>
     <View style={[styles.iconholder,{backgroundColor: `${Colors[colorScheme ?? 'light'].white}`}]}>
      <Image style={styles.icon} source={img} />
     </View>
     </View>
-    <MenuProgressBar progress={(Number(taskdone)/Number(totaltask))*100}/>
+    <MenuProgressBar progress={(Number(taskdone)/Number(totallead))*100}/>
     </View>
   )
 }

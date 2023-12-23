@@ -1,5 +1,5 @@
 import { ActivityIndicator, Pressable, StyleSheet, Text, FlatList, View, Linking } from 'react-native'
-import React, { PureComponent } from 'react'
+import React, { PureComponent, useCallback, useMemo } from 'react'
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import AntDesign  from '@expo/vector-icons/AntDesign';
 import { router } from 'expo-router';
@@ -15,9 +15,8 @@ interface ListItemProps {
     index: number;
   }
 
-  class ListItem extends PureComponent<ListItemProps> {
-    render() {
-      const { item, index } = this.props;
+  const ListItem: React.FC<ListItemProps> = ({ item, index }) => {
+    const memoizedItem = useMemo(() => {
       return (
         <View key={index} style={{ marginHorizontal: 20, marginVertical:8, padding: 10, backgroundColor: '#FFEEF7', borderRadius: 8, borderWidth:1, borderColor:'#FF008C' }}>
             <View style={styles.container}>
@@ -89,13 +88,19 @@ interface ListItemProps {
             </View>
         </View>
         );
-    }
+    }, [item, index]);
+
+    return memoizedItem;
+    
 }
 
 const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, loading , setPagination, hasPageNext }) => {
-    const renderItem = ({ item, index }: { item: any; index: number }) => {
-        return <ListItem item={item} index={index}/>;
-    };
+    const renderItem = useCallback(
+        ({ item, index }: { item: any; index: number }) => {
+          return <ListItem item={item} index={index} />;
+        },
+        []
+      );
     const noDataFound = ()=>{
         return(<>
             {leadlist.length == 0 &&
@@ -119,7 +124,6 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, loading , s
             data={leadlist}
             renderItem={renderItem}
             ListEmptyComponent={noDataFound}
-            initialNumToRender={3}
             keyExtractor={(item, index) => index.toString()}
             onEndReached={()=>{
                 if(hasPageNext){

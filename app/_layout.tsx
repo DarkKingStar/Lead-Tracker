@@ -2,10 +2,11 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack, router } from 'expo-router';
-import { useEffect, useState } from 'react';
+import react,{ useEffect} from 'react';
 import { SafeAreaView, View, useColorScheme } from 'react-native';
 import { AuthProvider, useAuth } from '../context/AuthContext';
 import FlashMessage, { showMessage } from "react-native-flash-message";
+import { QueryClient, QueryClientProvider} from '@tanstack/react-query'
 
 export {ErrorBoundary} from 'expo-router';
 
@@ -18,6 +19,9 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+
+  const queryClient = new QueryClient()
+
   const [loaded, error] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     ...FontAwesome.font,
@@ -41,7 +45,9 @@ export default function RootLayout() {
 
   return (
     <AuthProvider>
+       <QueryClientProvider client={queryClient}>
       <RootLayoutNav />
+      </QueryClientProvider>
     </AuthProvider>
   );
 }
@@ -53,7 +59,7 @@ function RootLayoutNav() {
     // Check if the token is not null and the user is authenticated
     if (authState.token != null && authState.authenticated != null ) {
       showMessage({
-        message: "Session Valid",
+        message: "User Logged",
         type: "success",
         backgroundColor: "#00000066", // background color
         color: "#ffffff", // text color
@@ -69,7 +75,7 @@ function RootLayoutNav() {
   return (
     <>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <SafeAreaView style={{flex:1}}>
+      <SafeAreaView style={{flex:1}}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false, animation: 'slide_from_right' }} />
         <Stack.Screen name="login" options={{ headerShown: false, animation: 'slide_from_left' }} />
