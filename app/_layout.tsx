@@ -3,7 +3,7 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack, router } from 'expo-router';
 import react,{ useEffect} from 'react';
-import { SafeAreaView, View, useColorScheme } from 'react-native';
+import { SafeAreaView, useColorScheme } from 'react-native';
 import { AuthProvider, useAuth } from '../context/AuthContext';
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import { QueryClient, QueryClientProvider} from '@tanstack/react-query'
@@ -61,8 +61,8 @@ function RootLayoutNav() {
       showMessage({
         message: "User Logged",
         type: "success",
-        backgroundColor: "#00000066", // background color
-        color: "#ffffff", // text color
+        backgroundColor: "#00000066",
+        color: "#ffffff", 
         position: 'center',
       })
       router.push('/(tabs)');

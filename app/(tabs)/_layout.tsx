@@ -61,7 +61,6 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} title='PROFILE' />,
           headerRight: () => (<HeaderRight/>),
           headerLeft: () => (<HeaderLeft/>),
-          
         }}
       />
     </Tabs>
@@ -90,7 +89,7 @@ function HeaderRight() {
           name="bell"
           size={25}
           color={Colors[colorScheme ?? 'light'].text}
-          style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+          style={{ marginRight: 15, color: pressed ? '#00F': '#000', opacity: pressed? 0.8: 1 }}
         />
       )}
     </Pressable>

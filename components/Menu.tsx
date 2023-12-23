@@ -6,6 +6,7 @@ import axios from 'axios'
 import { DASHBOARD } from '../context/BaseConfig'
 import { router } from 'expo-router'
 import { useQuery } from '@tanstack/react-query'
+import { ScrollView } from 'react-native-gesture-handler'
 
 const convertArray = (data: any) => {
     const newArray = Array.from({ length: Math.ceil(data?.length/2)}, (_,index)=>
@@ -62,7 +63,7 @@ const Menu = () => {
     }
     else{
     return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
         {dashboard?.map((chunk: any, index: number) => (
             <View key={index} style={styles.row}>
                 {chunk?.map((item: any, itemIndex: number) => (
@@ -74,8 +75,7 @@ const Menu = () => {
                 ))}
             </View>
         ))}
-       
-        </View>
+        </ScrollView>
     )}
 }
 
@@ -87,9 +87,9 @@ const styles = StyleSheet.create({
     row: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginBottom: 3,
+      marginBottom: 8,
       alignSelf: 'center',
-
+      gap:8,
     },
     item: {
       flex: 0.5,

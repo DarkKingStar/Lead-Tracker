@@ -1,11 +1,12 @@
 import { ScrollView, StyleSheet } from 'react-native';
 import { router, useNavigation } from 'expo-router';
-
-import { Text, View } from '../../components/Themed';
+import { Text, View } from 'react-native';
 import UserDetails from '../../components/Userdetails'
 import Menu from '../../components/Menu';
 import { useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { ImageBackground } from 'expo-image';
+import bgimg from '../../assets/images/bgimg.png';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -21,10 +22,10 @@ export default function HomeScreen() {
 },[navigation]);
   return (
     <View style={styles.container}>
+      <ImageBackground  source={bgimg} style={{flex:1}}>
       <UserDetails/>
-      <ScrollView>
-        <Menu/>
-      </ScrollView>
+      <Menu/>
+      </ImageBackground>
     </View>
   );
 }

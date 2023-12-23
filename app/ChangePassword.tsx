@@ -19,29 +19,29 @@ const ChangePassword = () => {
       <Text style={textStyles.PageHeading}>Reset Your Password?</Text>
       <Text style={textStyles.PageSubHeading}>Your New Password Must Be Different from Previously Used Password</Text>
       <PasswordInputField 
-      FocusColor={isPasswordWrong ? '#ff0000': '#426EB2'}
-      NotFocusColor={isPasswordWrong ? '#ff0000': '#c9c9c9'}
-      LeftIconColor={password !== '' ? "#000000" : "#C9C9C9"}
-      RightIconColor={password !== '' ? "#000000" : "#C9C9C9"} 
-      textValue={password}
-      placeholdertext={"Current Password"}
-      setTextValue={setPassword}/>
+        FocusColor={isPasswordWrong ? '#ff0000': '#426EB2'}
+        NotFocusColor={isPasswordWrong ? '#ff0000': '#c9c9c9'}
+        LeftIconColor={password !== '' ? "#000000" : "#C9C9C9"}
+        RightIconColor={password !== '' ? "#000000" : "#C9C9C9"} 
+        textValue={password}
+        placeholdertext={"Current Password"}
+        setTextValue={setPassword}/>
       <PasswordInputField 
-      FocusColor={isNewPasswordWrong ? '#ff0000': '#426EB2'}
-      NotFocusColor={isNewPasswordWrong ? '#ff0000': '#c9c9c9'}
-      LeftIconColor={newPassword !== '' ? "#000000" : "#C9C9C9"}
-      RightIconColor={newPassword !== '' ? "#000000" : "#C9C9C9"} 
-      textValue={newPassword}
-      placeholdertext={"New Password"}
-      setTextValue={setNewPassword}/>
+        FocusColor={isNewPasswordWrong ? '#ff0000': '#426EB2'}
+        NotFocusColor={isNewPasswordWrong ? '#ff0000': '#c9c9c9'}
+        LeftIconColor={newPassword !== '' ? "#000000" : "#C9C9C9"}
+        RightIconColor={newPassword !== '' ? "#000000" : "#C9C9C9"} 
+        textValue={newPassword}
+        placeholdertext={"New Password"}
+        setTextValue={setNewPassword}/>
       <PasswordInputField 
-      FocusColor={isConfirmPasswordWrong ? '#ff0000': '#426EB2'}
-      NotFocusColor={isConfirmPasswordWrong ? '#ff0000': '#c9c9c9'}
-      LeftIconColor={confirmPassword !== '' ? "#000000" : "#C9C9C9"}
-      RightIconColor={confirmPassword !== '' ? "#000000" : "#C9C9C9"} 
-      textValue={confirmPassword}
-      placeholdertext={"Confirm Password"}
-      setTextValue={setConfirmPassword}/>
+        FocusColor={isConfirmPasswordWrong ? '#ff0000': '#426EB2'}
+        NotFocusColor={isConfirmPasswordWrong ? '#ff0000': '#c9c9c9'}
+        LeftIconColor={confirmPassword !== '' ? "#000000" : "#C9C9C9"}
+        RightIconColor={confirmPassword !== '' ? "#000000" : "#C9C9C9"} 
+        textValue={confirmPassword}
+        placeholdertext={"Confirm Password"}
+        setTextValue={setConfirmPassword}/>
       <Pressable style={divStyles.submitButton} onPress={()=> {}}>
         <Text style={textStyles.buttonText}>Change Password</Text>
       </Pressable>

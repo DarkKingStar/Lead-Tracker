@@ -1,10 +1,10 @@
 import { StyleSheet, Text,Pressable, View, TextInput } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { router } from 'expo-router';
-import { Image } from 'react-native';
 import ChatBox from '../components/ChatBox';
 import ChatMessageBox from '../components/ChatMessageBox';
 import { ScrollView } from 'react-native-gesture-handler';
+import { Image } from 'expo-image';
 
 
 const Chatpage = () => {

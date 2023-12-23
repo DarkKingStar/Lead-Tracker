@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     boxShadowOffset: { width: 4, height: 4 }, 
     boxShadowRadius: 5,
     borderColor:'#000',
-    borderWidth: 2,
+    borderWidth: 1,
   },
   avatar:{
     width:100,
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     backgroundColor: '#fff',
     borderColor:'#000',
-    borderWidth: 2,
+    borderWidth: 1,
   },
  
 });

@@ -3,6 +3,7 @@ import React, { PureComponent, useCallback, useMemo } from 'react'
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import AntDesign  from '@expo/vector-icons/AntDesign';
 import { router } from 'expo-router';
+import { showMessage } from 'react-native-flash-message';
 
 interface ContainPageItemProps{
     leadlist: any;
@@ -125,9 +126,25 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, loading , s
             renderItem={renderItem}
             ListEmptyComponent={noDataFound}
             keyExtractor={(item, index) => index.toString()}
+            initialNumToRender={1}
+            decelerationRate={0.8}
+            showsVerticalScrollIndicator={false}
             onEndReached={()=>{
                 if(hasPageNext){
-                    setPagination(prev=>prev+1)
+                    setPagination(prev=>prev+1);
+                    showMessage({
+                        message: "Loading...",
+                        backgroundColor: "#00000066",
+                        color: "#ffffff", 
+                        position: 'center',
+                      })
+                }else{
+                    showMessage({
+                        message: "End of List",
+                        backgroundColor: "#00000066",
+                        color: "#ffffff", 
+                        position: 'center',
+                      })
                 }
             }}
             

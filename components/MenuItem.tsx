@@ -18,7 +18,7 @@ interface MenuItemProps {
     <View>
     <View style={styles.container}>
     <View style={styles.menuDesc}>
-      <Text style={styles.heading}>{heading}</Text>
+      <Text numberOfLines={1} ellipsizeMode='tail' style={styles.heading}>{heading}</Text>
       <Text style={styles.task}>{taskdone} of {totallead}</Text>
     </View>
     <View style={[styles.iconholder,{backgroundColor: `${Colors[colorScheme ?? 'light'].white}`}]}>
