@@ -1,8 +1,10 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Alert, Pressable, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import PasswordInputField from '../components/PasswordInputField';
 import { divStyles } from '../styles/DivElement';
 import { textStyles } from '../styles/TextElement';
+import { router } from 'expo-router';
+import { useAuth } from '../context/AuthContext';
 
 const ChangePassword = () => {
   const [password, setPassword] = useState<string>('');
@@ -11,8 +13,39 @@ const ChangePassword = () => {
   const [isNewPasswordWrong, setIsNewPasswordWrong] =  useState<boolean>(false);
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [isConfirmPasswordWrong, setIsConfirmPasswordWrong] =  useState<boolean>(false);
+  
 
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const {OnResetPassword} = useAuth()
+
+  const handleSubmitPassword = async():Promise<void> =>{
+    const flagData = await OnResetPassword(password, newPassword, confirmPassword);
+    if(!flagData?.error){
+        Alert.alert(
+            'Password Reset Successful!',
+            'Please Remember Your New Password for Later Login.',
+            [
+              {
+                text: 'OK',
+                onPress: () => router.push('/(tabs)/profile'),
+              },
+            ],
+            
+          );
+    }else{
+      Alert.alert(
+        'Password Reset unSuccessful!',
+        'Please try again later.',
+        [
+          {
+            text: 'OK',
+            onPress: () => {},//router.push('/(tabs)/profile'),
+          },
+        ],
+        
+      );
+    }
+  }
+
 
   return (
     <View style={{flex:1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 25}}>
@@ -42,7 +75,7 @@ const ChangePassword = () => {
         textValue={confirmPassword}
         placeholdertext={"Confirm Password"}
         setTextValue={setConfirmPassword}/>
-      <Pressable style={divStyles.submitButton} onPress={()=> {}}>
+      <Pressable style={divStyles.submitButton} onPress={()=> handleSubmitPassword()}>
         <Text style={textStyles.buttonText}>Change Password</Text>
       </Pressable>
     </View>
