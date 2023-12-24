@@ -5,6 +5,7 @@ import { divStyles } from '../styles/DivElement';
 import { textStyles } from '../styles/TextElement';
 import { router } from 'expo-router';
 import { useAuth } from '../context/AuthContext';
+import { showMessage } from 'react-native-flash-message';
 
 const ChangePassword = () => {
   const [password, setPassword] = useState<string>('');
@@ -18,33 +19,54 @@ const ChangePassword = () => {
   const {OnResetPassword} = useAuth()
 
   const handleSubmitPassword = async():Promise<void> =>{
-    const flagData = await OnResetPassword(password, newPassword, confirmPassword);
-    if(!flagData?.error){
-        Alert.alert(
-            'Password Reset Successful!',
-            'Please Remember Your New Password for Later Login.',
-            [
-              {
-                text: 'OK',
-                onPress: () => router.push('/(tabs)/profile'),
-              },
-            ],
-            
-          );
-    }else{
-      Alert.alert(
-        'Password Reset unSuccessful!',
-        'Please try again later.',
-        [
-          {
-            text: 'OK',
-            onPress: () => {},//router.push('/(tabs)/profile'),
-          },
-        ],
-        
-      );
+    if(newPassword == password){
+      setIsPasswordWrong(true);
+      setIsNewPasswordWrong(true);
+      setIsConfirmPasswordWrong(true);
+    }
+    else if(newPassword != confirmPassword){
+      setIsNewPasswordWrong(true);
+      setIsConfirmPasswordWrong(true);
+      showMessage({
+        message: "New Password and Confirm Password mismatched",
+        type: "danger",
+        color: "#ffffff", 
+        position: 'bottom',
+      })
+    }
+    else{
+      setIsPasswordWrong(false);
+      setIsNewPasswordWrong(false);
+      setIsConfirmPasswordWrong(false);
+    try{
+      const flagData = await OnResetPassword(password, newPassword, confirmPassword);
+      if(!flagData?.error){
+        setIsPasswordWrong(true);
+          Alert.alert(
+              'Password Reset Successful!',
+              'Please Remember Your New Password for Later Login.',
+              [
+                {
+                  text: 'OK',
+                  onPress: () => router.push('/(tabs)/profile'),
+                },
+              ],
+              
+            );
+      }else{
+        showMessage({
+          message: "Invalid Current Password",
+          type: "danger",
+          color: "#ffffff", 
+          position: 'bottom',
+        })
+        setIsPasswordWrong(true);
+      }
+    }catch(err: any){
+      console.error(err.message)
     }
   }
+}
 
 
   return (
