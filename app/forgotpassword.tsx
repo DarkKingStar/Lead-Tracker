@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Image, Alert } from 'react-native';
+import { Pressable, StyleSheet, Alert } from 'react-native';
 import React,{useEffect, useState} from 'react';
 import { Text, View } from '../components/Themed';
 import { router } from 'expo-router';
@@ -6,6 +6,8 @@ import {divStyles} from '../styles/DivElement';
 import {textStyles} from '../styles/TextElement';
 import TextInputField from '../components/TextInputField';
 import { useAuth } from '../context/AuthContext';
+import icon from '../assets/images/icon.png';
+import { Image } from 'expo-image';
 
 export default function ForgotPassswordScreen() {
   const [username, setUsername] = useState<string>('');
@@ -44,7 +46,7 @@ export default function ForgotPassswordScreen() {
     <View style={styles.container}>
       <View style={divStyles.EntryPageContainer}>
       <View>
-        <Image source={require('../assets/images/icon.png')} style={divStyles.EntryPageLogo}/>
+        <Image source={icon} style={divStyles.EntryPageLogo}/>
       </View>
       <Text style={textStyles.PageHeading}>Reset Password</Text>
       <Text style={textStyles.PageSubHeading}>Your Password will be send to your registed Phone Number!</Text>

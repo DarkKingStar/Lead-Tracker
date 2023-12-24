@@ -15,7 +15,7 @@ const Chatpage = () => {
               <FontAwesome name="chevron-left" size={18} color="#747574" />
             </Pressable>
             <View style={styles.avaterHolder}>
-              <Image style={styles.avater} source={require('../assets/images/icon.png')}/>
+              <Image style={styles.avater} source={'../assets/images/icon.png'}/>
             </View>
             <Text style={styles.username}>Gautam Mukharjee</Text>
             <Pressable style={styles.callbtn}>

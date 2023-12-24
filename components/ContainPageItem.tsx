@@ -43,7 +43,7 @@ interface ListItemProps {
                             <Text style={styles.labeltext}>{item?.lead_location}</Text>
                         </View>
                         <View style={[styles.col, styles.right]}>
-                            <Text style={styles.labeltext}>{item?.client_details_id}</Text>
+                            <Text style={styles.labeltext}>{index}</Text>
                             <FontAwesome name='paperclip' size={14} color='blue'/>                    
                         </View>
                     </View>
@@ -138,7 +138,7 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, loading , s
                         color: "#ffffff", 
                         position: 'center',
                       })
-                }else{
+                }else if(leadlist.length){
                     showMessage({
                         message: "End of List",
                         backgroundColor: "#00000066",

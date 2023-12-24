@@ -1,10 +1,12 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Image, Pressable, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { router } from 'expo-router';
 import { Link, Tabs } from 'expo-router';
 import { useColorScheme } from 'react-native';
 
 import Colors from '../../constants/Colors';
+import icon from '../../assets/images/icon.png';
+import { Image } from 'expo-image';
 
 
 /**
@@ -20,6 +22,7 @@ export default function TabLayout() {
       tabBarActiveTintColor: Colors[colorScheme ?? 'light'].background,
       tabBarInactiveBackgroundColor: Colors[colorScheme ?? 'light'].navbarColor,
       tabBarActiveBackgroundColor: Colors[colorScheme ?? 'light'].navbarColor,
+      
       }}>
       <Tabs.Screen name="index"
         options={{
@@ -99,6 +102,6 @@ function HeaderRight() {
 
 function HeaderLeft() {
   return (
-    <><Image source={require("../../assets/images/icon.png")} style={{marginLeft:5, width: 50,height: 50}}/></>
+    <><Image source={icon} style={{marginLeft:5, width: 50,height: 50}}/></>
   )
 }

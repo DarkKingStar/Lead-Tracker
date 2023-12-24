@@ -1,5 +1,5 @@
 import { Alert, Pressable, StyleSheet } from 'react-native';
-import { Image } from 'expo-image';
+import { Image, ImageBackground } from 'expo-image';
 import { Feather } from '@expo/vector-icons';
 import { Text, View } from '../../components/Themed';
 import { useAuth } from '../../context/AuthContext';
@@ -7,6 +7,9 @@ import { divStyles } from '../../styles/DivElement';
 import { textStyles } from '../../styles/TextElement';
 import { router } from 'expo-router';
 import ProfileInfo from '../../components/ProfileInfo';
+import bgimg from '../../assets/images/bgimg.png';
+import { ScrollView } from 'react-native-gesture-handler';
+
 
 export default function ProfileScreen() {
 
@@ -24,7 +27,8 @@ export default function ProfileScreen() {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
+      <ImageBackground  source={bgimg} style={{flex:1}}>
       <View style={styles.pinklayer}/>
       <View style={styles.avatarholder}>
         <Image 
@@ -33,7 +37,6 @@ export default function ProfileScreen() {
         contentFit="cover"
         style={styles.avatar}/>
       </View>
-      
         <ProfileInfo/>
         <Pressable style={[divStyles.submitButton, styles.allBtn]} onPress={()=>router.push("/EditProfile")}>
           <Text style={textStyles.buttonText}>Edit Profile</Text>
@@ -45,7 +48,8 @@ export default function ProfileScreen() {
         <Pressable style={[divStyles.submitButton,styles.allBtn,{marginVertical:0, padding: 8,marginBottom:10, backgroundColor:"#A3B8C5"}]} onPress={()=>handleLogout()}>
           <Text style={[textStyles.buttonText,{color: '#ff0000'}]}>Logout</Text>
         </Pressable>
-    </View>
+        </ImageBackground>
+    </ScrollView>
   );
 }
 
@@ -63,7 +67,7 @@ const styles = StyleSheet.create({
   
  
   separator: {
-    marginVertical: 30,
+    marginVertical: 15,
     height: 1,
     width: '80%',
     alignSelf: 'center',
@@ -89,7 +93,8 @@ const styles = StyleSheet.create({
     width:106,
     height:106,
     alignSelf: 'center',
-    marginTop: -80,
+    marginTop: -50,
+    marginBottom: 15,
     alignItems: 'center',
     justifyContent: 'center',
     boxShadowColor: '#00000054',

@@ -36,7 +36,7 @@ const Menu = () => {
             return response?.data?.dashboard;
         }
     }
-    const gotoPage = ( leadid: string, userid: string) =>{
+    const gotoPage = ( leadid: string, userid: string | null) =>{
         router.replace(`/(tabs)/lead/${leadid}/${userid}`)
     }
     const {isPending, isError, data, refetch} = useQuery({ 
@@ -68,7 +68,7 @@ const Menu = () => {
             <View key={index} style={styles.row}>
                 {chunk?.map((item: any, itemIndex: number) => (
                     <View key={itemIndex} style={styles.item}>
-                        <Pressable onPress={()=>gotoPage(item.lead_status_id, '8' )}>{/* {userData.userId} */}
+                        <Pressable onPress={()=>gotoPage(item.lead_status_id, '8')}>{/* {userData.userId} */}
                             <MenuItem heading={item.lead_status} totallead={item.total_lead} taskdone={item.lead_count_status_wise} img={item.image_url}/>
                         </Pressable>
                     </View>

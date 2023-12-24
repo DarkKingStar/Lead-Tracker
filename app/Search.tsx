@@ -30,7 +30,7 @@ const Search = () => {
       };
   return (
         <View style={{ flex: 1, backgroundColor: '#00000066', justifyContent: 'flex-end'}}>
-            <View style={{backgroundColor: '#cecece', borderTopLeftRadius: 25, borderTopRightRadius: 25, paddingHorizontal: 15}}>
+            <View style={{backgroundColor: '#e9e9e9', borderTopLeftRadius: 25, borderTopRightRadius: 25, paddingHorizontal: 15}}>
             <View style={[styles.row,{margin: 10,marginBottom: 30, justifyContent:'space-between'}]}>
             <Text style={styles.formHeading}>Search Date-wise Leads</Text>
             <Pressable onPress={()=> router.back()} style={styles.closeBtnHolder}>

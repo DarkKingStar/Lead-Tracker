@@ -14,6 +14,7 @@ const ContainPage: React.FC<ContainPageProps>  = ({leadId, userId}) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [pagination,setPagination] = useState<number>(1);
   const [hasPageNext, setHasPageNext] = useState<boolean>(true);
+  const [isError, setIsError] = useState<boolean>(false);
   useEffect(()=>{
     setPagination(0);
   },[leadId, userId])
@@ -33,11 +34,12 @@ const ContainPage: React.FC<ContainPageProps>  = ({leadId, userId}) => {
           }
         }
       }catch(err:any){
-        console.log(err.message);
+        console.error(err.message);
+        setIsError(true);
       }
     }
     fetchLeadList();
-  },[pagination]);
+  },[pagination,leadId,userId]);
   return (
     <ContainPageItem leadlist={leadlist} loading={loading} setPagination={setPagination} hasPageNext={hasPageNext}/>
   )

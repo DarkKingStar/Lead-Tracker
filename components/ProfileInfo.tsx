@@ -7,7 +7,7 @@ import { useAuth } from '../context/AuthContext';
 const ProfileInfo = () => {
     const {userData} = useAuth();
   return (
-    <View>
+    <>
       <View style={styles.itemdiv}>
           <View style={styles.icon}>
             <FontAwesome name="user" size={24} color="#0044ff"/>
@@ -45,7 +45,7 @@ const ProfileInfo = () => {
           </View>
           
         </View>
-    </View>
+    </>
   )
 }
 
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
         padding: 12,
         borderRadius: 10,
         margin: 5,
+        marginBottom: 15,
         marginHorizontal:30,
         borderColor: '#e2e2e2',
         borderWidth:1,

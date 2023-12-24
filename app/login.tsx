@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Image } from 'react-native';
+import { Pressable } from 'react-native';
 import React,{useEffect, useState} from 'react';
 import { Text, View } from '../components/Themed';
 import { router } from 'expo-router';
@@ -7,6 +7,8 @@ import {textStyles} from '../styles/TextElement';
 import TextInputField from '../components/TextInputField';
 import PasswordInputField from '../components/PasswordInputField';
 import { useAuth } from '../context/AuthContext';
+import icon from '../assets/images/icon.png';
+import { Image } from 'expo-image';
 
 export default function LoginScreen() {
   const [username, setUsername] = useState<string>('');
@@ -15,7 +17,6 @@ export default function LoginScreen() {
   const [isPasswordWrong, setIsPasswordWrong] =  useState<boolean>(false);
   const [isValidUsername, setIsValidUserName] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
-
   const {OnLogin,OnValidateUsername} = useAuth();
 
   useEffect(()=>{
@@ -52,7 +53,7 @@ export default function LoginScreen() {
   return (
     <View style={divStyles.EntryPageContainer}>
       <View>
-        <Image source={require('../assets/images/icon.png')} style={divStyles.EntryPageLogo} />
+        <Image source={icon} style={divStyles.EntryPageLogo} />
       </View>
       <Text style={textStyles.PageHeading}>Hello Again!</Text>
       <Text style={textStyles.PageSubHeading}>Hi! Welcome Back! You've been missed.</Text>
@@ -81,21 +82,3 @@ export default function LoginScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '100%',
-  },
-});
