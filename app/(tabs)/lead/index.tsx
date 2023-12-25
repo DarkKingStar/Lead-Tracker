@@ -10,7 +10,7 @@ export default function LeadScreen() {
     <View style={styles.container}>
       <UserDetails/>
       <ImageBackground  source={bgimg} style={{flex:1}}>
-        <ContainPage leadId={'1'} userId={'8'}/>
+          <ContainPage leadId={'1'} userId={'8'}/>
       </ImageBackground>
     </View>
   );

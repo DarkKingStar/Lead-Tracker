@@ -6,7 +6,7 @@ export default {
     white: '#fff',
     tabIconDefault: '#ccc',
     tabIconSelected: '#ccc7c6',
-    navbarColor: '#00f',
+    navbarColor: '#183399',
   },
   dark: {
     text: '#000',
@@ -15,7 +15,7 @@ export default {
     white: '#cccccc',
     tabIconDefault: '#ccc',
     tabIconSelected: '#ccc7c6',
-    navbarColor: '#00f',
+    navbarColor: '#183399',
   },
   // dark: {
   //   text: '#fff',

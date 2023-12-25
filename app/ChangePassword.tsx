@@ -1,4 +1,5 @@
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native'
+import { ImageBackground } from 'expo-image';
 import React, { useState } from 'react'
 import PasswordInputField from '../components/PasswordInputField';
 import { divStyles } from '../styles/DivElement';
@@ -6,6 +7,7 @@ import { textStyles } from '../styles/TextElement';
 import { router } from 'expo-router';
 import { useAuth } from '../context/AuthContext';
 import { showMessage } from 'react-native-flash-message';
+import passresetimg from '../assets/images/passresetimg.png'
 
 const ChangePassword = () => {
   const [password, setPassword] = useState<string>('');
@@ -15,7 +17,6 @@ const ChangePassword = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [isConfirmPasswordWrong, setIsConfirmPasswordWrong] =  useState<boolean>(false);
   
-
   const {OnResetPassword} = useAuth()
 
   const handleSubmitPassword = async():Promise<void> =>{
@@ -70,7 +71,7 @@ const ChangePassword = () => {
 
 
   return (
-    <View style={{flex:1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 25}}>
+      <ImageBackground source={passresetimg} imageStyle={styles.bgimage} style={{flex:1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 25}}>
       <Text style={textStyles.PageHeading}>Reset Your Password?</Text>
       <Text style={textStyles.PageSubHeading}>Your New Password Must Be Different from Previously Used Password</Text>
       <PasswordInputField 
@@ -100,10 +101,16 @@ const ChangePassword = () => {
       <Pressable style={divStyles.submitButton} onPress={()=> handleSubmitPassword()}>
         <Text style={textStyles.buttonText}>Change Password</Text>
       </Pressable>
-    </View>
+      </ImageBackground>
   )
 }
 
 export default ChangePassword
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  bgimage:{
+    resizeMode: 'contain',
+    opacity: 0.05,
+    marginTop: -70
+  }
+})

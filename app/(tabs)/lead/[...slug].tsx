@@ -3,6 +3,7 @@ import { Text, View } from '../../../components/Themed';
 import UserDetails from '../../../components/Userdetails';
 import ContainPage from '../../../components/ContainPage';
 import { useLocalSearchParams } from 'expo-router';
+import { TabAnimation } from '../../../components/TabAnimation';
 
 
 export default function LeadScreen() {
@@ -10,7 +11,9 @@ export default function LeadScreen() {
   return (
     <View style={styles.container}>
       <UserDetails/>
+      <TabAnimation>
       <ContainPage leadId={slug[0]} userId={slug[1]}/> 
+      </TabAnimation>
     </View>
   );
 }

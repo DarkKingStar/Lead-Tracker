@@ -56,7 +56,7 @@ const Menu = () => {
     },[data])
 
     if(isPending){
-        return(<ActivityIndicator size="large" color="#0000ff" />)    
+        return(<ActivityIndicator size="large" color="#183399" />)    
     }
     else if(isError){
         return(<View><Text>No data found</Text></View>)

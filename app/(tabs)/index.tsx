@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { ImageBackground } from 'expo-image';
 import bgimg from '../../assets/images/bgimg.png';
+import { TabAnimation } from '../../components/TabAnimation';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -24,7 +25,9 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <ImageBackground  source={bgimg} style={{flex:1}}>
       <UserDetails/>
-      <Menu/>
+        <TabAnimation style={{flex:1}}>
+          <Menu/>
+        </TabAnimation>
       </ImageBackground>
     </View>
   );

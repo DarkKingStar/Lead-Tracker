@@ -117,8 +117,8 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, loading , s
     return (
       <>
         {loading ? (
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}>
-            <ActivityIndicator size="large" color="#0000ff" />
+          <View style={{ flex: 1, justifyContent: 'center',marginTop: '50%', alignItems: 'center', alignSelf: 'center' }}>
+            <ActivityIndicator size="large" color="#183399" />
           </View>
         ) : (
           <FlatList

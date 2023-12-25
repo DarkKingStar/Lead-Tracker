@@ -18,11 +18,10 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
   return (
     <Tabs  screenOptions={{
-      tabBarInactiveTintColor: Colors[colorScheme ?? 'light'].tint, 
+      tabBarInactiveTintColor: Colors[colorScheme ?? 'dark'].tint, 
       tabBarActiveTintColor: Colors[colorScheme ?? 'light'].background,
       tabBarInactiveBackgroundColor: Colors[colorScheme ?? 'light'].navbarColor,
       tabBarActiveBackgroundColor: Colors[colorScheme ?? 'light'].navbarColor,
-      
       }}>
       <Tabs.Screen name="index"
         options={{
@@ -30,6 +29,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} title='HOME'/>,
           headerRight: () => (<HeaderRight/>),
           headerLeft: () => (<HeaderLeft/>),
+          headerStyle: {backgroundColor: '#87Ceeb'}
         }}
       />
       <Tabs.Screen
@@ -52,6 +52,7 @@ export default function TabLayout() {
         listeners={() => ({
           tabPress: (e) => {
             e.preventDefault()
+            router.push("/(tabs)/lead");
             router.push("/Search") /// your screen without Tab bar
           },
         })}
@@ -92,7 +93,7 @@ function HeaderRight() {
           name="bell"
           size={25}
           color={Colors[colorScheme ?? 'light'].text}
-          style={{ marginRight: 15, color: pressed ? '#00F': '#000', opacity: pressed? 0.8: 1 }}
+          style={{ marginRight: 15, color: pressed ? '#183399': '#000', opacity: pressed? 0.8: 1 }}
         />
       )}
     </Pressable>
