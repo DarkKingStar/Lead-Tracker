@@ -1,9 +1,12 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+
+import NetInfo,{NetInfoState} from '@react-native-community/netinfo';
+
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack, router } from 'expo-router';
-import react,{ useEffect} from 'react';
-import { SafeAreaView, useColorScheme } from 'react-native';
+import react,{ useEffect, useState} from 'react';
+import { SafeAreaView, Text, View, useColorScheme } from 'react-native';
 import { AuthProvider, useAuth } from '../context/AuthContext';
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import { QueryClient, QueryClientProvider} from '@tanstack/react-query'
@@ -17,7 +20,6 @@ export const unstable_settings = {
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
-
 export default function RootLayout() {
 
   const queryClient = new QueryClient()
@@ -46,11 +48,37 @@ export default function RootLayout() {
   return (
     <AuthProvider>
        <QueryClientProvider client={queryClient}>
-      <RootLayoutNav />
+        <App />
       </QueryClientProvider>
     </AuthProvider>
   );
 }
+
+ function App(){
+  const [networkState, setNetworkState] = useState<NetInfoState>();
+  useEffect(()=>{
+    const unsubscribe = NetInfo.addEventListener(state => {
+      console.log('Connection type', state.type);
+      console.log('Is connected?', state.isConnected);
+      console.log('Is network reachable?', state.isInternetReachable);
+      setNetworkState(state)
+    });
+    // To unsubscribe to these update, just use:
+    unsubscribe();
+  },[])
+  if(networkState?.isInternetReachable){
+    return(<RootLayoutNav/>)
+  }
+  else{
+    return(<View style={{flex:1, justifyContent: 'center', alignContent: 'center', alignItems: 'center'}}>
+      <Text>No Internet Connection</Text>
+    </View>)
+  }
+}
+
+
+
+
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();

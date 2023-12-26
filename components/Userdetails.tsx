@@ -35,8 +35,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   bgimage:{
-    borderBottomRightRadius: 50,
-    borderBottomLeftRadius: 50,
+   
   },
   userContainer:{
     marginLeft:10,

@@ -1,7 +1,6 @@
 import { ActivityIndicator, Pressable, StyleSheet, Text, FlatList, View, Linking } from 'react-native'
 import React, { PureComponent, useCallback, useMemo } from 'react'
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import AntDesign  from '@expo/vector-icons/AntDesign';
+import {FontAwesome, Ionicons, MaterialCommunityIcons,MaterialIcons, AntDesign} from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { showMessage } from 'react-native-flash-message';
 
@@ -63,27 +62,27 @@ interface ListItemProps {
                 <View style={{display: 'flex',flexDirection: 'row'}}>
                     <View>
                     <Pressable style={styles.iconholder} onPress={()=>Linking.openURL(`tel:${item?.contact_no}`)}>
-                        <FontAwesome name='phone' size={16} color='black' />            
+                        <FontAwesome name='phone' size={16} color='#0f79bd' />            
                     </Pressable>
                     </View>
                     <View>
                     <Pressable style={styles.iconholder}  onPress={()=>Linking.openURL(`mailto:${item?.email}`)}>
-                        <FontAwesome name='envelope-o' size={16} color='black'/>                
+                        <MaterialCommunityIcons name='gmail' size={16} color='#d92724'/>                
                     </Pressable>
                     </View>
                     <View>
                     <Pressable style={styles.iconholder} onPress={()=>Linking.openURL(`https://wa.me/+91${item?.contact_no}`)}>
-                        <FontAwesome name='whatsapp' size={16} color='black'/>
+                        <FontAwesome name='whatsapp' size={16} color='#075E54'/>
                     </Pressable>
                     </View>
                     <View>
                     <Pressable style={styles.iconholder} onPress={()=> router.push("/Chatpage")}>
-                        <FontAwesome name='comments-o' size={16} color='black'/>
+                        <Ionicons name='chatbox-ellipses-sharp' size={16} color='#A020F0'/>
                     </Pressable>
                     </View>
                     <View>
                     <Pressable style={styles.iconholder} onPress={()=> router.push("/Setting")}>
-                        <FontAwesome name='gear' size={16} color='black'/>
+                        <MaterialIcons name='system-update-alt' size={16} color='#fabd03'/>
                     </Pressable>
                 </View>
             </View>

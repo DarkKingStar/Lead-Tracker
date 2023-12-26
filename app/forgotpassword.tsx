@@ -56,6 +56,9 @@ export default function ForgotPassswordScreen() {
       LeftIconColor={username !== '' ? "#000000" : "#C9C9C9"}
       RightIconColor={isValidUsername ? "#008000" : "#C9C9C9"} 
       textValue={username}
+      placeholder='Username'
+      LeftIconName='user'
+      RightIconName='check-circle'
       setTextValue={setUsername}/>
       {errorMessage!='' && <Text style={{margin: 10, color: '#FF007F', fontSize: 16}}>{errorMessage}</Text>}
       <View style={{width: '100%'}}>

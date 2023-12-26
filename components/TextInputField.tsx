@@ -8,26 +8,29 @@ interface TextInputFieldProps{
     FocusColor: string;
     NotFocusColor: string;
     LeftIconColor: string;
+    LeftIconName: any;
     RightIconColor: string;
+    RightIconName: any;
     textValue: string;
+    placeholder: string;
     setTextValue: Dispatch<SetStateAction<string>>;
 }
 
-const TextInputField: React.FC<TextInputFieldProps> = ({FocusColor,NotFocusColor, LeftIconColor, RightIconColor, textValue, setTextValue}) => {
+const TextInputField: React.FC<TextInputFieldProps> = ({FocusColor,NotFocusColor, LeftIconColor, RightIconColor,LeftIconName, RightIconName, textValue, placeholder, setTextValue}) => {
     const [InputIsFocus,setInputIsFocus] = useState<boolean>(false);
     return (
     <View style={[divStyles.EntryPageInputHolder, { borderColor: InputIsFocus?FocusColor:NotFocusColor}]}>
-        <FontAwesome name="user" size={20} color={LeftIconColor}/>
+        <FontAwesome name={LeftIconName} size={20} color={LeftIconColor}/>
         <TextInput
           style={textStyles.inputText}
-          placeholder="Username"
+          placeholder={placeholder}
           onChangeText={(text) => setTextValue(text)}
           value={textValue}
           onFocus={() => setInputIsFocus(true)}
           onBlur={() => setInputIsFocus(false)}
           underlineColorAndroid="transparent"
         />
-        <FontAwesome name="check-circle" size={20} color={RightIconColor}/>
+        <FontAwesome name={RightIconName} size={20} color={RightIconColor}/>
       </View>
   )
 }

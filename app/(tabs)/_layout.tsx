@@ -22,6 +22,7 @@ export default function TabLayout() {
       tabBarActiveTintColor: Colors[colorScheme ?? 'light'].background,
       tabBarInactiveBackgroundColor: Colors[colorScheme ?? 'light'].navbarColor,
       tabBarActiveBackgroundColor: Colors[colorScheme ?? 'light'].navbarColor,
+      headerStyle: {backgroundColor: '#ffffff'}
       }}>
       <Tabs.Screen name="index"
         options={{
@@ -29,7 +30,6 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} title='HOME'/>,
           headerRight: () => (<HeaderRight/>),
           headerLeft: () => (<HeaderLeft/>),
-          headerStyle: {backgroundColor: '#87Ceeb'}
         }}
       />
       <Tabs.Screen

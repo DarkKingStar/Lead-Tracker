@@ -1,18 +1,19 @@
-import { StyleSheet, Text,Pressable, View } from 'react-native';
+import { StyleSheet, Text,Pressable, View, TextInput } from 'react-native';
 import React, { useState } from 'react';
 import Feather from '@expo/vector-icons/Feather';
 
 import {Picker} from '@react-native-picker/picker';
-import DateInputField from '../components/DateInputField';
+import DateInputField from '../DateInputField';
 import { router } from 'expo-router';
-import { ModalAnimation } from '../components/ModalAnimation';
+import { ModalAnimation } from '../ModalAnimation';
 
 
-const Search = () => {
+const Setting = () => {
     const [selectedStartDate, setSelectedStartDate] = useState<Date>(new Date());
     const [selectedEndDate, setSelectedEndDate] = useState<Date>(new Date());
     const [startDateFlag,setStartDateFlag] = useState<boolean>(false);
     const [endDateFlag,setEndDateFlag] = useState<boolean>(false);
+    const [feedback,setFeedback] = useState<string>("");
   
     const [selectedValue, setSelectedValue] = useState('');
     const options = ['Option 1', 'Option 2', 'Option 3'];
@@ -30,11 +31,11 @@ const Search = () => {
         return date.toLocaleDateString('en-GB');
       };
   return (
-        <View style={{ flex: 1, backgroundColor: '#00000066', justifyContent: 'flex-end'}}>
-            <ModalAnimation>
+    <View style={{ flex: 1, backgroundColor: '#00000066', justifyContent: 'flex-end'}}>
+          <ModalAnimation>
             <View style={{backgroundColor: '#e9e9e9', borderTopLeftRadius: 25, borderTopRightRadius: 25, paddingHorizontal: 15}}>
             <View style={[styles.row,{margin: 10,marginBottom: 30, justifyContent:'space-between'}]}>
-            <Text style={styles.formHeading}>Search Date-wise Leads</Text>
+            <Text style={styles.formHeading}>Settings Form</Text>
             <Pressable onPress={()=> router.back()} style={styles.closeBtnHolder}>
               <Feather name="x-circle" size={20} color="black" />
             </Pressable>
@@ -67,17 +68,23 @@ const Search = () => {
                   ))}
                   </Picker>
                 </View>
+                <TextInput
+                    style={styles.inputtext}
+                    multiline={true}
+                    placeholder="Write a Feedback"
+                    value={feedback}
+                    onChangeText={(inputText) => setFeedback(inputText)}
+                />
                 <Pressable onPress={()=>{}} style={[styles.SubmitBtn,{backgroundColor: '#0466AC'}]}>
                   <Text style={styles.btnText}>SUBMIT</Text>
                 </Pressable>
             </View>
-          </ModalAnimation>
+      </ModalAnimation>
       </View>
-   
   )
 }
 
-export default Search
+export default Setting
 
 const styles = StyleSheet.create({
     select: {
@@ -116,10 +123,17 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginVertical: 12,
     },
-  btnText:{
+    btnText:{
         color: 'white',
         fontSize: 16,
         textAlign: 'center',
         justifyContent: 'center',
     },
+    inputtext:{
+        fontSize:16,
+        padding: 16,
+        backgroundColor: 'white',
+        marginVertical: 12,
+        textAlignVertical: 'top',      
+      }
 })

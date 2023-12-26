@@ -63,6 +63,9 @@ export default function LoginScreen() {
       LeftIconColor={username !== '' ? "#000000" : "#C9C9C9"}
       RightIconColor={isValidUsername ? "#008000" : "#C9C9C9"} 
       textValue={username}
+      LeftIconName='user'
+      RightIconName='check-circle'
+      placeholder='Username'
       setTextValue={setUsername}/>
       <PasswordInputField 
       FocusColor={isPasswordWrong ? '#ff0000': '#426EB2'}

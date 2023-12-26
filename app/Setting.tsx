@@ -5,6 +5,7 @@ import Feather from '@expo/vector-icons/Feather';
 import {Picker} from '@react-native-picker/picker';
 import DateInputField from '../components/DateInputField';
 import { router } from 'expo-router';
+import { ModalAnimation } from '../components/ModalAnimation';
 
 
 const Setting = () => {
@@ -30,7 +31,8 @@ const Setting = () => {
         return date.toLocaleDateString('en-GB');
       };
   return (
-        <View style={{ flex: 1, backgroundColor: '#00000066', justifyContent: 'flex-end'}}>
+    <View style={{ flex: 1, backgroundColor: '#00000066', justifyContent: 'flex-end'}}>
+          <ModalAnimation>
             <View style={{backgroundColor: '#e9e9e9', borderTopLeftRadius: 25, borderTopRightRadius: 25, paddingHorizontal: 15}}>
             <View style={[styles.row,{margin: 10,marginBottom: 30, justifyContent:'space-between'}]}>
             <Text style={styles.formHeading}>Settings Form</Text>
@@ -77,8 +79,8 @@ const Setting = () => {
                   <Text style={styles.btnText}>SUBMIT</Text>
                 </Pressable>
             </View>
+      </ModalAnimation>
       </View>
-   
   )
 }
 
