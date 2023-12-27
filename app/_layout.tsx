@@ -56,12 +56,14 @@ export default function RootLayout() {
 
  function App(){
   const [networkState, setNetworkState] = useState<NetInfoState>();
+  const [isLoading,setIsLoading] = useState<boolean>(true);
   useEffect(()=>{
     const unsubscribe = NetInfo.addEventListener(state => {
       console.log('Connection type', state.type);
       console.log('Is connected?', state.isConnected);
       console.log('Is network reachable?', state.isInternetReachable);
-      setNetworkState(state)
+      setNetworkState(state);
+      setIsLoading(false);
     });
     // To unsubscribe to these update, just use:
     unsubscribe();
@@ -69,9 +71,13 @@ export default function RootLayout() {
   if(networkState?.isInternetReachable){
     return(<RootLayoutNav/>)
   }
-  else{
+  else if(!isLoading){
     return(<View style={{flex:1, justifyContent: 'center', alignContent: 'center', alignItems: 'center'}}>
       <Text>No Internet Connection</Text>
+    </View>)
+  }else{
+    return(<View style={{flex:1, justifyContent: 'center', alignContent: 'center', alignItems: 'center'}}>
+      <Text>Welcome to TURAIN: Lead Tracker!</Text>
     </View>)
   }
 }
@@ -111,8 +117,6 @@ function RootLayoutNav() {
         <Stack.Screen name="forgotpassword" options={{ headerShown: false, animation: 'slide_from_left' }} />
         <Stack.Screen name="Notification" options={{ presentation: 'modal', animation: 'slide_from_right'}} />
         <Stack.Screen name="Search" options={{ presentation: 'transparentModal', headerShown: false, animation: "fade" }} />
-        <Stack.Screen name="Setting" options={{ presentation: 'transparentModal', headerShown: false, animation: "fade" }} />
-        <Stack.Screen name="Chatpage" options={{ presentation: 'transparentModal', headerShown: false, animation: "slide_from_bottom"}} />
         <Stack.Screen name="ChangePassword" options={{ presentation: 'modal',title:"Reset Password", animation: "slide_from_left"}} />
         <Stack.Screen name="EditProfile" options={{ presentation: 'modal',title:"Edit Profile", animation: "slide_from_right"}} />
       </Stack>

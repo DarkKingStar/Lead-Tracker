@@ -1,4 +1,4 @@
-import { StyleSheet, Text,Pressable, View } from 'react-native';
+import { StyleSheet, Text,Pressable, View, TextInput } from 'react-native';
 import React, { useState } from 'react';
 import Feather from '@expo/vector-icons/Feather';
 
@@ -6,16 +6,21 @@ import {Picker} from '@react-native-picker/picker';
 import DateInputField from '../components/DateInputField';
 import { router } from 'expo-router';
 import { ModalAnimation } from '../components/ModalAnimation';
+import { useAuth } from '../context/AuthContext';
 
 
 const Search = () => {
-    const [selectedStartDate, setSelectedStartDate] = useState<Date>(new Date());
-    const [selectedEndDate, setSelectedEndDate] = useState<Date>(new Date());
+    const [name,setName] = useState<string>("");
+    const [phone,setPhone] = useState<string>("");
+    const [selectedStartDate, setSelectedStartDate] = useState<Date>();
+    const [selectedEndDate, setSelectedEndDate] = useState<Date>();
     const [startDateFlag,setStartDateFlag] = useState<boolean>(false);
     const [endDateFlag,setEndDateFlag] = useState<boolean>(false);
   
     const [selectedValue, setSelectedValue] = useState('');
     const options = ['Option 1', 'Option 2', 'Option 3'];
+
+    const {OnSearchData} = useAuth();
 
     const handleStartDateChange = (date: Date) => {
         setStartDateFlag(true);
@@ -26,32 +31,41 @@ const Search = () => {
         setEndDateFlag(true);
         setSelectedEndDate(date);
       };
-      const formatDate = (date : Date) => {
+      const formatDate = (date : Date| undefined) => {
+        if(date)
         return date.toLocaleDateString('en-GB');
       };
   return (
-        <View style={{ flex: 1, backgroundColor: '#00000066', justifyContent: 'flex-end'}}>
+        <Pressable style={{ flex: 1, backgroundColor: '#00000066', justifyContent: 'flex-end'}} onPress={()=>router.back()}>
             <ModalAnimation>
-            <View style={{backgroundColor: '#e9e9e9', borderTopLeftRadius: 25, borderTopRightRadius: 25, paddingHorizontal: 15}}>
-            <View style={[styles.row,{margin: 10,marginBottom: 30, justifyContent:'space-between'}]}>
+            <Pressable style={{backgroundColor: '#e9e9e9', borderTopLeftRadius: 25, borderTopRightRadius: 25, paddingHorizontal: 15}} 
+              onPress={()=>{}}>
+            <View style={[styles.row,{marginVertical: 20, marginBottom:0, justifyContent:'space-between'}]}>
             <Text style={styles.formHeading}>Search Date-wise Leads</Text>
             <Pressable onPress={()=> router.back()} style={styles.closeBtnHolder}>
               <Feather name="x-circle" size={20} color="black" />
             </Pressable>
             </View>
-            <View style={styles.row}>        
-                <View style={styles.dateInputholder}>
-                    <DateInputField value={selectedStartDate} onChange={handleStartDateChange}>
-                        <Text style={styles.dateInput}>{startDateFlag?formatDate(selectedStartDate):"Start Date"}</Text>
-                    </DateInputField>
-                    </View>
-                    <View style={[styles.dateInputholder]}>
-                      <DateInputField value={selectedEndDate} onChange={handleEndDateChange} >
-                        <Text style={styles.dateInput}>{endDateFlag?formatDate(selectedEndDate):"End Date"}</Text>
-                      </DateInputField>
-                    </View>
-                </View>
-                <View style={styles.select}>
+            <View style={styles.separator} />
+            <View>
+              <TextInput 
+              style={styles.textinput}
+              placeholder='Name'
+              placeholderTextColor="#000"
+              value={name}
+              onChangeText={(text)=>setName(text)}
+              />
+            </View>
+            <View>
+              <TextInput 
+              style={styles.textinput}
+              placeholder='Phone No.'
+              placeholderTextColor="#000"
+              value={phone}
+              onChangeText={(text)=>setPhone(text)}
+              />
+            </View>
+            <View style={styles.select}>
                   <Picker
 
                   selectedValue={selectedValue}
@@ -66,13 +80,26 @@ const Search = () => {
                     <Picker.Item key={index} label={option} value={option.toLowerCase()} />
                   ))}
                   </Picker>
-                </View>
-                <Pressable onPress={()=>{}} style={[styles.SubmitBtn,{backgroundColor: '#0466AC'}]}>
-                  <Text style={styles.btnText}>SUBMIT</Text>
-                </Pressable>
             </View>
+            <View style={styles.row}>        
+                <View style={styles.dateInputholder}>
+                    <DateInputField mode={"date"} value={selectedStartDate} onChange={handleStartDateChange}>
+                        <Text style={styles.dateInput}>{startDateFlag?formatDate(selectedStartDate):"Start Date"}</Text>
+                    </DateInputField>
+                    </View>
+                    <View style={[styles.dateInputholder]}>
+                      <DateInputField mode={"date"} value={selectedEndDate} onChange={handleEndDateChange} >
+                        <Text style={styles.dateInput}>{endDateFlag?formatDate(selectedEndDate):"End Date"}</Text>
+                      </DateInputField>
+                    </View>
+            </View>
+            
+              <Pressable onPress={async()=> await OnSearchData(name,phone,selectedValue,selectedStartDate,selectedEndDate)} style={[styles.SubmitBtn,{backgroundColor: '#0466AC'}]}>
+                  <Text style={styles.btnText}>SUBMIT</Text>
+              </Pressable>
+            </Pressable>
           </ModalAnimation>
-      </View>
+      </Pressable>
    
   )
 }
@@ -84,6 +111,16 @@ const styles = StyleSheet.create({
         fontSize: 11,
         backgroundColor: 'white',
         borderRadius: 5,
+        marginBottom: 8,
+    },
+    textinput:{
+      backgroundColor: 'white',
+      fontSize: 16,
+      borderRadius: 5,
+      marginBottom: 8,
+      paddingVertical: 10,
+      paddingHorizontal:16,
+      
     },
     formHeading: {
         fontSize: 20,
@@ -121,5 +158,12 @@ const styles = StyleSheet.create({
         fontSize: 16,
         textAlign: 'center',
         justifyContent: 'center',
+    },
+    separator: {
+      marginVertical: 15,
+      height: 1,
+      width: '90%',
+      alignSelf: 'center',
+      backgroundColor: 'rgba(0,0,0,0.1)'
     },
 })

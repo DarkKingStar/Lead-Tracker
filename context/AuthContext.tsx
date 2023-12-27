@@ -1,4 +1,4 @@
-import {  LOGIN,  CHECK_USERNAME,  FORGOT_PASSWORD,  RESEND_OTP,  OTP_VERIFY, RESET_PASSWORD} from './BaseConfig';
+import {  LOGIN,  CHECK_USERNAME,  FORGOT_PASSWORD,  RESEND_OTP,  OTP_VERIFY, RESET_PASSWORD, SEARCH} from './BaseConfig';
 import { createContext, useEffect, useState, useContext } from "react";
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
@@ -10,6 +10,7 @@ interface AuthProps {
   fullname: string| null; contactno: string| null; email:string| null; username: string| null;
    image:string| null; imageURL:string| null;
   };
+  OnSearchData: (name: string,phone:string,selectedValue:string,selectedStartDate:Date|undefined,selectedEndDate:Date|undefined) => Promise<void>;
   OnValidateUsername: (username: string) => Promise<boolean>;
   OnLogin: (username: string, password: string) => Promise<boolean>;
   OnLogout: () => Promise<void>;
@@ -25,6 +26,7 @@ const AuthContext = createContext<AuthProps>({
   userData: {userId:  null, degid:  null, degname: null,
     fullname:null, contactno:null, email:null, username: null, image: null, imageURL: null
     },
+  OnSearchData: async(name: string,phone:string,selectedValue:string,selectedStartDate:Date|undefined,selectedEndDate:Date|undefined) => {},
   OnValidateUsername: async (username: string) => false,
   OnLogin: async (username: string, password: string) => false,
   OnLogout: async () => {},
@@ -166,9 +168,22 @@ export const AuthProvider = ({children}: any) =>{
     return {error:  fetchData?.error || false , message : fetchData?.message || 'Unable to Change Password'};
   }
   
+  const searchData = async(name: string,phone:string,selectedValue:string,selectedStartDate:Date|undefined,selectedEndDate:Date|undefined):Promise<void> =>{
+    console.log(selectedValue);
+    // const formData: FormData = new FormData();
+    // if(name!="") formData.append('txt_name', name);
+    // if(phone!="") formData.append('txt_contact_no', phone);
+    // formData.append('ddl_lead_status_id', phone);
+    // if(selectedStartDate)  formData.append('txt_from_date', phone);
+    // if(selectedEndDate)  formData.append('txt_to_date', phone);
+    // const fetchData = await fetchAPIPostData(SEARCH, formData);
+    // console.log(fetchData);
+  } 
+
   const value={
     authState,
     userData,
+    OnSearchData: searchData,
     OnLogin: Login,
     OnValidateUsername: ValidateUsername,
     OnLogout: Logout,

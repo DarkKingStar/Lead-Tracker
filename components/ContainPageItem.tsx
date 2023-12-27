@@ -1,8 +1,9 @@
-import { ActivityIndicator, Pressable, StyleSheet, Text, FlatList, View, Linking } from 'react-native'
-import React, { PureComponent, useCallback, useMemo } from 'react'
+import { ActivityIndicator, Pressable, StyleSheet, Text, FlatList, View, Linking, Modal } from 'react-native'
+import React, {  useCallback, useEffect, useMemo, useState } from 'react'
 import {FontAwesome, Ionicons, MaterialCommunityIcons,MaterialIcons, AntDesign} from '@expo/vector-icons';
-import { router } from 'expo-router';
 import { showMessage } from 'react-native-flash-message';
+import ModalChat from './ModalChat';
+import ModalSetting from './ModalSetting';
 
 interface ContainPageItemProps{
     leadlist: any;
@@ -13,15 +14,19 @@ interface ContainPageItemProps{
 interface ListItemProps {
     item: any;
     index: number;
-  }
+    setIsChatVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsSettingVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    setSelectedClientId: React.Dispatch<React.SetStateAction<string>>;
+    setClientName: React.Dispatch<React.SetStateAction<string>>;
+}
 
-  const ListItem: React.FC<ListItemProps> = ({ item, index }) => {
+  const ListItem: React.FC<ListItemProps> = ({ item, index, setIsChatVisible, setIsSettingVisible, setSelectedClientId, setClientName }) => {
     const memoizedItem = useMemo(() => {
       return (
-        <View key={index} style={{ marginHorizontal: 20, marginVertical:8, padding: 10, backgroundColor: '#FFEEF7', borderRadius: 8, borderWidth:1, borderColor:'#FF008C' }}>
+        <View key={index} style={styles.itemcontainer}>
             <View style={styles.container}>
                 <View style={{flex:1}}>
-                    <View style={{marginBottom: 14}}>
+                    <View style={{marginBottom: 10, backgroundColor: '#435585',  borderTopLeftRadius: 7, borderTopRightRadius:7}}>
                         <Text style={[styles.name, styles.left]}>
                             {item?.name}
                         </Text>
@@ -42,7 +47,7 @@ interface ListItemProps {
                             <Text style={styles.labeltext}>{item?.lead_location}</Text>
                         </View>
                         <View style={[styles.col, styles.right]}>
-                            <Text style={styles.labeltext}>{index}</Text>
+                            <Text style={styles.labeltext}>{item?.client_details_id}</Text>
                             <FontAwesome name='paperclip' size={14} color='blue'/>                    
                         </View>
                     </View>
@@ -59,7 +64,7 @@ interface ListItemProps {
                 </View>
             </View>
             <View style={styles.dashedHR}></View>
-                <View style={{display: 'flex',flexDirection: 'row'}}>
+                <View style={{display: 'flex',flexDirection: 'row', paddingHorizontal:10,marginBottom:10}}>
                     <View>
                     <Pressable style={styles.iconholder} onPress={()=>Linking.openURL(`tel:${item?.contact_no}`)}>
                         <FontAwesome name='phone' size={16} color='#0f79bd' />            
@@ -76,13 +81,16 @@ interface ListItemProps {
                     </Pressable>
                     </View>
                     <View>
-                    <Pressable style={styles.iconholder} onPress={()=> router.push("/Chatpage")}>
+                    <Pressable style={styles.iconholder} onPress={()=> {
+                        setSelectedClientId(item?.client_details_id);
+                        setClientName(item?.name)
+                        setIsChatVisible(true)}}>
                         <Ionicons name='chatbox-ellipses-sharp' size={16} color='#A020F0'/>
                     </Pressable>
                     </View>
                     <View>
-                    <Pressable style={styles.iconholder} onPress={()=> router.push("/Setting")}>
-                        <MaterialIcons name='system-update-alt' size={16} color='#fabd03'/>
+                    <Pressable style={styles.iconholder} onPress={()=> setIsSettingVisible(true)}>
+                        <FontAwesome name='gear' size={16} color='#fabd03'/>
                     </Pressable>
                 </View>
             </View>
@@ -95,9 +103,15 @@ interface ListItemProps {
 }
 
 const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, loading , setPagination, hasPageNext }) => {
+    const [isChatVisible, setIsChatVisible] = useState<boolean>(false);
+    const [isSettingVisible,setIsSettingVisible] = useState<boolean>(false);
+
+    const [selectedClientId,setSelectedClientId] = useState<string>("");
+    const [ClientName, setClientName] = useState<string>("");
+
     const renderItem = useCallback(
         ({ item, index }: { item: any; index: number }) => {
-          return <ListItem item={item} index={index} />;
+          return <ListItem item={item} index={index} setClientName={setClientName} setSelectedClientId={setSelectedClientId} setIsChatVisible={setIsChatVisible} setIsSettingVisible={setIsSettingVisible}/>;
         },
         []
       );
@@ -119,13 +133,13 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, loading , s
           <View style={{ flex: 1, justifyContent: 'center',marginTop: '50%', alignItems: 'center', alignSelf: 'center' }}>
             <ActivityIndicator size="large" color="#183399" />
           </View>
-        ) : (
+        ) : (<>
           <FlatList
             data={leadlist}
             renderItem={renderItem}
             ListEmptyComponent={noDataFound}
             keyExtractor={(item, index) => index.toString()}
-            initialNumToRender={1}
+            initialNumToRender={3}
             decelerationRate={0.8}
             showsVerticalScrollIndicator={false}
             onEndReached={()=>{
@@ -146,8 +160,27 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, loading , s
                       })
                 }
             }}
-            
           />
+          {isChatVisible && 
+          <Modal 
+          transparent={true} 
+          animationType="fade" 
+          visible={isChatVisible} 
+          onRequestClose={()=>setIsChatVisible(false)}>
+            <ModalChat setIsVisible={setIsChatVisible} selectedClientId={selectedClientId} ClientName={ClientName} setIsSettingVisible={setIsSettingVisible}/>
+          </Modal>
+          }
+
+          {isSettingVisible &&
+          <Modal 
+          transparent={true} 
+          animationType="fade" 
+          visible={isSettingVisible} 
+          onRequestClose={()=>setIsSettingVisible(false)}>
+            <ModalSetting setIsVisible={setIsSettingVisible}/>
+          </Modal>
+          }
+          </>
         )}
       </>
     );
@@ -158,6 +191,15 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
     },
+    itemcontainer:{
+        marginHorizontal: 20, 
+        marginVertical:8, 
+        paddingTop:0, 
+        backgroundColor: '#FFEEF7', 
+        borderRadius: 8, 
+        borderWidth:1,
+        borderColor:'#435585' 
+    },
     container:{
         flex: 1,
         display: 'flex',
@@ -166,6 +208,7 @@ const styles = StyleSheet.create({
     row:{
         display: 'flex',
         flexDirection: 'row',
+        paddingHorizontal:10,
         justifyContent: 'space-around',
     },
     left:{
@@ -182,7 +225,6 @@ const styles = StyleSheet.create({
         margin:3,
         flex: 1,
     },
-    
     labeltext:{
         fontSize:14,
         marginHorizontal: 4,
@@ -199,22 +241,23 @@ const styles = StyleSheet.create({
         shadowOpacity: 1,
         margin:3,
         borderWidth:1,
-        borderColor:'#FF008C',
+        borderColor:'#435585',
         borderRadius: 5,
         alignItems:  'center',
         justifyContent: 'center',
     },
     dashedHR: {
-        borderBottomColor: '#FF008C',
+        borderBottomColor: '#435585',
         borderBottomWidth: 1,
         borderStyle: 'dashed',
         marginVertical: 8,
     },
     name:{
-        color:'#FF008C',
+        color: '#fff',
         fontSize: 18,
         fontWeight: '700',
-        marginTop:5,
+        marginLeft:6,
+        padding:8,
     },
     designation:{
         fontSize: 14,

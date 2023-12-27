@@ -32,12 +32,12 @@ const Menu = () => {
 
     const fetchMenuData = async()=>{
         if(userId && token){
-            const response = await axios.get(`${DASHBOARD}/${userId}/${token}`); //8/c9f0f895fb98ab9159f51fd0297e236d
+            const response = await axios.get(`${DASHBOARD}/8/c9f0f895fb98ab9159f51fd0297e236d`); //${userId}/${token}
             return response?.data?.dashboard;
         }
     }
     const gotoPage = ( leadid: string, userid: string | null) =>{
-        router.replace(`/(tabs)/lead/${leadid}/${userid}`)
+        router.push(`/(tabs)/lead/${leadid}/${userid}`)
     }
     const {isPending, isError, data, refetch} = useQuery({ 
         queryKey: ['dashboard'],

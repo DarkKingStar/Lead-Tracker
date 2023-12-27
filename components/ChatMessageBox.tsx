@@ -1,52 +1,31 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
+import { AntDesign } from '@expo/vector-icons';
 
+interface ChatMessageBoxProps{
+    conversation: any;
+    loading: boolean;
+}
 
-const ChatMessageBox = () => {
+const ChatMessageBox: React.FC<ChatMessageBoxProps> = ({conversation, loading}) => {
   return (
     <>
-    <View  style={styles.chatbubble}>
-        <Text style={styles.chattext}>keqwefr olwrokgrgwt boigtwkge geottgwemgw twepottwgtm4t wetotjwgwe oiqrt m3iq</Text>
-        <Text style={styles.time}>1</Text>
+    {(!loading && conversation.length>0) ? conversation.map((item:any,index:number)=>(
+        <View key={index} style={styles.chatbubble}>
+        <Text style={styles.chatby}>{item?.communication_by}</Text>
+        <Text style={styles.chattext}>{item?.remarks}</Text>
+        <Text style={styles.time}>{item.lead_status_date} | {item?.lead_status_time}</Text>
     </View>
-    <View  style={styles.chatbubble}>
-        <Text style={styles.chattext}>keqwefr olwrokgrgwt boigtwkge geottgwemgw twepottwgtm4t wetotjwgwe oiqrt m3iq</Text>
-        <Text style={styles.time}>2</Text>
-    </View>
-    <View  style={styles.chatbubble}>
-        <Text style={styles.chattext}>keqwefr olwrokgrgwt boigtwkge geottgwemgw twepottwgtm4t wetotjwgwe oiqrt m3iq</Text>
-        <Text style={styles.time}>3</Text>
-    </View>
-    <View  style={styles.chatbubble}>
-        <Text style={styles.chattext}>keqwefr olwrokgrgwt boigtwkge geottgwemgw twepottwgtm4t wetotjwgwe oiqrt m3iq</Text>
-        <Text style={styles.time}>4</Text>
-    </View>
-    <View  style={styles.chatbubble}>
-        <Text style={styles.chattext}>keqwefr olwrokgrgwt boigtwkge geottgwemgw twepottwgtm4t wetotjwgwe oiqrt m3iq</Text>
-        <Text style={styles.time}>5</Text>
-    </View>
-    <View  style={styles.chatbubble}>
-        <Text style={styles.chattext}>keqwefr olwrokgrgwt boigtwkge geottgwemgw twepottwgtm4t wetotjwgwe oiqrt m3iq</Text>
-        <Text style={styles.time}>6</Text>
-    </View>
-    <View  style={styles.chatbubble}>
-        <Text style={styles.chattext}>keqwefr olwrokgrgwt boigtwkge geottgwemgw twepottwgtm4t wetotjwgwe oiqrt m3iq</Text>
-        <Text style={styles.time}>7</Text>
-    </View>
-    <View  style={styles.chatbubble}>
-        <Text style={styles.chattext}>keqwefr olwrokgrgwt boigtwkge geottgwemgw twepottwgtm4t wetotjwgwe oiqrt m3iq</Text>
-        <Text style={styles.time}>8</Text>
-    </View>
-    <View  style={styles.chatbubble}>
-        <Text style={styles.chattext}>keqwefr olwrokgrgwt boigtwkge geottgwemgw twepottwgtm4t wetotjwgwe oiqrt m3iq</Text>
-        <Text style={styles.time}>9</Text>
-    </View>
-    <View  style={styles.chatbubble}>
-        <Text style={styles.chattext}>keqwefr olwrokgrgwt boigtwkge geottgwemgw twepottwgtm4t wetotjwgwe oiqrt m3iq</Text>
-        <Text style={styles.time}>10</Text>
-    </View>
-    
+    ))
+    :<>
+        <View>
+        <View style={{display: 'flex',marginTop: '50%', justifyContent: 'center',alignSelf:'center', alignItems: 'center'}}>
+                <Text style={styles.title}>No Conversation found</Text>
+            </View>
+        </View>
+    </>}
+   
     </>
   )
 }
@@ -56,7 +35,7 @@ export default ChatMessageBox
 const styles = StyleSheet.create({
     chatbubble:{
         borderRadius: 8,
-        marginVertical: 12,
+        marginVertical: 6,
         marginHorizontal: 12,
         paddingVertical: 6, 
         paddingHorizontal: 12,
@@ -71,5 +50,14 @@ const styles = StyleSheet.create({
     chattext:{
         fontSize: 18,
         color: 'black',
+    },
+    chatby:{
+        fontSize: 14,
+        fontWeight: '700',
+        color: '#FF008C',
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: 'bold',
     },
 })

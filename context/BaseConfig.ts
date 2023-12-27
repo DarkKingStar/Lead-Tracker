@@ -8,3 +8,5 @@ export const CHECK_USERNAME = `${BASE_URL}/check_username`;
 export const RESET_PASSWORD = `${BASE_URL}/change_password`;
 export const DASHBOARD = `${BASE_URL}/dashboard`;
 export const LEAD_LIST = `${BASE_URL}/lead_details_list`;
+export const CHAT_MSG = `${BASE_URL}/client_communication_details/`;
+export const SEARCH = `${BASE_URL}/lead_search`;

@@ -3,12 +3,14 @@ import { Pressable, StyleSheet } from 'react-native';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 
 interface DateInputProps{
-    value: Date;
+    value: Date| undefined;
     onChange: (date: Date) => void;
-    children: JSX.Element
+    mode: any;
+    children: JSX.Element;
+
 }
 
-const DateInputField: React.FC<DateInputProps> = ({ value, onChange, children }) => {
+const DateInputField: React.FC<DateInputProps> = ({ value, onChange, mode, children }) => {
   const [isDatePickerVisible, setDatePickerVisible] = useState<boolean>(false);
 
   const showDatePicker = (): void => {
@@ -27,17 +29,18 @@ const DateInputField: React.FC<DateInputProps> = ({ value, onChange, children })
   };
   return (
     <>
+
       <Pressable onPress={showDatePicker}>
         {children}
       </Pressable>
-      {isDatePickerVisible && (
+      {isDatePickerVisible && 
         <DateTimePicker
-          value={value}
-          mode="date"
+          value={value|| new Date()}
+          mode={mode}
           display="default"
           onChange={handleDateChange}
         />
-      )}
+      }
     </>
   );
 };
