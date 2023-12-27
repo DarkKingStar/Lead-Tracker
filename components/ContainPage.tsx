@@ -5,7 +5,6 @@ import { useLocalSearchParams } from 'expo-router';
 import axios from 'axios';
 import { LEAD_LIST } from '../context/BaseConfig';
 import { AntDesign } from '@expo/vector-icons';
-import ChatPageModal from './modal/ChatPageModal';
 
 interface ContainPageProps{
   leadId: string | string[];
@@ -58,7 +57,6 @@ const ContainPage: React.FC<ContainPageProps>  = ({leadId, userId}) => {
   return (
     <>
       <ContainPageItem leadlist={leadlist} loading={loading} setPagination={setPagination} hasPageNext={hasPageNext}/>
-      
     </>
   )
 }

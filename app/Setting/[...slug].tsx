@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import Feather from '@expo/vector-icons/Feather';
 
 import {Picker} from '@react-native-picker/picker';
-import DateInputField from '../DateInputField';
+import DateInputField from '../../components/DateInputField';
 import { router } from 'expo-router';
-import { ModalAnimation } from '../ModalAnimation';
+import { ModalAnimation } from '../../components/ModalAnimation';
 
 
 const Setting = () => {

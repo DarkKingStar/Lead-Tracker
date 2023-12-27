@@ -1,8 +1,8 @@
 import { StyleSheet, Text,Pressable, View, TextInput } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { router } from 'expo-router';
-import ChatBox from '../components/ChatBox';
-import ChatMessageBox from '../components/ChatMessageBox';
+import ChatBox from '../../components/ChatBox';
+import ChatMessageBox from '../../components/ChatMessageBox';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Image } from 'expo-image';
 
@@ -38,8 +38,8 @@ export default Chatpage
 
 const styles = StyleSheet.create({
     container:{
-        flex: 1, 
-        backgroundColor: 'white', 
+        flex: 1,  
+        backgroundColor:'rgba(0,0,0,0.1)',
         marginTop:190, 
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
