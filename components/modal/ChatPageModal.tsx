@@ -1,24 +1,22 @@
-import { StyleSheet,ScrollView, Text,Pressable, View, Modal} from 'react-native';
+import { StyleSheet,ScrollView, Text,Pressable, View, Modal, NativeSyntheticEvent, ModalProps} from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { router } from 'expo-router';
 import ChatBox from '../ChatBox';
 import ChatMessageBox from '../ChatMessageBox';
 import { Image } from 'expo-image';
 
-interface chatPageProps{
 
-}
 
-const Chatpage = () => {
+const ChatPageModal= () => {
     return (
-      <Modal transparent={true} animationType="none" visible={visible} onRequestClose={handleClose}>
+      <Modal transparent={true} animationType="fade" visible={true}>
         <View style={styles.container}>
             <View style={styles.topcontainer}>
-            <Pressable onPress={()=>router.back()} style={styles.closebtn}>
+            <Pressable onPress={()=>handleClose()} style={styles.closebtn}>
               <FontAwesome name="chevron-left" size={18} color="#747574" />
             </Pressable>
             <View style={styles.avaterHolder}>
-              <Image style={styles.avater} source={'../assets/images/icon.png'}/>
+              {/* <Image style={styles.avater} source={''}/> */}
             </View>
             <Text style={styles.username}>Gautam Mukharjee</Text>
             <Pressable style={styles.callbtn}>
@@ -37,7 +35,7 @@ const Chatpage = () => {
   )
 }
 
-export default Chatpage
+export default ChatPageModal
 
 const styles = StyleSheet.create({
     container:{

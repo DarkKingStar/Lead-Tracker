@@ -4,6 +4,9 @@ import ContainPageItem from './ContainPageItem'
 import { useLocalSearchParams } from 'expo-router';
 import axios from 'axios';
 import { LEAD_LIST } from '../context/BaseConfig';
+import { AntDesign } from '@expo/vector-icons';
+import ChatPageModal from './modal/ChatPageModal';
+
 interface ContainPageProps{
   leadId: string | string[];
   userId: string | string[];
@@ -15,6 +18,11 @@ const ContainPage: React.FC<ContainPageProps>  = ({leadId, userId}) => {
   const [pagination,setPagination] = useState<number>(1);
   const [hasPageNext, setHasPageNext] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
+  
+  const [chatPageVisible,setChatPageVisible] = useState<boolean>(false);
+  const handleChatpageClose = () =>{
+    setChatPageVisible(prev=>!prev);
+  }
   useEffect(()=>{
     setPagination(0);
   },[leadId, userId])
@@ -40,11 +48,26 @@ const ContainPage: React.FC<ContainPageProps>  = ({leadId, userId}) => {
     }
     fetchLeadList();
   },[pagination,leadId,userId]);
+  if(isError){
+    return(<View style={{display: 'flex',marginTop: '50%', justifyContent: 'center',alignSelf:'center', alignItems: 'center'}}>
+    <AntDesign name="frown" size={54} color="black" />
+    <Text style={styles.title}>Oops! no record found</Text>
+    <Text>Go to home screen!</Text>
+</View>);
+  }
   return (
-    <ContainPageItem leadlist={leadlist} loading={loading} setPagination={setPagination} hasPageNext={hasPageNext}/>
+    <>
+      <ContainPageItem leadlist={leadlist} loading={loading} setPagination={setPagination} hasPageNext={hasPageNext}/>
+      
+    </>
   )
 }
 
 export default ContainPage
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+},
+})
