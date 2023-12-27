@@ -45,7 +45,7 @@ const ContainPage: React.FC<ContainPageProps>  = ({leadId, userId}) => {
     fetchLeadList();
   },[pagination,leadId,userId]);
   if(isError){
-    return(<View style={{display: 'flex',marginTop: '50%', justifyContent: 'center',alignSelf:'center', alignItems: 'center'}}>
+    return(<View style={{flex:1,marginTop: '50%', justifyContent: 'center',alignSelf:'center', alignItems: 'center'}}>
     <AntDesign name="frown" size={54} color="black" />
     <Text style={styles.title}>Oops! no record found</Text>
     <Text>Go to home screen!</Text>

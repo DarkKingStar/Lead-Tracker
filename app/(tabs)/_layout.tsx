@@ -52,7 +52,7 @@ export default function TabLayout() {
         listeners={() => ({
           tabPress: (e) => {
             e.preventDefault()
-            router.push("/(tabs)/lead");
+            router.push("/(tabs)/lead/search");
             router.push("/Search") /// your screen without Tab bar
           },
         })}

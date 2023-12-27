@@ -140,7 +140,7 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, loading , s
             ListEmptyComponent={noDataFound}
             keyExtractor={(item, index) => index.toString()}
             initialNumToRender={3}
-            decelerationRate={0.8}
+            decelerationRate={0.9}
             showsVerticalScrollIndicator={false}
             onEndReached={()=>{
                 if(hasPageNext){
@@ -151,7 +151,7 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, loading , s
                         color: "#ffffff", 
                         position: 'center',
                       })
-                }else if(leadlist.length){
+                }else if(leadlist.length>0){
                     showMessage({
                         message: "End of List",
                         backgroundColor: "#00000066",

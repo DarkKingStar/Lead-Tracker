@@ -1,12 +1,11 @@
-import {Animated, View, Text, StyleSheet, Pressable, ActivityIndicator } from 'react-native'
+import { View, Text, StyleSheet, Pressable, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import MenuItem from './MenuItem'
 import { useAuth } from '../context/AuthContext'
-import axios from 'axios'
-import { DASHBOARD } from '../context/BaseConfig'
 import { router } from 'expo-router'
 import { useQuery } from '@tanstack/react-query'
 import { ScrollView } from 'react-native-gesture-handler'
+import { fetchMenuData } from '../context/fetchData'
 
 const convertArray = (data: any) => {
     const newArray = Array.from({ length: Math.ceil(data?.length/2)}, (_,index)=>
@@ -17,39 +16,23 @@ const convertArray = (data: any) => {
 
 
 const Menu = () => {
-    const {userData, authState} = useAuth();
-    const [userId, setUserId] = useState<any>(userData.userId);
-    const [token, setToken] = useState<any>(authState.token);
     const [dashboard, setDashboard] = useState<any>(null);
 
-    useEffect(() => {
-        setUserId(userData.userId);
-    }, [userData.userId]);
+    const {userData, authState} = useAuth();
 
-    useEffect(() => {
-        setToken(authState.token);
-    }, [authState.token]);
-
-    const fetchMenuData = async()=>{
-        if(userId && token){
-            const response = await axios.get(`${DASHBOARD}/8/c9f0f895fb98ab9159f51fd0297e236d`); //${userId}/${token}
-            return response?.data?.dashboard;
-        }
-    }
+    
     const gotoPage = ( leadid: string, userid: string | null) =>{
         router.push(`/(tabs)/lead/${leadid}/${userid}`)
     }
     const {isPending, isError, data, refetch} = useQuery({ 
         queryKey: ['dashboard'],
-        queryFn: fetchMenuData,
+        queryFn: ()=>fetchMenuData(userData.userId,authState.token),
         enabled: false, // Disable initial fetch
     })
 
     useEffect(() => {
-        if (userId && token) {
-            refetch();
-        }
-    }, [userId, token, refetch]);
+        refetch();
+    }, [refetch,authState.token,userData.userId]);
 
     useEffect(()=>{
         setDashboard(convertArray(data));
@@ -68,7 +51,7 @@ const Menu = () => {
             <View key={index} style={styles.row}>
                 {chunk?.map((item: any, itemIndex: number) => (
                     <View key={itemIndex} style={styles.item}>
-                        <Pressable onPress={()=>gotoPage(item.lead_status_id, '8')}>{/* {userData.userId} */}
+                        <Pressable onPress={()=>gotoPage(item.lead_status_id, userData.userId)}>{/* {userData.userId} */}
                             <MenuItem heading={item.lead_status} totallead={item.total_lead} taskdone={item.lead_count_status_wise} img={item.image_url}/>
                         </Pressable>
                     </View>

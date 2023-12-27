@@ -59,9 +59,9 @@ export default function RootLayout() {
   const [isLoading,setIsLoading] = useState<boolean>(true);
   useEffect(()=>{
     const unsubscribe = NetInfo.addEventListener(state => {
-      console.log('Connection type', state.type);
-      console.log('Is connected?', state.isConnected);
-      console.log('Is network reachable?', state.isInternetReachable);
+      // console.log('Connection type', state.type);
+      // console.log('Is connected?', state.isConnected);
+      // console.log('Is network reachable?', state.isInternetReachable);
       setNetworkState(state);
       setIsLoading(false);
     });

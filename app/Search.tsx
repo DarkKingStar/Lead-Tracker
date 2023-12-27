@@ -7,20 +7,34 @@ import DateInputField from '../components/DateInputField';
 import { router } from 'expo-router';
 import { ModalAnimation } from '../components/ModalAnimation';
 import { useAuth } from '../context/AuthContext';
+import { useQuery } from '@tanstack/react-query';
+import { fetchMenuData } from '../context/fetchData';
 
 
 const Search = () => {
+
     const [name,setName] = useState<string>("");
     const [phone,setPhone] = useState<string>("");
     const [selectedStartDate, setSelectedStartDate] = useState<Date>();
     const [selectedEndDate, setSelectedEndDate] = useState<Date>();
     const [startDateFlag,setStartDateFlag] = useState<boolean>(false);
     const [endDateFlag,setEndDateFlag] = useState<boolean>(false);
-  
-    const [selectedValue, setSelectedValue] = useState('');
-    const options = ['Option 1', 'Option 2', 'Option 3'];
+    const [selectedValue, setSelectedValue] = useState<string>('');
+    const [selectedValueId, setSelectedValueId] = useState<number>(0);
 
-    const {OnSearchData} = useAuth();
+    const {userData,authState,OnSearchData}=useAuth();
+
+    const { data } = useQuery({ 
+      queryKey: ['dashboard'],
+      queryFn: ()=>fetchMenuData(userData.userId,authState.token),
+      enabled: false, // Disable initial fetch
+    })
+    const options = data.map((item: { lead_status: any; }) => item.lead_status);
+
+    const handleSubmit = async() =>{
+      await OnSearchData(name,phone,selectedValueId,selectedStartDate,selectedEndDate);
+      router.back();
+    }
 
     const handleStartDateChange = (date: Date) => {
         setStartDateFlag(true);
@@ -72,12 +86,13 @@ const Search = () => {
                   onValueChange={(itemValue, itemIndex) => {
                     if (itemIndex !== 0) {
                       setSelectedValue(itemValue);
+                      setSelectedValueId(itemIndex);
                     }
                   }}
                   >
                   <Picker.Item label="Select" value={''} enabled={false} />
-                  {options.map((option, index) => (
-                    <Picker.Item key={index} label={option} value={option.toLowerCase()} />
+                  {options.map((option: string | undefined, index: React.Key | null | undefined) => (
+                    <Picker.Item key={index} label={option} value={option?.toLowerCase()} />
                   ))}
                   </Picker>
             </View>
@@ -94,7 +109,7 @@ const Search = () => {
                     </View>
             </View>
             
-              <Pressable onPress={async()=> await OnSearchData(name,phone,selectedValue,selectedStartDate,selectedEndDate)} style={[styles.SubmitBtn,{backgroundColor: '#0466AC'}]}>
+              <Pressable onPress={()=>handleSubmit()} style={[styles.SubmitBtn,{backgroundColor: '#0466AC'}]}>
                   <Text style={styles.btnText}>SUBMIT</Text>
               </Pressable>
             </Pressable>
