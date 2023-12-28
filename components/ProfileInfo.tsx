@@ -69,9 +69,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 12,
         borderRadius: 10,
-        marginBottom: 10,
+        marginBottom: 5,
         marginHorizontal:30,
-        borderColor: '#e2e2e2',
+        borderColor: '#e1e1e1',
+        backgroundColor: '#ffffff',
         borderWidth:1,
       },
       icon:{

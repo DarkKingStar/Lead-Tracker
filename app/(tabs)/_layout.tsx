@@ -22,7 +22,10 @@ export default function TabLayout() {
       tabBarActiveTintColor: Colors[colorScheme ?? 'light'].background,
       tabBarInactiveBackgroundColor: Colors[colorScheme ?? 'light'].navbarColor,
       tabBarActiveBackgroundColor: Colors[colorScheme ?? 'light'].navbarColor,
-      headerStyle: {backgroundColor: '#ffffff'}
+      headerStyle: {backgroundColor: '#ffffff'},
+      tabBarStyle: {
+        borderTopWidth: 0
+      }
       }}>
       <Tabs.Screen name="index"
         options={{
@@ -37,6 +40,15 @@ export default function TabLayout() {
         options={{
           title: '',
           tabBarIcon: ({ color }) => <TabBarIcon name="magnet" color={color} title='LEAD' />,
+          headerRight: () => (<HeaderRight/>),
+          headerLeft: () => (<HeaderLeft/>),
+        }}
+      />
+      <Tabs.Screen
+        name="leadupdate"
+        options={{
+          title: '',
+          tabBarIcon: ({ color }) => <TabBarMiddleIcon name="plus" color={color} title='ADD'/>,
           headerRight: () => (<HeaderRight/>),
           headerLeft: () => (<HeaderLeft/>),
         }}
@@ -80,6 +92,17 @@ function TabBarIcon(props: {
   <FontAwesome size={24} style={{ marginBottom: -3 }} color={props.color} name={props.name} />
   <Text style={{color:`${props.color}`, fontSize: 11,marginTop: 5,}}>{props.title}</Text>
   </View>);
+}
+function TabBarMiddleIcon(props: {
+  name: React.ComponentProps<typeof FontAwesome>['name'];
+  color: string;
+  title: string;
+}) {
+  return (<><View style={{marginTop: -15, display:'flex', justifyContent:'center',borderWidth: 2.5,borderColor:'#FF008C', alignItems: 'center',borderRadius:100,width:60,height:60, backgroundColor:"#fff" }}>
+  <FontAwesome size={24} color='#FF008C' name={props.name} /> 
+  </View>
+  {/* <Text style={{color:`${props.color}`, fontSize: 11,marginTop: 5,}}>{props.title}</Text> */}
+  </>);
 }
 
 function HeaderRight() {

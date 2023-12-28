@@ -1,4 +1,4 @@
-import {  LOGIN,  CHECK_USERNAME,  FORGOT_PASSWORD,  RESEND_OTP,  OTP_VERIFY, RESET_PASSWORD, SEARCH} from './BaseConfig';
+import {  LOGIN,  CHECK_USERNAME,  FORGOT_PASSWORD,  RESEND_OTP,  OTP_VERIFY, RESET_PASSWORD, SEARCH, PROFILEUPDATE, LEADUPDATE} from './BaseConfig';
 import { createContext, useEffect, useState, useContext } from "react";
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
@@ -11,7 +11,9 @@ interface AuthProps {
    image:string| null; imageURL:string| null;
   };
   searchDataValue: [];
+  OnLeadUpdate: (clientId:string, leadStatusId:number, date:Date|undefined,time:Date|undefined,remark:string)=> Promise<{error:boolean; message: string}>;
   OnSearchData: (name: string,phone:string,selectedValueId:number,selectedStartDate:Date|undefined,selectedEndDate:Date|undefined) => Promise<void>;
+  OnProfileUpdate: (name: string, email:string,phone: string) => Promise<{error:boolean; message: string}>;
   OnValidateUsername: (username: string) => Promise<boolean>;
   OnLogin: (username: string, password: string) => Promise<boolean>;
   OnLogout: () => Promise<void>;
@@ -28,6 +30,8 @@ const AuthContext = createContext<AuthProps>({
     fullname:null, contactno:null, email:null, username: null, image: null, imageURL: null
     },
   searchDataValue: [],
+  OnLeadUpdate: async(clientId:string, leadStatusId:number, date:Date|undefined,time:Date|undefined,remark:string)=> ({error: false, message: ''}),
+  OnProfileUpdate: async(name: string, email:string,phone: string) => ({error:false, message: ''}),
   OnSearchData: async(name: string,phone:string,selectedValueId:number,selectedStartDate:Date|undefined,selectedEndDate:Date|undefined) => {},
   OnValidateUsername: async (username: string) => false,
   OnLogin: async (username: string, password: string) => false,
@@ -120,8 +124,8 @@ export const AuthProvider = ({children}: any) =>{
             image: fetchData?.image,
             imageURL: fetchData?.image_path};
           setUserData(userDataTemp);
-          setAuthState((prev)=>({...prev,token:fetchData?.token}))
           await setSessionJsonData('userData', userDataTemp);
+          setAuthState((prev)=>({...prev,token:fetchData?.token}))
           await setSessionJsonData('authState', {...authState,token:fetchData?.token});
           return true;
         } else {
@@ -180,16 +184,47 @@ export const AuthProvider = ({children}: any) =>{
     formData.append('ddl_lead_status_id', selectedValueId.toString());
     selectedStartDate?formData.append('txt_from_date', selectedStartDate.toLocaleDateString()):formData.append('txt_from_date', '');
     selectedEndDate?formData.append('txt_to_date', selectedEndDate.toLocaleDateString()):formData.append('txt_to_date', '');
-    if(userData?.userId) 
-    formData.append('txt_user_details_id',userData?.userId);
+    formData.append('txt_user_details_id', userData?.userId || '');
     const fetchData = await fetchAPIPostData(SEARCH, formData);
     setSearchDataValue(fetchData);
-  } 
-
+  }
+  const profileUpdate = async(name: string,email:string,phone:string) =>{
+    const formData: FormData = new FormData();
+    formData.append('txt_name', name);
+    formData.append('txt_contact_no', phone);
+    formData.append('txt_email', email);
+    formData.append('txt_user_details_id', userData?.userId || '');
+    formData.append('txt_token', authState?.token || '');
+    const fetchData = await fetchAPIPostData(PROFILEUPDATE, formData);
+    if(!fetchData.error){
+      const userDataUpdate = {
+        fullname: name,
+        contactno: phone,
+        email: email,
+      }
+      setUserData((prev)=>({...prev,...userDataUpdate}))
+      await setSessionJsonData('userData', {...userData,...userDataUpdate});
+    }
+    return {error:  fetchData?.error || false , message : fetchData?.message || 'Unable to Update Your details'};
+  }
+  const leadUpdate = async(clientId:string, leadStatusId:number, date:Date|undefined,time:Date|undefined,remark:string)=>{
+    const formData: FormData = new FormData();
+    formData.append('txt_client_details_id', clientId);
+    formData.append('txt_lead_status_id', leadStatusId?.toString());
+    date?formData.append('txt_lead_status_date', date?.toLocaleDateString()):formData.append('txt_lead_status_date', '');
+    time?formData.append('txt_lead_status_time', time?.toLocaleTimeString()):formData.append('txt_lead_status_time', '');
+    formData.append('txt_remarks', remark);
+    formData.append('txt_user_details_id', userData.userId || '' );
+    formData.append('txt_name', userData.fullname || '');
+    const fetchData = await fetchAPIPostData(LEADUPDATE, formData);
+    return {error:  fetchData?.error || false , message : fetchData?.message || 'Unable to Update Your Lead'};
+  }
   const value={
     authState,
     userData,
     searchDataValue,
+    OnLeadUpdate: leadUpdate,
+    OnProfileUpdate:profileUpdate,
     OnSearchData: searchData,
     OnLogin: Login,
     OnValidateUsername: ValidateUsername,

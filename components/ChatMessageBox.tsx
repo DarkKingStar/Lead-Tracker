@@ -1,7 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
-import { AntDesign } from '@expo/vector-icons';
 
 interface ChatMessageBoxProps{
     conversation: any;
@@ -11,11 +9,20 @@ interface ChatMessageBoxProps{
 const ChatMessageBox: React.FC<ChatMessageBoxProps> = ({conversation, loading}) => {
   return (
     <>
-    {(!loading && conversation.length>0) ? conversation.map((item:any,index:number)=>(
+    {(!loading && conversation.length>0) ? conversation.reverse().map((item:any,index:number)=>(
         <View key={index} style={styles.chatbubble}>
-        <Text style={styles.chatby}>{item?.communication_by}</Text>
-        <Text style={styles.chattext}>{item?.remarks}</Text>
-        <Text style={styles.time}>{item.lead_status_date} | {item?.lead_status_time}</Text>
+        <View style={styles.flexContainer}>
+            <Text style={styles.chattext}>{item?.remarks}</Text>
+            <Text style={styles.chatheading}>{item?.lead_status}</Text>
+        </View>
+        <View style={[styles.flexContainer,{marginTop:12}]}>
+            <Text>Date: {item.lead_status_date}</Text>
+            <Text>Time: {item?.lead_status_time}</Text>
+        </View>
+        <View style={styles.flexContainer}>
+            <Text style={styles.chatby}>by {item?.communication_by}</Text>
+            <Text style={styles.updatedatetime}>XX/XX/XXXX | XX:XX ZY</Text>
+        </View>
     </View>
     ))
     :<>
@@ -41,7 +48,16 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         backgroundColor: '#DDD',
     },
-    time:{
+    flexContainer:{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    chatheading:{
+        color: '#FF008C',
+        fontWeight: '800',
+    },
+    updatedatetime:{
         color: '#382ADD',
         fontSize: 11,
         fontWeight: '800',
@@ -50,11 +66,13 @@ const styles = StyleSheet.create({
     chattext:{
         fontSize: 18,
         color: 'black',
+        width:'70%',
     },
+    
     chatby:{
         fontSize: 14,
         fontWeight: '700',
-        color: '#FF008C',
+        color: '#000',
     },
     title: {
         fontSize: 20,

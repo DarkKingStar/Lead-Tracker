@@ -1,4 +1,4 @@
-import { StyleSheet, Text,Pressable, View, TextInput } from 'react-native';
+import { StyleSheet, Text,Pressable, View, TextInput, Alert } from 'react-native';
 import React, { useState } from 'react';
 import Feather from '@expo/vector-icons/Feather';
 
@@ -6,13 +6,17 @@ import {Picker} from '@react-native-picker/picker';
 import DateInputField from './DateInputField';
 import { router } from 'expo-router';
 import { ModalAnimation } from './ModalAnimation';
-import { timeStamp } from 'console';
+import { useAuth } from '../context/AuthContext';
+import { useQuery } from '@tanstack/react-query';
+import { fetchMenuData } from '../context/fetchData';
 
 interface ModalSettingProps{
     setIsVisible:React.Dispatch<React.SetStateAction<boolean>>;
+    selectedClientId: string,
+
 }
 
-const ModalSetting: React.FC<ModalSettingProps> = ({setIsVisible}) => {
+const ModalSetting: React.FC<ModalSettingProps> = ({setIsVisible, selectedClientId}) => {
     const [selectedDate, setSelectedDate] = useState<Date>();
     const [selectedTime, setSelectedTime] = useState<Date>();
     const [dateFlag,setDateFlag] = useState<boolean>(false);
@@ -20,7 +24,16 @@ const ModalSetting: React.FC<ModalSettingProps> = ({setIsVisible}) => {
     const [feedback,setFeedback] = useState<string>("");
   
     const [selectedValue, setSelectedValue] = useState('');
-    const options = ['Option 1', 'Option 2', 'Option 3'];
+    const [selectedValueId, setSelectedValueId] = useState<number>(1);
+
+    const {userData,authState, OnLeadUpdate}=useAuth();
+
+    const { data } = useQuery({ 
+      queryKey: ['dashboard'],
+      queryFn: ()=>fetchMenuData(userData.userId,authState.token),
+      enabled: false, // Disable initial fetch
+    })
+    const options = data.map((item: { lead_status: any; }) => item.lead_status);
 
     const handleDateChange = (date: Date) => {
         setDateFlag(true);
@@ -39,6 +52,11 @@ const ModalSetting: React.FC<ModalSettingProps> = ({setIsVisible}) => {
         if(date)
         return date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
       }
+  const handleSubmit = async() =>{
+    const flagData = await OnLeadUpdate(selectedClientId, selectedValueId, selectedDate, selectedTime, feedback);
+
+    (flagData.error == false)?Alert.alert("Lead Status Update Successful",`${flagData?.message}`,[{ text: 'OK', onPress: () => setIsVisible(false)}]):Alert.alert('Lead Status Update Unsuccessful',`${flagData?.message}`,);
+  }
   return (
     <View style={{ flex: 1, backgroundColor: '#00000066', justifyContent: 'flex-end'}}>
           <ModalAnimation>
@@ -68,12 +86,13 @@ const ModalSetting: React.FC<ModalSettingProps> = ({setIsVisible}) => {
                   onValueChange={(itemValue, itemIndex) => {
                     if (itemIndex !== 0) {
                       setSelectedValue(itemValue);
+                      setSelectedValueId(itemIndex);
                     }
                   }}
                   >
                   <Picker.Item label="Select" value={''} enabled={false} />
-                  {options.map((option, index) => (
-                    <Picker.Item key={index} label={option} value={option.toLowerCase()} />
+                  {options.map((option: string | undefined, index: React.Key | null | undefined) => (
+                    <Picker.Item key={index} label={option} value={option?.toLowerCase()} />
                   ))}
                   </Picker>
                 </View>
@@ -84,7 +103,7 @@ const ModalSetting: React.FC<ModalSettingProps> = ({setIsVisible}) => {
                     value={feedback}
                     onChangeText={(inputText) => setFeedback(inputText)}
                 />
-                <Pressable onPress={()=>{}} style={[styles.SubmitBtn,{backgroundColor: '#0466AC'}]}>
+                <Pressable onPress={()=>handleSubmit()} style={[styles.SubmitBtn,{backgroundColor: '#0466AC'}]}>
                   <Text style={styles.btnText}>SUBMIT</Text>
                 </Pressable>
             </View>

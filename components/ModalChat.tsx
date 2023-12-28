@@ -1,8 +1,7 @@
-import { StyleSheet, Text,Pressable, View, TextInput, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Text,Pressable, View, ScrollView, Linking } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import React,{ useEffect, useState } from 'react';
 import ChatMessageBox from './ChatMessageBox';
-import { ScrollView } from 'react-native-gesture-handler';
 import { Image } from 'expo-image';
 import axios from 'axios';
 import { CHAT_MSG } from '../context/BaseConfig';
@@ -10,11 +9,13 @@ import { CHAT_MSG } from '../context/BaseConfig';
 interface ModalChatProps{
     setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
     setIsSettingVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    isSettingVisible: boolean;
     selectedClientId: string;
     ClientName: string;
+    ClientPhoneNumber: string;
 }
 
-const ModalChat:React.FC<ModalChatProps> = ({setIsVisible, setIsSettingVisible, selectedClientId, ClientName}) => {
+const ModalChat:React.FC<ModalChatProps> = ({setIsVisible, setIsSettingVisible, isSettingVisible, selectedClientId, ClientName,ClientPhoneNumber}) => {
     const [conversation,setConversation] = useState<any>([]);
     const [loading, setLoading] = useState<boolean>(true);
     useEffect(()=>{
@@ -29,7 +30,7 @@ const ModalChat:React.FC<ModalChatProps> = ({setIsVisible, setIsSettingVisible, 
             setLoading(false);
         }
         fetchConversation();
-    },[selectedClientId])
+    },[selectedClientId, isSettingVisible])
 
     return (
         <View style={styles.container}>
@@ -41,11 +42,11 @@ const ModalChat:React.FC<ModalChatProps> = ({setIsVisible, setIsSettingVisible, 
               <Image style={styles.avater} source={'https://www.w3schools.com/howto/img_avatar.png'}/>
             </View>
             <Text style={styles.username}>{ClientName}</Text>
-            <Pressable style={styles.callbtn}>
+            <Pressable style={styles.callbtn} onPress={()=>Linking.openURL(`tel:${ClientPhoneNumber}`)}>
               <FontAwesome name="phone" size={22} color="#000" />
             </Pressable>
           </View>
-          <ScrollView contentContainerStyle={{paddingBottom:45,flex:1, backgroundColor:"#fff"} }>
+          <ScrollView contentContainerStyle={{paddingBottom:45, backgroundColor:"#fff"} }>
             <ChatMessageBox conversation={conversation} loading={loading}/>
           </ScrollView>
           
@@ -75,7 +76,7 @@ export default ModalChat
 const styles = StyleSheet.create({
     container:{
         flex: 1, 
-        backgroundColor:'rgba(0,0,0,0.5)', 
+        backgroundColor:'#fff', 
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
     },

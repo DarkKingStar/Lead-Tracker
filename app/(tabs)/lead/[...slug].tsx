@@ -1,5 +1,4 @@
-import { StyleSheet } from 'react-native';
-import { Text, View } from '../../../components/Themed';
+import { StyleSheet, View  } from 'react-native';
 import UserDetails from '../../../components/Userdetails';
 import ContainPage from '../../../components/ContainPage';
 
@@ -16,7 +15,7 @@ export default function LeadScreen() {
     <View style={styles.container}>
       <UserDetails/>
         <ImageBackground  source={bgimg} style={{flex:1}}>
-      <TabAnimation>
+          <TabAnimation>
         <ContainPage leadId={slug[0]} userId={slug[1]}/>
       </TabAnimation>
         </ImageBackground>

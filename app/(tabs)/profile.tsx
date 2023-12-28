@@ -41,7 +41,7 @@ export default function ProfileScreen() {
       </View>
 
         <ProfileInfo/>
-        <Pressable style={[divStyles.submitButton, styles.allBtn]} onPress={()=>router.push("/EditProfile")}>
+        <Pressable style={[divStyles.submitButton, styles.allBtn, {marginTop:15}]} onPress={()=>router.push("/EditProfile")}>
           <Text style={textStyles.buttonText}>Edit Profile</Text>
         </Pressable>
         <Pressable style={[divStyles.submitButton,styles.allBtn]} onPress={()=>router.push('/ChangePassword')}>
@@ -69,8 +69,9 @@ const styles = StyleSheet.create({
   },
   separator: {
     marginVertical: 15,
+    backgroundColor: '#e1e1e1',
     height: 1,
-    width: '80%',
+    width: '40%',
     alignSelf: 'center',
   },
   pinklayer:{

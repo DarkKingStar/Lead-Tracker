@@ -1,10 +1,10 @@
-import { StyleSheet } from 'react-native';
-import { Text, View } from '../../../components/Themed';
+import { StyleSheet,View  } from 'react-native';
 import UserDetails from '../../../components/Userdetails';
 import ContainPage from '../../../components/ContainPage';
 import { ImageBackground } from 'expo-image';
 import bgimg from '../../../assets/images/bgimg.png';
 import { useAuth } from '../../../context/AuthContext';
+import { TabAnimation } from '../../../components/TabAnimation';
 
 export default function LeadScreen() {
   const {userData} = useAuth();
@@ -12,7 +12,9 @@ export default function LeadScreen() {
     <View style={styles.container}>
       <UserDetails/>
       <ImageBackground  source={bgimg} style={{flex:1}}>
-         {userData.userId!=null && <ContainPage leadId={'1'} userId={userData.userId}/>}
+        <TabAnimation>
+          {userData.userId!=null && <ContainPage leadId={'1'} userId={userData.userId}/>}
+        </TabAnimation>
       </ImageBackground>
     </View>
   );

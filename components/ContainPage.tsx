@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import ContainPageItem from './ContainPageItem'
-import { useLocalSearchParams } from 'expo-router';
+import { useFocusEffect, useLocalSearchParams } from 'expo-router';
 import axios from 'axios';
 import { LEAD_LIST } from '../context/BaseConfig';
 import { AntDesign } from '@expo/vector-icons';
@@ -44,6 +44,7 @@ const ContainPage: React.FC<ContainPageProps>  = ({leadId, userId}) => {
     }
     fetchLeadList();
   },[pagination,leadId,userId]);
+ 
   if(isError){
     return(<View style={{flex:1,marginTop: '50%', justifyContent: 'center',alignSelf:'center', alignItems: 'center'}}>
     <AntDesign name="frown" size={54} color="black" />

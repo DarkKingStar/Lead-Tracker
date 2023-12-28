@@ -4,16 +4,34 @@ import { showMessage } from 'react-native-flash-message'
 import FontAwesome  from '@expo/vector-icons/FontAwesome'
 import { Image } from 'expo-image'
 import { useAuth } from '../context/AuthContext'
-import { TextInput } from 'react-native-gesture-handler'
 import TextInputField from './TextInputField'
 import { divStyles } from '../styles/DivElement'
 import { textStyles } from '../styles/TextElement'
+import { router } from 'expo-router'
+
+// import * as ImagePicker from 'expo-image-picker';
+
 
 const ProfileEdit = () => {
   const {userData} = useAuth();
-  const [name,setName] = useState<string>('');
-  const [email,setEmail] = useState<string>('');
-  const [phone,setPhone] = useState<string>('');
+  const [name,setName] = useState<string>(userData.fullname!=null?userData.fullname:'');
+  const [email,setEmail] = useState<string>(userData.email!=null?userData.email:'');
+  const [phone,setPhone] = useState<string>(userData.contactno!=null?userData.contactno:'');
+  // const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
+  
+  const {OnProfileUpdate} = useAuth();
+  const handleSubmit = async() =>{
+    const flagData =  await OnProfileUpdate(name,email,phone);
+    showMessage({
+      message: `   ${flagData?.message}`,
+      type: flagData?.error?"danger":"success",
+      position:"bottom",
+      icon: props => flagData?.error?<FontAwesome name="close" size={17} color="#fff" {...props}/>:<FontAwesome name="check" size={17} color="#fff" {...props}/>,
+      })
+    if(!flagData?.error){
+      router.back();
+    }
+  }
   return (
     <View>
       <View style={styles.avatarholder}>
@@ -63,12 +81,7 @@ const ProfileEdit = () => {
       />
       </View>
       
-      <Pressable style={[divStyles.submitButton,{ marginTop: -15 }]} onPress={()=>showMessage({
-            message: "   Successfully Updated!",
-            type: "success",
-            position:"bottom",
-            icon: props => <FontAwesome name="check" size={18} color="#fff" {...props}/>,
-            })}>
+      <Pressable style={[divStyles.submitButton,{ marginTop: -15 }]} onPress={()=>handleSubmit()}>
                 <Text style={[textStyles.buttonText,{paddingHorizontal: 30}]}>Submit</Text>
             </Pressable>
     </View>

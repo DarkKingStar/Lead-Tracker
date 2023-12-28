@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Pressable, ActivityIndicator } from 'react-nati
 import React, { useEffect, useState } from 'react'
 import MenuItem from './MenuItem'
 import { useAuth } from '../context/AuthContext'
-import { router } from 'expo-router'
+import { router, useFocusEffect } from 'expo-router'
 import { useQuery } from '@tanstack/react-query'
 import { ScrollView } from 'react-native-gesture-handler'
 import { fetchMenuData } from '../context/fetchData'
@@ -33,7 +33,9 @@ const Menu = () => {
     useEffect(() => {
         refetch();
     }, [refetch,authState.token,userData.userId]);
-
+    useFocusEffect(()=>{
+        refetch();
+    })
     useEffect(()=>{
         setDashboard(convertArray(data));
     },[data])

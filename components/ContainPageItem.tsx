@@ -1,6 +1,6 @@
 import { ActivityIndicator, Pressable, StyleSheet, Text, FlatList, View, Linking, Modal } from 'react-native'
 import React, {  useCallback, useEffect, useMemo, useState } from 'react'
-import {FontAwesome, Ionicons, MaterialCommunityIcons,MaterialIcons, AntDesign} from '@expo/vector-icons';
+import {FontAwesome, Ionicons, MaterialCommunityIcons,MaterialIcons, AntDesign, Entypo} from '@expo/vector-icons';
 import { showMessage } from 'react-native-flash-message';
 import ModalChat from './ModalChat';
 import ModalSetting from './ModalSetting';
@@ -18,9 +18,10 @@ interface ListItemProps {
     setIsSettingVisible: React.Dispatch<React.SetStateAction<boolean>>;
     setSelectedClientId: React.Dispatch<React.SetStateAction<string>>;
     setClientName: React.Dispatch<React.SetStateAction<string>>;
+    setClientPhoneNumber: React.Dispatch<React.SetStateAction<string>>;
 }
 
-  const ListItem: React.FC<ListItemProps> = ({ item, index, setIsChatVisible, setIsSettingVisible, setSelectedClientId, setClientName }) => {
+  const ListItem: React.FC<ListItemProps> = ({ item, index, setIsChatVisible, setIsSettingVisible, setSelectedClientId, setClientName,setClientPhoneNumber }) => {
     const memoizedItem = useMemo(() => {
       return (
         <View key={index} style={styles.itemcontainer}>
@@ -70,6 +71,12 @@ interface ListItemProps {
                         <FontAwesome name='phone' size={16} color='#0f79bd' />            
                     </Pressable>
                     </View>
+                    {item?.contact_no2 !='' &&
+                    <View>
+                    <Pressable style={styles.iconholder} onPress={()=>Linking.openURL(`tel:${item?.contact_no2}`)}>
+                        <Entypo name='old-mobile' size={16} color='#000000' />            
+                    </Pressable>
+                    </View>}
                     <View>
                     <Pressable style={styles.iconholder}  onPress={()=>Linking.openURL(`mailto:${item?.email}`)}>
                         <MaterialCommunityIcons name='gmail' size={16} color='#d92724'/>                
@@ -84,12 +91,16 @@ interface ListItemProps {
                     <Pressable style={styles.iconholder} onPress={()=> {
                         setSelectedClientId(item?.client_details_id);
                         setClientName(item?.name)
+                        setClientPhoneNumber(item?.contact_no)
                         setIsChatVisible(true)}}>
                         <Ionicons name='chatbox-ellipses-sharp' size={16} color='#A020F0'/>
                     </Pressable>
                     </View>
                     <View>
-                    <Pressable style={styles.iconholder} onPress={()=> setIsSettingVisible(true)}>
+                    <Pressable style={styles.iconholder} onPress={()=> {
+                        setIsSettingVisible(true);
+                        setSelectedClientId(item?.client_details_id);
+                        }}>
                         <FontAwesome name='gear' size={16} color='#fabd03'/>
                     </Pressable>
                 </View>
@@ -108,10 +119,11 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, loading , s
 
     const [selectedClientId,setSelectedClientId] = useState<string>("");
     const [ClientName, setClientName] = useState<string>("");
-
+    const [ClientPhoneNumber,setClientPhoneNumber] = useState<string>("");
+    
     const renderItem = useCallback(
         ({ item, index }: { item: any; index: number }) => {
-          return <ListItem item={item} index={index} setClientName={setClientName} setSelectedClientId={setSelectedClientId} setIsChatVisible={setIsChatVisible} setIsSettingVisible={setIsSettingVisible}/>;
+          return <ListItem item={item} index={index} setClientPhoneNumber={setClientPhoneNumber} setClientName={setClientName} setSelectedClientId={setSelectedClientId} setIsChatVisible={setIsChatVisible} setIsSettingVisible={setIsSettingVisible}/>;
         },
         []
       );
@@ -167,7 +179,7 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, loading , s
           animationType="fade" 
           visible={isChatVisible} 
           onRequestClose={()=>setIsChatVisible(false)}>
-            <ModalChat setIsVisible={setIsChatVisible} selectedClientId={selectedClientId} ClientName={ClientName} setIsSettingVisible={setIsSettingVisible}/>
+            <ModalChat ClientPhoneNumber={ClientPhoneNumber} setIsVisible={setIsChatVisible} selectedClientId={selectedClientId} ClientName={ClientName} isSettingVisible={isSettingVisible} setIsSettingVisible={setIsSettingVisible}/>
           </Modal>
           }
 
@@ -177,7 +189,7 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, loading , s
           animationType="fade" 
           visible={isSettingVisible} 
           onRequestClose={()=>setIsSettingVisible(false)}>
-            <ModalSetting setIsVisible={setIsSettingVisible}/>
+            <ModalSetting setIsVisible={setIsSettingVisible} selectedClientId={selectedClientId}/>
           </Modal>
           }
           </>
