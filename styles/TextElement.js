@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 export const textStyles = StyleSheet.create({
     inputText:{
-        padding: 10,
+        padding: 11,
         fontSize: 20,
         flex:1,
         borderWidth: 0,        

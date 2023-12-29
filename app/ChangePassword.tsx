@@ -1,4 +1,4 @@
-import { Alert, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { ImageBackground } from 'expo-image';
 import React, { useState } from 'react'
 import PasswordInputField from '../components/PasswordInputField';
@@ -71,7 +71,9 @@ const ChangePassword = () => {
 
 
   return (
+    
       <ImageBackground source={passresetimg} imageStyle={styles.bgimage} style={{flex:1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 25}}>
+      <ScrollView contentContainerStyle={styles.container}>
       <Text style={textStyles.PageHeading}>Reset Your Password?</Text>
       <Text style={textStyles.PageSubHeading}>Your New Password Must Be Different from Previously Used Password</Text>
       <PasswordInputField 
@@ -101,6 +103,7 @@ const ChangePassword = () => {
       <Pressable style={divStyles.submitButton} onPress={()=> handleSubmitPassword()}>
         <Text style={textStyles.buttonText}>Change Password</Text>
       </Pressable>
+      </ScrollView>
       </ImageBackground>
   )
 }
@@ -109,8 +112,14 @@ export default ChangePassword
 
 const styles = StyleSheet.create({
   bgimage:{
-    resizeMode: 'contain',
+    contentFit: 'contain',
     opacity: 0.05,
     marginTop: -70
+  },
+  container:{
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
+    height: '100%',
   }
 })

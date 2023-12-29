@@ -12,14 +12,15 @@ interface TextInputFieldProps{
     RightIconColor: string;
     RightIconName: any;
     textValue: string;
+    bgcolor: string;
     placeholder: string;
     setTextValue: Dispatch<SetStateAction<string>>;
 }
 
-const TextInputField: React.FC<TextInputFieldProps> = ({FocusColor,NotFocusColor, LeftIconColor, RightIconColor,LeftIconName, RightIconName, textValue, placeholder, setTextValue}) => {
+const TextInputField: React.FC<TextInputFieldProps> = ({FocusColor,NotFocusColor, bgcolor, LeftIconColor, RightIconColor,LeftIconName, RightIconName, textValue, placeholder, setTextValue}) => {
     const [InputIsFocus,setInputIsFocus] = useState<boolean>(false);
     return (
-    <View style={[divStyles.EntryPageInputHolder, { borderColor: InputIsFocus?FocusColor:NotFocusColor}]}>
+    <View style={[divStyles.EntryPageInputHolder, { borderColor: InputIsFocus?FocusColor:NotFocusColor, backgroundColor: bgcolor}]}>
         <FontAwesome name={LeftIconName} size={20} color={LeftIconColor}/>
         <TextInput
           style={textStyles.inputText}
@@ -30,7 +31,7 @@ const TextInputField: React.FC<TextInputFieldProps> = ({FocusColor,NotFocusColor
           onBlur={() => setInputIsFocus(false)}
           underlineColorAndroid="transparent"
         />
-        <FontAwesome name={RightIconName} size={20} color={RightIconColor}/>
+        {RightIconColor != 'transparent' && <FontAwesome name={RightIconName} size={20} color={RightIconColor}/>}
       </View>
   )
 }

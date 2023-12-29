@@ -1,15 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { ImageBackground } from 'expo-image'
 import bgimg from '../../assets/images/bgimg.png';
+import { TabAnimation } from '../../components/TabAnimation';
+import AddLeadbyUser from '../../components/AddLeadbyUser';
 
 
 const leadupdate = () => {
   return (
     <ImageBackground  source={bgimg} style={{flex:1}}>
-        <View style={{flex:1}}>
-            <Text>leadupdate</Text>
-        </View>
+        <TabAnimation style={{flex:1}}>
+          <AddLeadbyUser/>        
+        </TabAnimation>
     </ImageBackground>
   )
 }

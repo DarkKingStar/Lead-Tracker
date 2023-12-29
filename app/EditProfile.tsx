@@ -1,21 +1,22 @@
-import { Platform, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { StatusBar } from 'expo-status-bar';
 import ProfileEdit from '../components/ProfileEdit';
 
 export default function EditProfile(){
     return (
-        <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
           <Text style={styles.title}>Edit Profile</Text>
             <ProfileEdit/>
           <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
-        </View>
+        </ScrollView>
     );
 }
     
 const styles = StyleSheet.create({
     container: {
-    flex: 1,
+    height:'100%',
+    paddingHorizontal: 30,
     alignItems: 'center',
     justifyContent: 'center',
     },

@@ -13,7 +13,7 @@ export const ModalAnimation: React.FC<ModalAnimationProps> = ({ children, style 
 
   useFocusEffect(
     React.useCallback(() => {
-      translateY.value = withTiming(0, { duration: 400 });
+      translateY.value = withTiming(0, { duration: 300 });
 
       return () => {
         translateY.value = Dimensions.get('window').height;

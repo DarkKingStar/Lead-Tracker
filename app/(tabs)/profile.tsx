@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   separator: {
-    marginVertical: 15,
+    marginVertical: 10,
     backgroundColor: '#e1e1e1',
     height: 1,
     width: '40%',

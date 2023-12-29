@@ -1,7 +1,8 @@
-import {  LOGIN,  CHECK_USERNAME,  FORGOT_PASSWORD,  RESEND_OTP,  OTP_VERIFY, RESET_PASSWORD, SEARCH, PROFILEUPDATE, LEADUPDATE} from './BaseConfig';
+import {  LOGIN,  CHECK_USERNAME,  FORGOT_PASSWORD,  RESEND_OTP,  OTP_VERIFY, RESET_PASSWORD, SEARCH, PROFILEUPDATE, LEADUPDATE, PROFILEIMAGEUPDATE} from './BaseConfig';
 import { createContext, useEffect, useState, useContext } from "react";
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
+import FormData from 'form-data';
 
 
 interface AuthProps {
@@ -14,6 +15,7 @@ interface AuthProps {
   OnLeadUpdate: (clientId:string, leadStatusId:number, date:Date|undefined,time:Date|undefined,remark:string)=> Promise<{error:boolean; message: string}>;
   OnSearchData: (name: string,phone:string,selectedValueId:number,selectedStartDate:Date|undefined,selectedEndDate:Date|undefined) => Promise<void>;
   OnProfileUpdate: (name: string, email:string,phone: string) => Promise<{error:boolean; message: string}>;
+  OnProfileImageUpdate: (imageUri: string,filename: string) => Promise<{error:boolean; message: string}>;
   OnValidateUsername: (username: string) => Promise<boolean>;
   OnLogin: (username: string, password: string) => Promise<boolean>;
   OnLogout: () => Promise<void>;
@@ -32,6 +34,7 @@ const AuthContext = createContext<AuthProps>({
   searchDataValue: [],
   OnLeadUpdate: async(clientId:string, leadStatusId:number, date:Date|undefined,time:Date|undefined,remark:string)=> ({error: false, message: ''}),
   OnProfileUpdate: async(name: string, email:string,phone: string) => ({error:false, message: ''}),
+  OnProfileImageUpdate: async( imageUri: string,filename: string) => ({error:false, message: ''}),
   OnSearchData: async(name: string,phone:string,selectedValueId:number,selectedStartDate:Date|undefined,selectedEndDate:Date|undefined) => {},
   OnValidateUsername: async (username: string) => false,
   OnLogin: async (username: string, password: string) => false,
@@ -49,11 +52,7 @@ export const useAuth = () =>{
 
 export const AuthProvider = ({children}: any) =>{
   const  [authState,setAuthState] = useState<{token: string | null;authenticated: boolean | null;}>({token: null,authenticated: null});
-  const [userData, setUserData] = useState<{userId: string| null; degid: string| null; degname: string| null;
-    fullname: string| null; contactno: string| null; email:string| null; username: string| null;
-     image:string| null; imageURL:string| null;}>({userId:  null, degid:  null, degname: null,
-    fullname:null, contactno:null, email:null, username: null, image: null, imageURL: null
-    });
+  const [userData, setUserData] = useState<{userId: string| null; degid: string| null; degname: string| null;fullname: string| null; contactno: string| null; email:string| null; username: string| null;image:string| null; imageURL:string| null;}>({userId:  null, degid:  null, degname: null,fullname:null, contactno:null, email:null, username: null, image: null, imageURL: null});
   const [searchDataValue,setSearchDataValue] = useState<[]>([]);
 
 
@@ -219,12 +218,40 @@ export const AuthProvider = ({children}: any) =>{
     const fetchData = await fetchAPIPostData(LEADUPDATE, formData);
     return {error:  fetchData?.error || false , message : fetchData?.message || 'Unable to Update Your Lead'};
   }
+
+  const ProfileImageUpdate = async( imageUri: string,filename: string) =>{
+    const formData: FormData = new FormData();
+    formData.append('txt_user_details_id', userData.userId || '' );
+    formData.append('txt_token', authState?.token || '');
+    let filenametemp;
+    let file: File;
+    if(userData?.username && userData?.userId){
+      filenametemp = userData?.username + userData?.userId + "."+filename
+    }
+    // console.log('blob:', blob);
+    // console.log('filename:', filenametemp);
+    if(filenametemp){
+      const response = await fetch(imageUri);
+      const blob = await response.blob();
+      file = new File([blob], filenametemp, { type: 'image/png' || 'image/jpg' || 'image/jpeg' });
+      // console.log('file:', JSON.stringify(file,null,3));
+      formData.append("txt_image", file, filenametemp);
+      setUserData((prev)=>({...prev,imageURL: imageUri}))
+    }
+    // console.log(formData);
+    
+    const fetchData = await fetchAPIPostData(PROFILEIMAGEUPDATE, formData);
+    return {error:  fetchData?.error || false , message : fetchData?.message || 'Unable to Update Your Profile Image'};
+  }
+
+
   const value={
     authState,
     userData,
     searchDataValue,
     OnLeadUpdate: leadUpdate,
     OnProfileUpdate:profileUpdate,
+    OnProfileImageUpdate:ProfileImageUpdate,
     OnSearchData: searchData,
     OnLogin: Login,
     OnValidateUsername: ValidateUsername,

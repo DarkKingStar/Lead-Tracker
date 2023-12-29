@@ -9,6 +9,7 @@ import { ModalAnimation } from './ModalAnimation';
 import { useAuth } from '../context/AuthContext';
 import { useQuery } from '@tanstack/react-query';
 import { fetchMenuData } from '../context/fetchData';
+import SelectInputField from './SelectInputField';
 
 interface ModalSettingProps{
     setIsVisible:React.Dispatch<React.SetStateAction<boolean>>;
@@ -70,32 +71,38 @@ const ModalSetting: React.FC<ModalSettingProps> = ({setIsVisible, selectedClient
             <View style={styles.separator} />
             <View style={styles.row}>        
                 <View style={styles.dateInputholder}>
-                    <DateInputField mode={"date"} value={selectedDate} onChange={handleDateChange}>
-                        <Text style={styles.dateInput}>{dateFlag?formatDate(selectedDate):"Date"}</Text>
-                    </DateInputField>
+                    <DateInputField 
+                    mode={"date"} 
+                    value={selectedDate} 
+                    placeholder="Date"
+                    bordercolor='transparent'
+                    bgcolor='#ffffff'
+                    dateflag={dateFlag} 
+                    onChange={handleDateChange}/>
                     </View>
-                    <View style={[styles.dateInputholder]}>
-                      <DateInputField mode={"time"} value={selectedTime} onChange={handleTimeChange} >
-                        <Text style={styles.dateInput}>{timeFlag?formatTime(selectedTime):"Time"}</Text>
-                      </DateInputField>
+                    <View style={styles.dateInputholder}>
+                      <DateInputField 
+                      mode={"time"} 
+                      value={selectedTime}
+                      placeholder="Time"
+                      bordercolor='transparent'
+                      bgcolor='#ffffff'
+                      dateflag={timeFlag} 
+                      onChange={handleTimeChange}/>
                     </View>
                 </View>
-                <View style={styles.select}>
-                  <Picker
-                  selectedValue={selectedValue}
-                  onValueChange={(itemValue, itemIndex) => {
-                    if (itemIndex !== 0) {
-                      setSelectedValue(itemValue);
-                      setSelectedValueId(itemIndex);
-                    }
-                  }}
-                  >
-                  <Picker.Item label="Select" value={''} enabled={false} />
-                  {options.map((option: string | undefined, index: React.Key | null | undefined) => (
-                    <Picker.Item key={index} label={option} value={option?.toLowerCase()} />
-                  ))}
-                  </Picker>
-                </View>
+              
+                <SelectInputField
+                    selectedValue={selectedValue}
+                    setSelectedValue={setSelectedValue}
+                    setSelectedValueId={setSelectedValueId} 
+                    options={options}
+                    placeholder='Select Lead Status'
+                    bordercolor={'transparent'}
+                    bgcolor='#ffffff'
+                    LeftIconName='clipboard'
+                    LeftIconColor={ "#ffc000"}
+                    />
                 <TextInput
                     style={styles.inputtext}
                     multiline={true}
@@ -115,11 +122,6 @@ const ModalSetting: React.FC<ModalSettingProps> = ({setIsVisible, selectedClient
 export default ModalSetting
 
 const styles = StyleSheet.create({
-    select: {
-        fontSize: 11,
-        backgroundColor: 'white',
-        borderRadius: 5,
-    },
     formHeading: {
         fontSize: 20,
         fontWeight: '800',
@@ -131,13 +133,10 @@ const styles = StyleSheet.create({
     },
     row: {
         gap:8,
-        marginBottom:8,
         display: 'flex',
         flexDirection: 'row',
     },
     dateInputholder: { 
-        padding: 16,
-        backgroundColor: 'white',
         flex: 1,
         borderRadius: 5,
     },
@@ -161,7 +160,6 @@ const styles = StyleSheet.create({
         fontSize:16,
         padding: 16,
         backgroundColor: 'white',
-        marginVertical: 8,
         marginBottom:16,
         textAlignVertical: 'top',
         borderRadius: 5,

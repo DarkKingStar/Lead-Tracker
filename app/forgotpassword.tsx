@@ -56,6 +56,7 @@ export default function ForgotPassswordScreen() {
       LeftIconColor={username !== '' ? "#000000" : "#C9C9C9"}
       RightIconColor={isValidUsername ? "#008000" : "#C9C9C9"} 
       textValue={username}
+      bgcolor='#ffffff'
       placeholder='Username'
       LeftIconName='user'
       RightIconName='check-circle'

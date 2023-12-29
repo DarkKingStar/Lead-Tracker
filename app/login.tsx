@@ -61,7 +61,8 @@ export default function LoginScreen() {
       FocusColor={isUsernameWrong ? '#ff0000': '#426EB2'}
       NotFocusColor={isUsernameWrong ? '#ff0000': '#c9c9c9'}
       LeftIconColor={username !== '' ? "#000000" : "#C9C9C9"}
-      RightIconColor={isValidUsername ? "#008000" : "#C9C9C9"} 
+      RightIconColor={isValidUsername ? "#008000" : "#C9C9C9"}
+      bgcolor='#ffffff' 
       textValue={username}
       LeftIconName='user'
       RightIconName='check-circle'

@@ -45,7 +45,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="leadupdate"
+        name="addnewlead"
         options={{
           title: '',
           tabBarIcon: ({ color }) => <TabBarMiddleIcon name="plus" color={color} title='ADD'/>,
@@ -98,8 +98,8 @@ function TabBarMiddleIcon(props: {
   color: string;
   title: string;
 }) {
-  return (<><View style={{marginTop: -15, display:'flex', justifyContent:'center',borderWidth: 2.5,borderColor:'#FF008C', alignItems: 'center',borderRadius:100,width:60,height:60, backgroundColor:"#fff" }}>
-  <FontAwesome size={24} color='#FF008C' name={props.name} /> 
+  return (<><View style={{marginTop: -15, display:'flex', justifyContent:'center',borderWidth: 2.5,borderColor:`${props.color=='#fff'?'#FF008C':props.color}`, alignItems: 'center',borderRadius:100,width:60,height:60, backgroundColor:"#ffffff" }}>
+  <FontAwesome size={24} color={props.color=='#fff'?'#FF008C':props.color} name={props.name} /> 
   </View>
   {/* <Text style={{color:`${props.color}`, fontSize: 11,marginTop: 5,}}>{props.title}</Text> */}
   </>);

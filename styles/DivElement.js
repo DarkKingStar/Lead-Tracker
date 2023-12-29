@@ -20,7 +20,7 @@ export const divStyles = StyleSheet.create({
         alignItems: 'center',
         borderWidth: 2,
         borderRadius: 8,
-        marginBottom: 15,
+        marginBottom: 10,
         paddingHorizontal:10,
     },
     submitButton:{

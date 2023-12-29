@@ -13,7 +13,7 @@ const ChatMessageBox: React.FC<ChatMessageBoxProps> = ({conversation, loading}) 
         <View key={index} style={styles.chatbubble}>
         <View style={styles.flexContainer}>
             <Text style={styles.chattext}>{item?.remarks}</Text>
-            <Text style={styles.chatheading}>{item?.lead_status}</Text>
+            <Text  ellipsizeMode='tail' style={styles.chatheading}>{item?.lead_status}</Text>
         </View>
         <View style={[styles.flexContainer,{marginTop:12}]}>
             <Text>Date: {item.lead_status_date}</Text>
@@ -56,6 +56,9 @@ const styles = StyleSheet.create({
     chatheading:{
         color: '#FF008C',
         fontWeight: '800',
+        width: "30%",
+        textAlign: 'right',
+        
     },
     updatedatetime:{
         color: '#382ADD',
