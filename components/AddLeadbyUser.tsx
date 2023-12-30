@@ -1,52 +1,106 @@
-import { Pressable, StyleSheet,ScrollView, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import { Pressable, StyleSheet,ScrollView, Text, View, Modal, Button } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import TextInputField from './TextInputField';
 import SelectInputField from './SelectInputField';
 import DateInputField from './DateInputField';
 import { divStyles } from '../styles/DivElement';
 import { textStyles } from '../styles/TextElement';
+import SearchListModal from './SearchListModal';
+import { useQuery } from '@tanstack/react-query';
+import { fetchMasterDataList } from '../context/fetchData';
+import { useFocusEffect } from 'expo-router';
+import { useAuth } from '../context/AuthContext';
+import { showMessage } from 'react-native-flash-message';
+import { FontAwesome } from '@expo/vector-icons';
+
+interface DataItem {
+    key: string;
+    value: string;
+}
+
+interface LeadLocation{
+    lead_location_id: string;
+    lead_location: string;
+}
+interface modeOfBusiness{
+    mode_of_business_id: string;
+    mode_of_business: string;
+}
+interface leadSource{
+    lead_source_id: string;
+    lead_source: string
+}
+interface namePrefix{
+    name_prefix_details_id: string;
+    name_prefix: string;
+}
 
 const AddLeadbyUser = () => {
+    const {OnAddNewLead} = useAuth()
+    const { data, isLoading, isError, refetch } = useQuery({ 
+        queryKey: ['marsterlist'],
+        queryFn: ()=>fetchMasterDataList(),
+        enabled: true
+    });
+    const [modalVisible, setModalVisible] = useState(false);
+
     const [firstName,setFirstName] = useState<string>('');
     const [middleName,setMiddleName] = useState<string>('');
     const [lastName,setLastName] = useState<string>('');
     
-    const [gender,setGender] = useState<string>('');
-    const [genderId,setGenderId] = useState<number>(0);
-    const genderoption = ['Mr.','Ms.','Mrs.'];
 
     const [phone,setPhone] = useState<string>('');
     const [phoneAlt,setPhoneAlt] = useState<string>('');
 
     const [email,setEmail] = useState<string>('');
 
-    const [leadSource, setLeadSource] = useState<string>('');
-    const [leadSourceId,setLeadSourceId] = useState<number>(0);
-    const leadSourceoption = ['option 1','option 2','option 3'];
+    const [selectedLeadSource,setSelectedLeadSource] = useState<DataItem>();
 
-    const [businessMode, setBusinessMode] = useState<string>('');
-    const [businessModeId,setBusinessModeId] = useState<number>(0);
-    const businessModeoption = ['option 1','option 2','option 3'];
+
+    const [selectedModeOfBusiness,setSelectedModeOfBusiness] = useState<DataItem>();
+
 
     const [businessName,setBusinessName] = useState<string>('');
+
+
+    const [selectedLocation, setSelectedLocation] = useState<DataItem>();
 
     const [selectedDate, setSelectedDate] = useState<Date>();
     const [dateFlag,setDateFlag] = useState<boolean>(false);
 
-    
+    const [remarks,setRemarks] = useState<string>('');
+
+    const [prefix,setPrefix] = useState<string>('');
+    const [prefixId,setPrefixId] = useState<number>(0);
+    const prefixOptions = data?.name_prefix?.sort((a:any, b:any) => a.name_prefix_details_id - b.name_prefix_details_id)
+                        ?.map((item: namePrefix) => item.name_prefix);
+
     const handleDateChange = (date: Date) => {
         setDateFlag(true);
         setSelectedDate(date);
     };
-    return (
+
+    const handleSubmit = async() =>{
+        const flagData = await OnAddNewLead(selectedLeadSource?.key,prefixId.toString(),firstName,middleName,lastName,
+            phone,phoneAlt,email,selectedModeOfBusiness?.key,selectedLocation?.key,businessName,remarks,selectedDate);
+        showMessage({
+            message: `   ${flagData?.message}`,
+            type: flagData?.error?"danger":"success",
+            position:"bottom",
+            icon: props => flagData?.error?<FontAwesome name="close" size={17} color="#fff" {...props}/>:<FontAwesome name="check" size={17} color="#fff" {...props}/>,
+        })
+        setModalVisible(false);
+    }
+    return (<>
+        {!isLoading &&
         <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.row}>
                 <View style={{flex:1}}>
                     <SelectInputField
-                    selectedValue={gender}
-                    setSelectedValue={setGender}
-                    setSelectedValueId={setGenderId} 
-                    options={genderoption}
+                    selectedValue={prefix}
+                    setSelectedValue={setPrefix}
+                    setSelectedValueId={setPrefixId} 
+                    options={prefixOptions}
                     placeholder='Prefix'
                     bgcolor='#ffffff'
                     bordercolor={'#c9c9c9'}
@@ -147,11 +201,10 @@ const AddLeadbyUser = () => {
             </View>
             <View style={styles.row}>
                 <View style={{flex:1}}>
-                    <SelectInputField
-                    selectedValue={leadSource}
-                    setSelectedValue={setLeadSource}
-                    setSelectedValueId={setLeadSourceId} 
-                    options={leadSourceoption}
+                <SearchListModal
+                    data={data?.lead_source?.map((item: leadSource) => ({ key: item.lead_source_id, value: item.lead_source }))}
+                    setSelectedValue={setSelectedLeadSource}
+                    selectedValue = {selectedLeadSource}
                     placeholder='Select Lead Source'
                     bordercolor={'#c9c9c9'}
                     bgcolor='#ffffff'
@@ -162,11 +215,10 @@ const AddLeadbyUser = () => {
             </View>
             <View style={styles.row}>
                 <View style={{flex:1}}>
-                    <SelectInputField
-                    selectedValue={businessMode}
-                    setSelectedValue={setBusinessMode}
-                    setSelectedValueId={setBusinessModeId} 
-                    options={businessModeoption}
+                <SearchListModal
+                    data={data?.mode_of_business?.map((item: modeOfBusiness) => ({ key: item.mode_of_business_id, value: item.mode_of_business }))}
+                    setSelectedValue={setSelectedModeOfBusiness}
+                    selectedValue = {selectedModeOfBusiness}
                     placeholder='Select Mode Of Business'
                     bordercolor={'#c9c9c9'}
                     bgcolor='#ffffff'
@@ -193,12 +245,11 @@ const AddLeadbyUser = () => {
             </View>
             <View style={styles.row}>
                 <View style={{flex:1}}>
-                    <SelectInputField
-                    selectedValue={businessMode}
-                    setSelectedValue={setBusinessMode}
-                    setSelectedValueId={setBusinessModeId} 
-                    options={businessModeoption}
-                    placeholder='Location of the Lead'
+                    <SearchListModal
+                    data={data?.lead_location?.map((item: LeadLocation) => ({ key: item.lead_location_id, value: item.lead_location }))}
+                    setSelectedValue={setSelectedLocation}
+                    selectedValue = {selectedLocation}
+                    placeholder='Select Location of the Lead'
                     bordercolor={'#c9c9c9'}
                     bgcolor='#ffffff'
                     LeftIconName='thumb-tack'
@@ -217,10 +268,97 @@ const AddLeadbyUser = () => {
                     />
                 </View>
             </View>
-            <Pressable onPress={()=>{}} style={[divStyles.submitButton,{backgroundColor: '#0466AC'}]}>
+            <View style={styles.row}>
+                <View style={{flex:1}}>
+                    <TextInputField 
+                    placeholder='Remarks'
+                    FocusColor={ '#c9c9c9'}
+                    NotFocusColor={ '#c9c9c9'}
+                    LeftIconColor={ "#8fce00"}
+                    bgcolor='#ffffff'
+                    RightIconColor={ "transparent"} 
+                    textValue={remarks}
+                    setTextValue={setRemarks}
+                    LeftIconName='info-circle'
+                    RightIconName='check'
+                    />
+                </View>
+            </View>
+            <Pressable onPress={()=>setModalVisible(true)} style={[divStyles.submitButton,{backgroundColor: '#0466AC'}]}>
                   <Text style={textStyles.buttonText}>Add New Lead</Text>
-                </Pressable>
+            </Pressable>
+            <Modal
+            animationType="fade"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+            setModalVisible(!modalVisible);
+            }}>
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <View style={[styles.row,{marginTop: 10, justifyContent:'space-between', 
+borderBottomWidth: 1, borderColor : '#eeeeee', paddingVertical: 4}]}>
+                            <Text style={{fontWeight: '800'}}>Full Name:</Text>
+                            <Text>{prefix} {firstName} {middleName} {lastName}</Text>
+                        </View>    
+                        <View style={[styles.row,{marginTop: 10, justifyContent:'space-between', 
+borderBottomWidth: 1, borderColor : '#eeeeee', paddingVertical: 4}]}>
+                            <Text style={{fontWeight: '800'}}>Contact no.:</Text>
+                            <Text>{phone}</Text>    
+                        </View>
+                        <View style={[styles.row,{marginTop: 10, justifyContent:'space-between', 
+borderBottomWidth: 1, borderColor : '#eeeeee', paddingVertical: 4}]}>
+                            <Text style={{fontWeight: '800'}}>Contact no. 2:</Text>
+                            <Text>{phoneAlt}</Text>    
+                        </View>
+                        <View style={[styles.row,{marginTop: 10, justifyContent:'space-between', 
+borderBottomWidth: 1, borderColor : '#eeeeee', paddingVertical: 4}]}>
+                            <Text style={{fontWeight: '800'}}>Email:</Text>
+                            <Text>{email}</Text>    
+                        </View>
+                        <View style={[styles.row,{marginTop: 10, justifyContent:'space-between', 
+borderBottomWidth: 1, borderColor : '#eeeeee', paddingVertical: 4}]}>
+                            <Text style={{fontWeight: '800'}}>Lead Source:</Text>
+                            <Text>{selectedLeadSource?.value}</Text>    
+                        </View>
+                        <View style={[styles.row,{marginTop: 10, justifyContent:'space-between', 
+borderBottomWidth: 1, borderColor : '#eeeeee', paddingVertical: 4}]}>
+                            <Text style={{fontWeight: '800'}}>Mode of Business:</Text>
+                            <Text>{selectedModeOfBusiness?.value}</Text>    
+                        </View>
+                        <View style={[styles.row,{marginTop: 10, justifyContent:'space-between', 
+borderBottomWidth: 1, borderColor : '#eeeeee', paddingVertical: 4}]}>
+                            <Text style={{fontWeight: '800'}}>Business Name:</Text>
+                            <Text>{businessName}</Text>    
+                        </View>
+                        <View style={[styles.row,{marginTop: 10, justifyContent:'space-between', 
+borderBottomWidth: 1, borderColor : '#eeeeee', paddingVertical: 4}]}>
+                            <Text style={{fontWeight: '800'}}>Location of the Lead:</Text>
+                            <Text>{selectedLocation?.value}</Text>
+                        </View>
+                        <View style={[styles.row,{marginTop: 10, justifyContent:'space-between', 
+borderBottomWidth: 1, borderColor : '#eeeeee', paddingVertical: 4}]}>
+                            <Text style={{fontWeight: '800'}}>Enquiry Date:</Text>
+                            <Text>{selectedDate?.toLocaleDateString()}</Text>
+                        </View>
+                        <View style={[styles.row,{marginTop: 10, justifyContent:'space-between', 
+borderBottomWidth: 1, borderColor : '#eeeeee', paddingVertical: 4}]}>
+                            <Text style={{fontWeight: '800'}}>Remarks:</Text>
+                            <Text>{remarks}</Text>
+                        </View>
+                        <View style={[styles.row,{marginTop: 20}]}>
+                            <View style={{flex:1}}>
+                                <Button title='Edit' color={'#bcbcbc'} onPress={()=>setModalVisible(false)}/>
+                            </View>
+                            <View style={{flex:1}}>
+                                <Button title='Submit' color={'#2986cc'} onPress={()=>handleSubmit()}/>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </ScrollView>
+    }</>
   )
 }
 
@@ -236,4 +374,26 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         gap: 5,
     },
+    centeredView: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#00000088',
+      },
+      modalView: {
+        margin: 20,
+        backgroundColor: '#fff',
+        borderRadius: 20,
+        padding: 25,
+        flex:1,
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+      },
 })

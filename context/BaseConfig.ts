@@ -12,4 +12,6 @@ export const PROFILEIMAGEUPDATE = `${BASE_URL}/profile_image_update`;
 export const LEAD_LIST = `${BASE_URL}/lead_details_list`;
 export const CHAT_MSG = `${BASE_URL}/client_communication_details/`;
 export const SEARCH = `${BASE_URL}/lead_search`;
+export const ADDNEWLEAD = `${BASE_URL}/new_client_add_user_wise`;
 export const LEADUPDATE = `${BASE_URL}/lead_status_update`;
+export const MASTERDATALIST = `${BASE_URL}/master_data_list`;

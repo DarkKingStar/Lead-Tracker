@@ -1,4 +1,4 @@
-import {  LOGIN,  CHECK_USERNAME,  FORGOT_PASSWORD,  RESEND_OTP,  OTP_VERIFY, RESET_PASSWORD, SEARCH, PROFILEUPDATE, LEADUPDATE, PROFILEIMAGEUPDATE} from './BaseConfig';
+import {  LOGIN,  CHECK_USERNAME,  FORGOT_PASSWORD,  RESEND_OTP,  OTP_VERIFY, RESET_PASSWORD, SEARCH, PROFILEUPDATE, LEADUPDATE, PROFILEIMAGEUPDATE, ADDNEWLEAD} from './BaseConfig';
 import { createContext, useEffect, useState, useContext } from "react";
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
@@ -12,6 +12,8 @@ interface AuthProps {
    image:string| null; imageURL:string| null;
   };
   searchDataValue: [];
+  OnAddNewLead : (leadSourceId:string|undefined,prefixId:string|undefined,firstName:string,middleName:string,lastName:string,phone:string,altPhone:string,
+    email:string,modeOfBusinessId:string|undefined,leadLocationId:string|undefined,businessName:string,remarks:string,enquiryDate:Date|undefined) => Promise<{error:boolean; message: string}>;
   OnLeadUpdate: (clientId:string, leadStatusId:number, date:Date|undefined,time:Date|undefined,remark:string)=> Promise<{error:boolean; message: string}>;
   OnSearchData: (name: string,phone:string,selectedValueId:number,selectedStartDate:Date|undefined,selectedEndDate:Date|undefined) => Promise<void>;
   OnProfileUpdate: (name: string, email:string,phone: string) => Promise<{error:boolean; message: string}>;
@@ -32,6 +34,8 @@ const AuthContext = createContext<AuthProps>({
     fullname:null, contactno:null, email:null, username: null, image: null, imageURL: null
     },
   searchDataValue: [],
+  OnAddNewLead : async(leadSourceId:string|undefined,prefixId:string|undefined,firstName:string,middleName:string,lastName:string,phone:string,altPhone:string,
+    email:string,modeOfBusinessId:string|undefined,leadLocationId:string|undefined,businessName:string,remarks:string,enquiryDate:Date|undefined) => ({error:false, message: ''}),
   OnLeadUpdate: async(clientId:string, leadStatusId:number, date:Date|undefined,time:Date|undefined,remark:string)=> ({error: false, message: ''}),
   OnProfileUpdate: async(name: string, email:string,phone: string) => ({error:false, message: ''}),
   OnProfileImageUpdate: async( imageUri: string,filename: string) => ({error:false, message: ''}),
@@ -244,11 +248,31 @@ export const AuthProvider = ({children}: any) =>{
     return {error:  fetchData?.error || false , message : fetchData?.message || 'Unable to Update Your Profile Image'};
   }
 
-
+  const AddNewLead =async (leadSourceId:string|undefined,prefixId:string|undefined,firstName:string,middleName:string,lastName:string,phone:string,altPhone:string,
+    email:string,modeOfBusinessId:string|undefined,leadLocationId:string|undefined,businessName:string,remarks:string,enquiryDate:Date|undefined) => {
+    const formData: FormData = new FormData();
+    formData.append("ddl_lead_source_id", leadSourceId||'');
+    formData.append("ddl_name_prefix_id", prefixId||'');
+    formData.append("txt_f_name", firstName);
+    formData.append("txt_m_name", middleName);
+    formData.append("txt_l_name", lastName);
+    formData.append("txt_contact_no", phone);
+    formData.append("txt_contact_no2", altPhone);
+    formData.append("txt_email", email);
+    formData.append("ddl_mode_of_business_id", modeOfBusinessId||'');
+    formData.append("ddl_lead_location_id", leadLocationId||'');
+    formData.append("txt_business_name", businessName);
+    formData.append("txt_remarks", remarks);
+    formData.append("txt_enq_date", enquiryDate?.toLocaleDateString()||'');
+    formData.append("txt_user_details_id", userData?.userId || '');
+    const fetchData = await fetchAPIPostData(ADDNEWLEAD, formData);
+    return {error:  fetchData?.error || false , message : fetchData?.message || 'Unable to Add new Lead'};
+  }
   const value={
     authState,
     userData,
     searchDataValue,
+    OnAddNewLead:AddNewLead,
     OnLeadUpdate: leadUpdate,
     OnProfileUpdate:profileUpdate,
     OnProfileImageUpdate:ProfileImageUpdate,
