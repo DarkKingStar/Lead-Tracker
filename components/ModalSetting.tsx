@@ -10,6 +10,9 @@ import { useAuth } from '../context/AuthContext';
 import { useQuery } from '@tanstack/react-query';
 import { fetchMenuData } from '../context/fetchData';
 import SelectInputField from './SelectInputField';
+import { ScaledSheet, scale } from 'react-native-size-matters';
+import { textStyles } from '../styles/TextElement';
+import { divStyles } from '../styles/DivElement';
 
 interface ModalSettingProps{
     setIsVisible:React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,8 +22,8 @@ interface ModalSettingProps{
 
 const ModalSetting: React.FC<ModalSettingProps> = ({setIsVisible, selectedClientId}) => {
     const [selectedDate, setSelectedDate] = useState<Date>();
-    const [selectedTime, setSelectedTime] = useState<Date>();
     const [dateFlag,setDateFlag] = useState<boolean>(false);
+    const [selectedTime, setSelectedTime] = useState<Date>();
     const [timeFlag,setTimeFlag] = useState<boolean>(false);
     const [feedback,setFeedback] = useState<string>("");
   
@@ -45,14 +48,7 @@ const ModalSetting: React.FC<ModalSettingProps> = ({setIsVisible, selectedClient
         setTimeFlag(true);
         setSelectedTime(date);
       };
-      const formatDate = (date : Date | undefined) => {
-        if(date)
-        return date.toLocaleDateString('en-GB');
-      };
-      const formatTime = (date: Date | undefined) =>{
-        if(date)
-        return date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-      }
+     
   const handleSubmit = async() =>{
     const flagData = await OnLeadUpdate(selectedClientId, selectedValueId, selectedDate, selectedTime, feedback);
 
@@ -61,8 +57,8 @@ const ModalSetting: React.FC<ModalSettingProps> = ({setIsVisible, selectedClient
   return (
     <View style={{ flex: 1, backgroundColor: '#00000066', justifyContent: 'flex-end'}}>
           <ModalAnimation>
-            <View style={{backgroundColor: '#e9e9e9', borderTopLeftRadius: 25, borderTopRightRadius: 25, paddingHorizontal: 15}}>
-            <View style={[styles.row,{marginVertical: 20, marginBottom:0, justifyContent:'space-between'}]}>
+            <View style={styles.container}>
+            <View style={[styles.row,styles.outercontainer]}>
             <Text style={styles.formHeading}>Conversation Update</Text>
             <Pressable onPress={()=> setIsVisible(false)} style={styles.closeBtnHolder}>
               <Feather name="x-circle" size={20} color="black" />
@@ -70,7 +66,7 @@ const ModalSetting: React.FC<ModalSettingProps> = ({setIsVisible, selectedClient
             </View>
             <View style={styles.separator} />
             <View style={styles.row}>        
-                <View style={styles.dateInputholder}>
+                <View style={{flex:1}}>
                     <DateInputField 
                     mode={"date"} 
                     value={selectedDate} 
@@ -80,7 +76,7 @@ const ModalSetting: React.FC<ModalSettingProps> = ({setIsVisible, selectedClient
                     dateflag={dateFlag} 
                     onChange={handleDateChange}/>
                     </View>
-                    <View style={styles.dateInputholder}>
+                    <View style={{flex:1}}>
                       <DateInputField 
                       mode={"time"} 
                       value={selectedTime}
@@ -110,8 +106,8 @@ const ModalSetting: React.FC<ModalSettingProps> = ({setIsVisible, selectedClient
                     value={feedback}
                     onChangeText={(inputText) => setFeedback(inputText)}
                 />
-                <Pressable onPress={()=>handleSubmit()} style={[styles.SubmitBtn,{backgroundColor: '#0466AC'}]}>
-                  <Text style={styles.btnText}>SUBMIT</Text>
+                <Pressable onPress={()=>handleSubmit()} style={[divStyles.submitButton,{marginTop: scale(8)}]}>
+                  <Text style={textStyles.buttonText}>SUBMIT</Text>
                 </Pressable>
             </View>
       </ModalAnimation>
@@ -121,52 +117,44 @@ const ModalSetting: React.FC<ModalSettingProps> = ({setIsVisible, selectedClient
 
 export default ModalSetting
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
+    container:{
+      backgroundColor: '#e9e9e9',
+      borderTopLeftRadius: '25@s',
+      borderTopRightRadius: '25@s',
+      paddingHorizontal: '15@s'
+    },
     formHeading: {
-        fontSize: 20,
+        fontSize: '18@s',
         fontWeight: '800',
         textAlign: 'left',
+    },
+    outercontainer:{
+      margin: '10@s',
+      marginBottom:0,
+      justifyContent:'space-between'
     },
     closeBtnHolder: {
         alignItems: 'center',
         justifyContent: 'center',
     },
     row: {
-        gap:8,
+        gap:'8@s',
         display: 'flex',
         flexDirection: 'row',
     },
-    dateInputholder: { 
-        flex: 1,
-        borderRadius: 5,
-    },
-    dateInput: {
-        fontSize: 16,
-    },    
-    SubmitBtn:{
-        padding: 14,
-        width: '100%',
-        borderRadius: 5,
-        alignSelf: 'center',
-        marginBottom:8,
-    },
-    btnText:{
-        color: 'white',
-        fontSize: 16,
-        textAlign: 'center',
-        justifyContent: 'center',
-    },
+    
     inputtext:{
-        fontSize:16,
-        padding: 16,
+        fontSize:'16@s',
+        padding: '16@s',
         backgroundColor: 'white',
-        marginBottom:16,
+        marginBottom:'16@s',
         textAlignVertical: 'top',
-        borderRadius: 5,
+        borderRadius: '8@s',
       },
       separator: {
-        marginVertical: 15,
-        height: 1,
+        marginVertical: '10@s',
+        height: '1@s',
         width: '90%',
         alignSelf: 'center',
         backgroundColor: 'rgba(0,0,0,0.1)'

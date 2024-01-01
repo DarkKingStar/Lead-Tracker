@@ -6,6 +6,8 @@ import { router, useFocusEffect } from 'expo-router'
 import { useQuery } from '@tanstack/react-query'
 import { ScrollView } from 'react-native-gesture-handler'
 import { fetchMenuData } from '../context/fetchData'
+import { ScaledSheet } from 'react-native-size-matters'
+import {LinearGradient} from 'expo-linear-gradient';
 
 const convertArray = (data: any) => {
     const newArray = Array.from({ length: Math.ceil(data?.length/2)}, (_,index)=>
@@ -52,11 +54,16 @@ const Menu = () => {
         {dashboard?.map((chunk: any, index: number) => (
             <View key={index} style={styles.row}>
                 {chunk?.map((item: any, itemIndex: number) => (
-                    <View key={itemIndex} style={styles.item}>
+                    <LinearGradient 
+                    colors={['#FFDDD2','#FF8DC7']}
+                    start={{x:0,y:1}}
+                    end={{x:1,y:0}}
+                    key={itemIndex} 
+                    style={styles.item}>
                         <Pressable onPress={()=>gotoPage(item.lead_status_id, userData.userId)}>{/* {userData.userId} */}
                             <MenuItem heading={item.lead_status} totallead={item.total_lead} taskdone={item.lead_count_status_wise} img={item.image_url}/>
                         </Pressable>
-                    </View>
+                    </LinearGradient>
                 ))}
             </View>
         ))}
@@ -64,28 +71,27 @@ const Menu = () => {
     )}
 }
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
     container: {
       flex: 1,
-      padding: 12,
+      padding: '12@s',
     },
     row: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginBottom: 8,
+      marginBottom: '8@s',
       alignSelf: 'center',
-      gap:8,
+      gap:'8@s',
     },
     item: {
       flex: 0.5,
-      backgroundColor: '#fcc',
-      borderRadius: 10,
-      borderWidth: 3,
+      borderRadius: '10@s',
+      borderWidth: '2.5@s',
       borderColor: '#fff',
       shadowOffset: {width: 0, height: 4},
       shadowColor: '#0000002B',
       shadowOpacity: 0.8,
-      padding: 14,
+      padding: '12@s',
     },
   });
 

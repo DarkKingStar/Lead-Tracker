@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Alert } from 'react-native';
+import { Pressable, StyleSheet, Alert, BackHandler } from 'react-native';
 import React,{useEffect, useState} from 'react';
 import { Text, View } from '../components/Themed';
 import { router } from 'expo-router';
@@ -8,6 +8,7 @@ import TextInputField from '../components/TextInputField';
 import { useAuth } from '../context/AuthContext';
 import icon from '../assets/images/icon.png';
 import { Image } from 'expo-image';
+import { ScaledSheet } from 'react-native-size-matters';
 
 export default function ForgotPassswordScreen() {
   const [username, setUsername] = useState<string>('');
@@ -15,6 +16,18 @@ export default function ForgotPassswordScreen() {
   const [isValidUsername, setIsValidUserName] = useState<boolean>(false);
   const {OnSendPassword,OnValidateUsername} = useAuth();
   const [errorMessage, setErrorMessage] = useState<string>("");
+
+  useEffect(() => {
+    const backAction = () => {
+      // You can perform any action you want here before the back button is pressed
+      router.push('/login');
+      return true; // This will prevent the back button press
+    };
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+    return () => backHandler.remove(); // Don't forget to remove the event listener when the component unmounts
+  }, []);
 
   useEffect(()=>{
     const handleValidateUsername = async() =>{
@@ -61,7 +74,7 @@ export default function ForgotPassswordScreen() {
       LeftIconName='user'
       RightIconName='check-circle'
       setTextValue={setUsername}/>
-      {errorMessage!='' && <Text style={{margin: 10, color: '#FF007F', fontSize: 16}}>{errorMessage}</Text>}
+      {errorMessage!='' && <Text style={textStyles.errormessage}>{errorMessage}</Text>}
       <View style={{width: '100%'}}>
       <Pressable style={divStyles.submitButton} onPress={() => handleForgotPassword()} >
           <Text style={textStyles.buttonText}>Send Password</Text>
@@ -72,18 +85,19 @@ export default function ForgotPassswordScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
   },
   title: {
-    fontSize: 20,
+    fontSize: '20@s',
     fontWeight: 'bold',
   },
   separator: {
-    marginVertical: 30,
-    height: 1,
+    marginVertical: '30@s',
+    height: '1@s',
     width: '80%',
   },
+  
 });

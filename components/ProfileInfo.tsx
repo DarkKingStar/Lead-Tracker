@@ -4,6 +4,7 @@ import FontAwesome  from '@expo/vector-icons/FontAwesome';
 import Entypo  from '@expo/vector-icons/Entypo';
 
 import { useAuth } from '../context/AuthContext';
+import { ScaledSheet } from 'react-native-size-matters';
 
 const ProfileInfo = () => {
     const {userData} = useAuth();
@@ -61,36 +62,37 @@ const ProfileInfo = () => {
 
 export default ProfileInfo
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
     
     itemdiv:{
         flexDirection:'row',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 12,
-        borderRadius: 10,
-        marginBottom: 5,
-        marginHorizontal:30,
+        paddingVertical: '8@s',
+        borderRadius: '8@s',
+        marginBottom: '6@s',
+        marginHorizontal:'20@s',
         borderColor: '#e1e1e1',
         backgroundColor: '#ffffff',
         borderWidth:1,
       },
       icon:{
-        marginLeft:10,
-        marginRight: 20,
+        marginHorizontal:'10@s',
+        width: '25@s',
         alignItems: 'center',
+        alignContent: 'center'
       },
       detailsdiv:{
         flex:1,
       },
       title: {
-        fontSize: 12,
-        marginBottom: -4,
+        fontSize: '10@s',
+        marginBottom: '-4@s',
         fontWeight: '800',
         color: '#00000066'
       },
       uservalue:{
-        fontSize: 20,
+        fontSize: '15@s',
         fontWeight: '600',
       },
 })

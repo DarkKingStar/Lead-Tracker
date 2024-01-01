@@ -1,7 +1,7 @@
 import { Alert, Pressable, StyleSheet } from 'react-native';
 import { Image, ImageBackground } from 'expo-image';
 import { Text, View } from '../../components/Themed';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { divStyles } from '../../styles/DivElement';
 import { textStyles } from '../../styles/TextElement';
@@ -11,10 +11,16 @@ import bgimg from '../../assets/images/bgimg.png';
 import { ScrollView } from 'react-native-gesture-handler';
 import toplayerbgimg from '../../assets/images/toplayerbgimg.png';
 import { TabAnimation } from '../../components/TabAnimation';
+import { ScaledSheet, scale } from 'react-native-size-matters';
 
 
 export default function ProfileScreen() {
   const {OnLogout,userData} = useAuth();
+  const [profileImageUri, setProfileimageUri] = useState<string>(userData?.imageURL!=null?userData?.imageURL:'');
+
+  useEffect(()=>{
+    setProfileimageUri(userData?.imageURL!=null?userData?.imageURL:'');
+  },[userData?.imageURL,profileImageUri])
   const handleLogout = () =>{
     Alert.alert(
         'Are you sure',
@@ -27,21 +33,22 @@ export default function ProfileScreen() {
       );
   }
 
+
   return (
     <TabAnimation>
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={[styles.container,{paddingBottom:scale(25)}]}>
       <ImageBackground  source={bgimg} style={{flex:1}}>
         <ImageBackground source={toplayerbgimg} style={styles.pinklayer}/>
       <View style={styles.avatarholder}>
         <Image 
-        source={userData?.imageURL}
+        source={profileImageUri} 
         placeholder={"LEHLk~WB2yk8pyo0adR*.7kCMdnj"}
         contentFit="cover"
         style={styles.avatar}/>
       </View>
 
         <ProfileInfo/>
-        <Pressable style={[divStyles.submitButton, styles.allBtn, {marginTop:15}]} onPress={()=>router.push("/EditProfile")}>
+        <Pressable style={[divStyles.submitButton, styles.allBtn, {marginTop:scale(15)}]} onPress={()=>router.push("/EditProfile")}>
           <Text style={textStyles.buttonText}>Edit Profile</Text>
         </Pressable>
         <Pressable style={[divStyles.submitButton,styles.allBtn]} onPress={()=>router.push('/ChangePassword')}>
@@ -57,58 +64,57 @@ export default function ProfileScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   container: {
     justifyContent: 'space-between',
   },
   allBtn:{
-    marginVertical:5, 
-    padding: 8,
-    borderRadius: 25,
+    marginVertical:'5@s', 
+    padding: '6@s',
+    borderRadius: '25@s',
     width: '80%',
   },
   separator: {
-    marginVertical: 10,
+    marginVertical: '10@s',
     backgroundColor: '#e1e1e1',
     height: 1,
     width: '40%',
     alignSelf: 'center',
   },
   pinklayer:{
-    height: 110,
+    height: '90@s',
     shadowOffset: { width: 0, height: 5 },
     shadowColor: '#C95293',
     shadowOpacity: 1,
     elevation: 5,
     display: 'flex',
     flexDirection: 'row',
-    padding: 18,
     justifyContent: 'center',
   },
   
   avatarholder:{
     backgroundColor: '#fff',
-    borderRadius: 50,
-    width:106,
-    height:106,
+    borderRadius: '100@s',
+    width:'86@s',
+    height:'86@s',
     alignSelf: 'center',
-    marginTop: -50,
-    marginBottom: 15,
+    marginTop: '-50@s',
+    marginBottom: '15@s',
     alignItems: 'center',
     justifyContent: 'center',
     boxShadowColor: '#00000054',
     boxShadowOffset: { width: 4, height: 4 }, 
     boxShadowRadius: 5,
     borderColor:'#000',
-    borderWidth: 1,
+    borderWidth: '1@s',
   },
   avatar:{
-    width:100,
-    height:100,
-    borderRadius: 50,
+    width:'80@s',
+    height:'80@s',
+    borderRadius: '100@s',
     backgroundColor: '#fff',
     borderColor:'#000',
-    borderWidth: 1,
+    borderWidth: '1@s',
   },
  
 });

@@ -1,4 +1,3 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { ImageBackground } from 'expo-image'
 import bgimg from '../../assets/images/bgimg.png';
@@ -17,5 +16,3 @@ const leadupdate = () => {
 }
 
 export default leadupdate
-
-const styles = StyleSheet.create({})

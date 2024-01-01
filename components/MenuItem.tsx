@@ -4,6 +4,7 @@ import MenuProgressBar from './MenuProgressBar';
 import { Image } from 'expo-image';
 import Colors from '../constants/Colors';
 import { useColorScheme } from 'react-native';
+import { ScaledSheet } from 'react-native-size-matters';
 
 interface MenuItemProps {
     heading: string; 
@@ -30,7 +31,7 @@ interface MenuItemProps {
   )
 }
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   container:{
     display: 'flex',
     flexDirection: 'row',
@@ -39,27 +40,26 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   iconholder:{
-    width: 34,
-    height: 30,
-    padding: 8,
-    borderRadius: 5,
+    width: '35@s',
+    height: '28@s',
+    borderRadius: '5@s',
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor:'#FF008C',
-    borderWidth: 1,
+    borderColor:'#4942E4',
+    borderWidth: '1.5@s',
   },
   icon:{
-    height:22,
-    width:22,
+    height:'20@s',
+    width:'20@s',
   },
   heading:{
-    color: '#FF008C',
-    fontSize: 16,
+    color: '#4942E4',
+    fontSize: '15@s',
     fontWeight: '700',
     textAlign: 'left',
   },
   task:{
-  fontSize: 20,
+  fontSize: '16@s',
   fontWeight: '700',
   textAlign: 'left',
   },

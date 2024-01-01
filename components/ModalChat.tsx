@@ -1,10 +1,13 @@
 import { StyleSheet, Text,Pressable, View, ScrollView, Linking } from 'react-native';
+import { ImageBackground } from 'expo-image';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import React,{ useEffect, useState } from 'react';
 import ChatMessageBox from './ChatMessageBox';
 import { Image } from 'expo-image';
 import axios from 'axios';
 import { CHAT_MSG } from '../context/BaseConfig';
+import { ScaledSheet, scale } from 'react-native-size-matters';
+import bgimg from '../assets/images/chatbackbg.png';
 
 interface ModalChatProps{
     setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -36,36 +39,26 @@ const ModalChat:React.FC<ModalChatProps> = ({setIsVisible, setIsSettingVisible, 
         <View style={styles.container}>
             <View style={styles.topcontainer} >
             <Pressable onPress={()=>setIsVisible(false)} style={styles.closebtn}>
-              <FontAwesome name="chevron-left" size={18} color="#747574" />
+              <FontAwesome name="chevron-left" size={scale(18)} color="#fff" />
             </Pressable>
-            <View style={styles.avaterHolder}>
+            {/* <View style={styles.avaterHolder}>
               <Image style={styles.avater} source={'https://www.w3schools.com/howto/img_avatar.png'}/>
-            </View>
+            </View> */}
             <Text style={styles.username}>{ClientName}</Text>
             <Pressable style={styles.callbtn} onPress={()=>Linking.openURL(`tel:${ClientPhoneNumber}`)}>
-              <FontAwesome name="phone" size={22} color="#000" />
+              <FontAwesome name="phone" size={scale(20)} color="#000" />
             </Pressable>
           </View>
-          <ScrollView contentContainerStyle={{paddingBottom:45, backgroundColor:"#fff"} }>
+          <ImageBackground source={bgimg} style={{flex:1}} imageStyle={{opacity:0.3}}>
+          <ScrollView contentContainerStyle={styles.messageboxdiv}>
             <ChatMessageBox conversation={conversation} loading={loading}/>
           </ScrollView>
-          
           <Pressable onPress={()=>setIsSettingVisible(true)}
-            style={{
-            borderWidth: 1,
-            backgroundColor: '#000',
-            borderColor: 'rgba(255,255,255,0.2)',
-            alignItems: 'center',
-            justifyContent: 'center',
-            position: 'absolute',
-            bottom: 10,
-            left: '50%',
-            transform:[{translateX: -50}],
-            borderRadius: 50,
-            }}
-        >
-        <Text style={{color: 'white', paddingVertical:6, paddingHorizontal:14}}>Conversation</Text>
+            style={styles.floatingbtn}
+            >
+        <Text style={styles.btntext}>Conversation</Text>
         </Pressable>
+          </ImageBackground>
       </View>
    
   )
@@ -73,52 +66,69 @@ const ModalChat:React.FC<ModalChatProps> = ({setIsVisible, setIsSettingVisible, 
 
 export default ModalChat
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
     container:{
-        flex: 1, 
-        backgroundColor:'#fff', 
-        borderTopLeftRadius: 25,
-        borderTopRightRadius: 25,
+      flex: 1, 
+      backgroundColor:'#fff', 
     },
     topcontainer:{
       display:'flex',
       flexDirection:'row',
-      backgroundColor: '#f0f0f0',
-      padding: 6,
-      borderTopLeftRadius: 25,
-      borderTopRightRadius: 25,
+      backgroundColor: '#27374D',
       justifyContent: 'space-around',
-      alignItems: 'center'
+      alignItems: 'center',
+      paddingVertical: '10@s'
     },
     closebtn:{
-      paddingHorizontal: 12,
-      paddingVertical: 20,
+      paddingHorizontal: '10@s',
+      paddingVertical: '15@s',
     },
     avater:{
-      width:50,
-      height:50,
-      borderRadius: 50,
+      width:'45@s',
+      height:'45@s',
+      borderRadius: '50@s',
     },
     avaterHolder:{
-      borderRadius: 50,
-      borderWidth:4,
+      borderRadius: '100@s',
+      borderWidth:'4@s',
       borderColor: 'white',
       shadowOffset: {width:0,height: 4},
       shadowColor: '#00000040'
     },
     username:{
-      fontSize:22,
+      fontSize:'18@s',
       fontWeight: '600',
+      color: '#fff',
       width: '60%',
     },
     callbtn:{
-      paddingHorizontal: 10,
-      paddingTop: 8,
-      marginRight: 6,
-      paddingVertical: 5,
-      borderRadius:50,
-      backgroundColor: '#FF85C8',
+      width: '30@s',
+      height: '30@s',
+      marginRight: '6@s',
+      paddingVertical: '5@s',
+      borderRadius:'100@s',
+      backgroundColor: '#6096B4',
       alignItems: 'center',
+    },
+    messageboxdiv:{
+      paddingBottom:'45@s',
+      backgroundColor:"#transparent"
+    },
+    floatingbtn:{
+      borderWidth: '1@s',
+      backgroundColor: '#000',
+      borderColor: 'rgba(255,255,255,0.2)',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      bottom: '10@s',
+      left: '50%',
+      transform:[{translateX: -50}],
+      borderRadius: '50@s',
+    },
+    btntext:{
+      color: 'white',
+      paddingVertical:'6@s',
+      paddingHorizontal:'14@s'
     }
-  
   })

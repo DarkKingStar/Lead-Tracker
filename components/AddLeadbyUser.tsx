@@ -8,10 +8,11 @@ import { textStyles } from '../styles/TextElement';
 import SearchListModal from './SearchListModal';
 import { useQuery } from '@tanstack/react-query';
 import { fetchMasterDataList } from '../context/fetchData';
-import { useFocusEffect } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import { useAuth } from '../context/AuthContext';
 import { showMessage } from 'react-native-flash-message';
 import { FontAwesome } from '@expo/vector-icons';
+import { ScaledSheet, scale } from 'react-native-size-matters';
 
 interface DataItem {
     key: string;
@@ -89,7 +90,26 @@ const AddLeadbyUser = () => {
             position:"bottom",
             icon: props => flagData?.error?<FontAwesome name="close" size={17} color="#fff" {...props}/>:<FontAwesome name="check" size={17} color="#fff" {...props}/>,
         })
-        setModalVisible(false);
+        if(!flagData?.error){
+            setModalVisible(false);
+            setFirstName('');
+            setMiddleName('');
+            setLastName('');
+            setPhone('');
+            setPhoneAlt('');
+            setEmail('');
+            setSelectedLeadSource(undefined);
+            setSelectedModeOfBusiness(undefined);
+            setBusinessName('');
+            setSelectedLocation(undefined);
+            setSelectedDate(undefined);
+            setDateFlag(false);
+            setRemarks('');
+            setPrefix('');
+            setPrefixId(0);
+            setModalVisible(false);
+            router.push('/(tabs)')
+        }
     }
     return (<>
         {!isLoading &&
@@ -296,57 +316,47 @@ const AddLeadbyUser = () => {
             }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <View style={[styles.row,{marginTop: 10, justifyContent:'space-between', 
-borderBottomWidth: 1, borderColor : '#eeeeee', paddingVertical: 4}]}>
+                        <View style={[styles.row,styles.detailslabel]}>
                             <Text style={{fontWeight: '800'}}>Full Name:</Text>
                             <Text>{prefix} {firstName} {middleName} {lastName}</Text>
                         </View>    
-                        <View style={[styles.row,{marginTop: 10, justifyContent:'space-between', 
-borderBottomWidth: 1, borderColor : '#eeeeee', paddingVertical: 4}]}>
+                        <View style={[styles.row,styles.detailslabel]}>
                             <Text style={{fontWeight: '800'}}>Contact no.:</Text>
                             <Text>{phone}</Text>    
                         </View>
-                        <View style={[styles.row,{marginTop: 10, justifyContent:'space-between', 
-borderBottomWidth: 1, borderColor : '#eeeeee', paddingVertical: 4}]}>
+                        <View style={[styles.row,styles.detailslabel]}>
                             <Text style={{fontWeight: '800'}}>Contact no. 2:</Text>
                             <Text>{phoneAlt}</Text>    
                         </View>
-                        <View style={[styles.row,{marginTop: 10, justifyContent:'space-between', 
-borderBottomWidth: 1, borderColor : '#eeeeee', paddingVertical: 4}]}>
+                        <View style={[styles.row,styles.detailslabel]}>
                             <Text style={{fontWeight: '800'}}>Email:</Text>
                             <Text>{email}</Text>    
                         </View>
-                        <View style={[styles.row,{marginTop: 10, justifyContent:'space-between', 
-borderBottomWidth: 1, borderColor : '#eeeeee', paddingVertical: 4}]}>
+                        <View style={[styles.row,styles.detailslabel]}>
                             <Text style={{fontWeight: '800'}}>Lead Source:</Text>
                             <Text>{selectedLeadSource?.value}</Text>    
                         </View>
-                        <View style={[styles.row,{marginTop: 10, justifyContent:'space-between', 
-borderBottomWidth: 1, borderColor : '#eeeeee', paddingVertical: 4}]}>
+                        <View style={[styles.row,styles.detailslabel]}>
                             <Text style={{fontWeight: '800'}}>Mode of Business:</Text>
                             <Text>{selectedModeOfBusiness?.value}</Text>    
                         </View>
-                        <View style={[styles.row,{marginTop: 10, justifyContent:'space-between', 
-borderBottomWidth: 1, borderColor : '#eeeeee', paddingVertical: 4}]}>
+                        <View style={[styles.row,styles.detailslabel]}>
                             <Text style={{fontWeight: '800'}}>Business Name:</Text>
                             <Text>{businessName}</Text>    
                         </View>
-                        <View style={[styles.row,{marginTop: 10, justifyContent:'space-between', 
-borderBottomWidth: 1, borderColor : '#eeeeee', paddingVertical: 4}]}>
+                        <View style={[styles.row,styles.detailslabel]}>
                             <Text style={{fontWeight: '800'}}>Location of the Lead:</Text>
                             <Text>{selectedLocation?.value}</Text>
                         </View>
-                        <View style={[styles.row,{marginTop: 10, justifyContent:'space-between', 
-borderBottomWidth: 1, borderColor : '#eeeeee', paddingVertical: 4}]}>
+                        <View style={[styles.row,styles.detailslabel]}>
                             <Text style={{fontWeight: '800'}}>Enquiry Date:</Text>
                             <Text>{selectedDate?.toLocaleDateString()}</Text>
                         </View>
-                        <View style={[styles.row,{marginTop: 10, justifyContent:'space-between', 
-borderBottomWidth: 1, borderColor : '#eeeeee', paddingVertical: 4}]}>
+                        <View style={[styles.row,styles.detailslabel]}>
                             <Text style={{fontWeight: '800'}}>Remarks:</Text>
                             <Text>{remarks}</Text>
                         </View>
-                        <View style={[styles.row,{marginTop: 20}]}>
+                        <View style={[styles.row,{marginTop: scale(20)}]}>
                             <View style={{flex:1}}>
                                 <Button title='Edit' color={'#bcbcbc'} onPress={()=>setModalVisible(false)}/>
                             </View>
@@ -364,15 +374,15 @@ borderBottomWidth: 1, borderColor : '#eeeeee', paddingVertical: 4}]}>
 
 export default AddLeadbyUser
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
     container:{
-        paddingHorizontal:10,
-        marginVertical:15,
+        paddingHorizontal:'10@s',
+        marginVertical:'15@s',
     },
     row:{
         display: 'flex',
         flexDirection: 'row',
-        gap: 5,
+        gap: '5@s',
     },
     centeredView: {
         flex: 1,
@@ -382,10 +392,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#00000088',
       },
       modalView: {
-        margin: 20,
+        margin: '20@s',
         backgroundColor: '#fff',
-        borderRadius: 20,
-        padding: 25,
+        borderRadius: '20@s',
+        padding: '25@s',
         flex:1,
         shadowColor: '#000',
         shadowOffset: {
@@ -395,5 +405,12 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5,
+      },
+      detailslabel:{
+        marginTop: '10@s',
+        justifyContent:'space-between', 
+        borderBottomWidth: 1,
+        borderColor : '#eeeeee',
+        paddingVertical: '4@s'
       },
 })

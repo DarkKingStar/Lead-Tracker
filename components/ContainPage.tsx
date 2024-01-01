@@ -5,6 +5,8 @@ import { useFocusEffect, useLocalSearchParams } from 'expo-router';
 import axios from 'axios';
 import { LEAD_LIST } from '../context/BaseConfig';
 import { AntDesign } from '@expo/vector-icons';
+import { divStyles } from '../styles/DivElement';
+import { ScaledSheet } from 'react-native-size-matters';
 
 interface ContainPageProps{
   leadId: string | string[];
@@ -14,11 +16,9 @@ interface ContainPageProps{
 const ContainPage: React.FC<ContainPageProps>  = ({leadId, userId}) => {
   const [leadlist,setLeadList] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [pagination,setPagination] = useState<number>(1);
+  const [pagination,setPagination] = useState<number>(0);
   const [hasPageNext, setHasPageNext] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
-  
- 
   useEffect(()=>{
     setPagination(0);
   },[leadId, userId])
@@ -43,10 +43,10 @@ const ContainPage: React.FC<ContainPageProps>  = ({leadId, userId}) => {
       }
     }
     fetchLeadList();
-  },[pagination,leadId,userId]);
+  },[pagination]);
  
   if(isError){
-    return(<View style={{flex:1,marginTop: '50%', justifyContent: 'center',alignSelf:'center', alignItems: 'center'}}>
+    return(<View style={divStyles.errordiv}>
     <AntDesign name="frown" size={54} color="black" />
     <Text style={styles.title}>Oops! no record found</Text>
     <Text>Go to home screen!</Text>
@@ -61,9 +61,10 @@ const ContainPage: React.FC<ContainPageProps>  = ({leadId, userId}) => {
 
 export default ContainPage
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   title: {
-    fontSize: 20,
+    fontSize: '20@s',
     fontWeight: 'bold',
-},
+  },
+  
 })

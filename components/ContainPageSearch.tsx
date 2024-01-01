@@ -4,6 +4,7 @@ import ContainPageItem from './ContainPageItem'
 import { useAuth } from '../context/AuthContext';
 import { View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { ScaledSheet } from 'react-native-size-matters';
 
 const ContainPageSearch  = () => {
   const [pagination,setPagination] = useState<number>(1);
@@ -22,9 +23,9 @@ const ContainPageSearch  = () => {
 
 export default ContainPageSearch
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   title: {
-    fontSize: 20,
+    fontSize: '20@s',
     fontWeight: 'bold',
 },
 })

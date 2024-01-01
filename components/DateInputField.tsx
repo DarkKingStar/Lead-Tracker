@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { formatDate, formatTime } from '../context/formatString';
 import { FontAwesome } from '@expo/vector-icons';
+import { ScaledSheet } from 'react-native-size-matters';
 
 interface DateInputProps{
     value: Date| undefined;
@@ -33,10 +34,10 @@ const DateInputField: React.FC<DateInputProps> = ({ value, onChange, mode, datef
   };
   return (
     <>
-       <View style={{ borderWidth:2, backgroundColor:`${bgcolor}`, borderColor: `${bordercolor}`,display: 'flex', justifyContent:'flex-start', alignItems:'center',paddingHorizontal:10, flexDirection: 'row', borderRadius:8, marginBottom: 8}}>
-      <Pressable onPress={showDatePicker} style={{display: 'flex', justifyContent:'center', alignItems:'center', flexDirection:'row'}}>
+       <View style={[styles.inputholder,{ backgroundColor:`${bgcolor}`, borderColor: `${bordercolor}`}]}>
+      <Pressable onPress={showDatePicker} style={styles.pickerholder}>
         <FontAwesome name={mode=='date'?'calendar':'clock-o'} size={20} color='#0000ff'/>
-        <Text style={{fontSize:18, padding:15, color:'#808080'}}>{mode=='date'?(dateflag?formatDate(value):placeholder):(dateflag?formatTime(value):placeholder)}</Text>
+        <Text style={styles.datetext}>{mode=='date'?(dateflag?formatDate(value):placeholder):(dateflag?formatTime(value):placeholder)}</Text>
       </Pressable>
       {isDatePickerVisible && 
         <DateTimePicker
@@ -53,4 +54,26 @@ const DateInputField: React.FC<DateInputProps> = ({ value, onChange, mode, datef
 
 export default DateInputField;
 
-const styles = StyleSheet.create({});
+const styles = ScaledSheet.create({
+  inputholder:{
+    borderWidth:'2@s',
+    display: 'flex',
+    justifyContent:'flex-start',
+    alignItems:'center',
+    paddingHorizontal:'10@s',
+    flexDirection: 'row',
+    borderRadius:'8@s', 
+    marginBottom: '8@s'
+  },
+  pickerholder:{
+    display: 'flex',
+    justifyContent:'center',
+    alignItems:'center',
+    flexDirection:'row'
+  },
+  datetext:{
+    fontSize:'15@s',
+    padding:'10@s',
+    color:'#808080'
+  }
+});

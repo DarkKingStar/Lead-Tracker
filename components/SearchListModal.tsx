@@ -3,6 +3,7 @@ import { Modal, TextInput, FlatList, Text, View, Button, StyleSheet, Pressable }
 import { textStyles } from '../styles/TextElement';
 import { FontAwesome } from '@expo/vector-icons';
 import { divStyles } from '../styles/DivElement';
+import { ScaledSheet, scale } from 'react-native-size-matters';
 
 interface DataItem {
   key: string;
@@ -76,13 +77,13 @@ const SearchListModal:React.FC<SearchListModalProps> =
       
       <Pressable onPress={() => setModalVisible(true)} style={[divStyles.EntryPageInputHolder, { borderColor: bordercolor, backgroundColor: bgcolor}]}>
           <FontAwesome name={LeftIconName} color={LeftIconColor} size={18}/>
-          <Text numberOfLines={1} ellipsizeMode={'tail'} style={[textStyles.inputText,{color:'#808080',paddingVertical:14}]}>{searchText || placeholder}</Text>
+          <Text numberOfLines={1} ellipsizeMode={'tail'} style={[textStyles.inputText,{color:'#808080',paddingVertical:scale(10)}]}>{searchText || placeholder}</Text>
       </Pressable>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -96,10 +97,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#00000088',
   },
   modalView: {
-    margin: 20,
+    margin: '20@s',
     backgroundColor: '#fff',
-    borderRadius: 20,
-    padding: 25,
+    borderRadius: '20@s',
+    padding: '25@s',
     flex:1,
     shadowColor: '#000',
     shadowOffset: {
@@ -111,18 +112,19 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   textInput: {
-    borderColor: 'gray',
-    paddingVertical:10,
-    paddingHorizontal:15,
-    fontSize:16,
-    borderWidth: 1,
+    paddingVertical:'6@s',
+    paddingHorizontal:'10@s',
+    fontSize:'15@s',
+    borderRadius: '8@s',
+    borderWidth: 2,
+    borderColor:'#d2d2d2',
     width: '100%',
-    marginBottom: 20,
+    marginBottom: '20@s',
   },
   itemtext:{
     borderBottomWidth:1,
     borderColor: '#e9e9e9',
-    padding:12,
+    padding:'12@s',
     width: '100%',
   },
 });

@@ -2,30 +2,41 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Pressable, Text, View } from 'react-native';
 import { router } from 'expo-router';
 import { Link, Tabs } from 'expo-router';
-import { useColorScheme } from 'react-native';
-
+import { useColorScheme, Animated } from 'react-native';
 import Colors from '../../constants/Colors';
 import icon from '../../assets/images/icon.png';
 import { Image } from 'expo-image';
+import { scale } from 'react-native-size-matters';
+import { useEffect, useRef } from 'react';
+
 
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
-
+const fadeIn = (value:any, duration:any) => {
+  return Animated.timing(value, {
+    toValue: 1,
+    duration: duration,
+    useNativeDriver: true,
+  });
+};
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const fadeInValue = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    fadeIn(fadeInValue, 500).start();
+  }, []);
   return (
+    <Animated.View style={{ flex: 1, opacity: fadeInValue }}>
     <Tabs  screenOptions={{
       tabBarInactiveTintColor: Colors[colorScheme ?? 'dark'].tint, 
       tabBarActiveTintColor: Colors[colorScheme ?? 'light'].background,
       tabBarInactiveBackgroundColor: Colors[colorScheme ?? 'light'].navbarColor,
       tabBarActiveBackgroundColor: Colors[colorScheme ?? 'light'].navbarColor,
       headerStyle: {backgroundColor: '#ffffff'},
-      tabBarStyle: {
-        borderTopWidth: 0
-      }
       }}>
       <Tabs.Screen name="index"
         options={{
@@ -80,6 +91,7 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
+    </Animated.View>
   );
 }
 
@@ -88,9 +100,9 @@ function TabBarIcon(props: {
   color: string;
   title: string;
 }) {
-  return (<View style={{marginTop: 5, flex: 1, alignItems: 'center'}}>
-  <FontAwesome size={24} style={{ marginBottom: -3 }} color={props.color} name={props.name} />
-  <Text style={{color:`${props.color}`, fontSize: 11,marginTop: 5,}}>{props.title}</Text>
+  return (<View style={{marginBottom: scale(-15), flex: scale(1), alignItems: 'center', justifyContent: 'center', alignContent:'center'}}>
+  <FontAwesome size={24} style={{bottom:0 }} color={props.color} name={props.name} />
+  <Text style={{color:`${props.color}`, marginTop:scale(3), fontSize: scale(8)}}>{props.title}</Text>
   </View>);
 }
 function TabBarMiddleIcon(props: {
@@ -98,8 +110,8 @@ function TabBarMiddleIcon(props: {
   color: string;
   title: string;
 }) {
-  return (<><View style={{marginTop: -15, display:'flex', justifyContent:'center',borderWidth: 2.5,borderColor:`${props.color=='#fff'?'#FF008C':props.color}`, alignItems: 'center',borderRadius:100,width:60,height:60, backgroundColor:"#ffffff" }}>
-  <FontAwesome size={24} color={props.color=='#fff'?'#FF008C':props.color} name={props.name} /> 
+  return (<><View style={{marginTop: scale(-15), display:'flex', justifyContent:'center',borderWidth: scale(2),borderColor:`${props.color=='#fff'?'#FF008C':props.color}`, alignItems: 'center',borderRadius:scale(100),width:scale(55),height:scale(55), backgroundColor:"#ffffff" }}>
+  <FontAwesome size={scale(28)} color={props.color=='#fff'?'#FF008C':props.color} name={props.name} /> 
   </View>
   {/* <Text style={{color:`${props.color}`, fontSize: 11,marginTop: 5,}}>{props.title}</Text> */}
   </>);
@@ -116,7 +128,7 @@ function HeaderRight() {
           name="bell"
           size={25}
           color={Colors[colorScheme ?? 'light'].text}
-          style={{ marginRight: 15, color: pressed ? '#183399': '#000', opacity: pressed? 0.8: 1 }}
+          style={{ marginRight: scale(10), color: pressed ? '#183399': '#000', opacity: pressed? 0.8: 1 }}
         />
       )}
     </Pressable>
@@ -126,6 +138,6 @@ function HeaderRight() {
 
 function HeaderLeft() {
   return (
-    <><Image source={icon} style={{marginLeft:5, width: 50,height: 50}}/></>
+    <><Image source={icon} style={{marginLeft:scale(10), width: scale(40),height: scale(40)}}/></>
   )
 }

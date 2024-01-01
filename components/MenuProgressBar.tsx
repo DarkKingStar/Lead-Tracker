@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
+import { ScaledSheet } from 'react-native-size-matters';
 
 interface MenuProgressBarProps{
     progress: number;
@@ -13,22 +14,22 @@ const MenuProgressBar: React.FC<MenuProgressBarProps> = ({ progress }) => {
   );
 };
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   container: {
     width: '100%',
-    marginTop: 16,
+    marginTop: '12@s',
     backgroundColor: '#ffffff',
-    borderRadius: 10,
+    borderRadius: '20@s',
     overflow: 'hidden',
   },
   progressBar: {
-    height: 10,
-    backgroundColor: '#0047FF',
-    borderRadius: 10,
+    height: '10@s',
+    backgroundColor: '#11009E',
+    borderRadius: '10@s',
     overflow: 'hidden',
   },
   progressText: {
-    marginTop: 8,
+    marginTop: '8@s',
     textAlign: 'center',
     color: 'black',
   },

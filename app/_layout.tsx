@@ -1,4 +1,4 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import {FontAwesome, Ionicons, MaterialCommunityIcons,MaterialIcons,Entypo,AntDesign,Feather, EvilIcons, Octicons,FontAwesome5,Fontisto,Foundation,SimpleLineIcons,Zocial} from '@expo/vector-icons';
 
 import NetInfo,{NetInfoState} from '@react-native-community/netinfo';
 
@@ -10,6 +10,7 @@ import { SafeAreaView, Text, View, useColorScheme } from 'react-native';
 import { AuthProvider, useAuth } from '../context/AuthContext';
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import { QueryClient, QueryClientProvider} from '@tanstack/react-query'
+import { scale } from 'react-native-size-matters';
 
 export {ErrorBoundary} from 'expo-router';
 
@@ -26,7 +27,9 @@ export default function RootLayout() {
 
   const [loaded, error] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-    ...FontAwesome.font,
+    RubikMaps: require('../assets/fonts/RubikMaps.ttf'),
+    QuickSand: require('../assets/fonts/Quicksand.ttf'),
+    ...FontAwesome.font, ...Ionicons.font, ...MaterialCommunityIcons.font,...MaterialIcons.font,...Entypo.font,...AntDesign.font,...Feather.font, ...EvilIcons.font, ...Octicons.font,...FontAwesome5.font,...Fontisto.font,...Foundation.font,...SimpleLineIcons.font,...Zocial.font 
   });
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
@@ -73,11 +76,9 @@ export default function RootLayout() {
   }
   else if(!isLoading){
     return(<View style={{flex:1, justifyContent: 'center', alignContent: 'center', alignItems: 'center'}}>
-      <Text>No Internet Connection</Text>
-    </View>)
-  }else{
-    return(<View style={{flex:1, justifyContent: 'center', alignContent: 'center', alignItems: 'center'}}>
-      <Text>Welcome to TURAIN: Lead Tracker!</Text>
+      <Text style={{fontSize:scale(20)}}>No Internet Connection</Text>
+      {networkState?.type!= 'wifi'?<MaterialIcons name="signal-cellular-off" size={scale(24)} color="black" />
+      :<MaterialIcons name="signal-wifi-off" size={scale(24)} color="black" />}
     </View>)
   }
 }
@@ -88,17 +89,14 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
-  const {authState} = useAuth();
+  const {authState, sessionLoading} = useAuth();
   useEffect(() => {
+    if (sessionLoading) {
+      // Still loading authState, do nothing or show a loading indicator
+      return;
+    }
     // Check if the token is not null and the user is authenticated
     if (authState.token != null && authState.authenticated != null ) {
-      showMessage({
-        message: "User Logged",
-        type: "success",
-        backgroundColor: "#00000066",
-        color: "#ffffff", 
-        position: 'center',
-      })
       router.push('/(tabs)');
     } else if(authState.token != null && authState.authenticated == null){
       router.push('/otpverify');

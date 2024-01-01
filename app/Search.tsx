@@ -11,6 +11,9 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchMenuData } from '../context/fetchData';
 import SelectInputField from '../components/SelectInputField';
 import TextInputField from '../components/TextInputField';
+import { ScaledSheet, scale } from 'react-native-size-matters';
+import { textStyles } from '../styles/TextElement';
+import { divStyles } from '../styles/DivElement';
 
 
 const Search = () => {
@@ -50,9 +53,9 @@ const Search = () => {
   return (
         <Pressable style={{ flex: 1, backgroundColor: '#00000066', justifyContent: 'flex-end'}} onPress={()=>router.back()}>
             <ModalAnimation>
-            <Pressable style={{backgroundColor: '#e9e9e9', borderTopLeftRadius: 25, borderTopRightRadius: 25, paddingHorizontal: 15}} 
+            <Pressable style={styles.container} 
               onPress={()=>{}}>
-            <View style={[styles.row,{marginVertical: 20, marginBottom:0, justifyContent:'space-between'}]}>
+            <View style={[styles.row,{marginVertical: scale(10), marginBottom:0, justifyContent:'space-between'}]}>
             <Text style={styles.formHeading}>Search Date-wise Leads</Text>
             <Pressable onPress={()=> router.back()} style={styles.closeBtnHolder}>
               <Feather name="x-circle" size={20} color="black" />
@@ -116,8 +119,8 @@ const Search = () => {
                     onChange={handleEndDateChange}/>
                 </View>
             </View>
-              <Pressable onPress={()=>handleSubmit()} style={[styles.SubmitBtn,{backgroundColor: '#0466AC'}]}>
-                  <Text style={styles.btnText}>SUBMIT</Text>
+              <Pressable onPress={()=>handleSubmit()} style={[divStyles.submitButton,{marginTop:scale(15)}]}>
+                  <Text style={textStyles.buttonText}>SUBMIT</Text>
               </Pressable>
             </Pressable>
           </ModalAnimation>
@@ -128,24 +131,15 @@ const Search = () => {
 
 export default Search
 
-const styles = StyleSheet.create({
-    select: {
-        fontSize: 11,
-        backgroundColor: 'white',
-        borderRadius: 5,
-        marginBottom: 8,
-    },
-    textinput:{
-      backgroundColor: 'white',
-      fontSize: 16,
-      borderRadius: 5,
-      marginBottom: 8,
-      paddingVertical: 10,
-      paddingHorizontal:16,
-      
+const styles = ScaledSheet.create({
+    container:{
+      backgroundColor: '#e9e9e9',
+      borderTopLeftRadius: '15@s',
+      borderTopRightRadius: '15@s',
+      paddingHorizontal: '15@s'
     },
     formHeading: {
-        fontSize: 20,
+        fontSize: '18@s',
         fontWeight: '800',
         textAlign: 'left',
     },
@@ -154,34 +148,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     row: {
-        gap:8,
-        marginBottom:8,
+        gap:'8@s',
         display: 'flex',
         flexDirection: 'row',
     },
     dateInputholder: { 
         flex: 1,
-        borderRadius: 5,
-    },
-    dateInput: {
-        fontSize: 16,
-    },    
-    SubmitBtn:{
-        padding: 14,
-        width: '100%',
-        borderRadius: 5,
-        alignSelf: 'center',
-        marginVertical: 12,
-    },
-  btnText:{
-        color: 'white',
-        fontSize: 16,
-        textAlign: 'center',
-        justifyContent: 'center',
-    },
+        borderRadius: '5@s',
+    },     
     separator: {
-      marginVertical: 15,
-      height: 1,
+      marginVertical: '8@s',
+      height: '1@s',
       width: '90%',
       alignSelf: 'center',
       backgroundColor: 'rgba(0,0,0,0.1)'

@@ -5,6 +5,7 @@ import { ImageBackground } from 'expo-image';
 import bgimg from '../../../assets/images/bgimg.png';
 import { useAuth } from '../../../context/AuthContext';
 import { TabAnimation } from '../../../components/TabAnimation';
+import { ScaledSheet } from 'react-native-size-matters';
 
 export default function LeadScreen() {
   const {userData} = useAuth();
@@ -20,16 +21,16 @@ export default function LeadScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   container: {
     flex: 1
   },
   title: {
-    fontSize: 20,
+    fontSize: '20@s',
     fontWeight: 'bold',
   },
   separator: {
-    marginVertical: 30,
+    marginVertical: '30@s',
     height: 1,
     width: '80%',
   },

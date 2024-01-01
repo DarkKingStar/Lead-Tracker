@@ -1,5 +1,5 @@
-import { Pressable, TextInput, StyleSheet, Alert } from 'react-native';
-import React,{useState,useRef} from 'react';
+import { Pressable, TextInput, StyleSheet, Alert, BackHandler } from 'react-native';
+import React,{useState,useRef, useEffect} from 'react';
 import { Text, View } from '../components/Themed';
 import { router } from 'expo-router';
 import {divStyles} from '../styles/DivElement';
@@ -7,6 +7,7 @@ import {textStyles} from '../styles/TextElement';
 import { useAuth } from '../context/AuthContext';
 import icon from '../assets/images/icon.png';
 import { Image } from 'expo-image';
+import { ScaledSheet, scale } from 'react-native-size-matters';
 
 export default function verifyotpScreen() {
   const [otp, setOtp] = useState(['', '', '', '']);
@@ -15,6 +16,17 @@ export default function verifyotpScreen() {
   
   const {OnCheckOTP, OnResendOTP, userData} = useAuth();
 
+  useEffect(() => {
+    const backAction = () => {
+      // You can perform any action you want here before the back button is pressed
+      router.push('/login');
+      return true; // This will prevent the back button press
+    };
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+    return () => backHandler.remove(); // Don't forget to remove the event listener when the component unmounts
+  }, []);
 
   const handleResendOTP = async() =>{
     const resendOtpflag =  await OnResendOTP();
@@ -56,7 +68,7 @@ export default function verifyotpScreen() {
     const OtpData = await OnCheckOTP(otp[0],otp[1],otp[2],otp[3]);
     if(!OtpData?.error){
       setDisplayMessage('');
-      router.replace('/(tabs)')
+      router.push('/(tabs)')
     }else{
       setDisplayMessage(OtpData?.message);
       refs.current[0].focus();
@@ -69,7 +81,7 @@ export default function verifyotpScreen() {
         <Image source={icon} style={divStyles.EntryPageLogo} />
       </View>
       <Text style={textStyles.PageHeading}>Verify OTP</Text>
-        <Text style={textStyles.PageSubHeading}>We have to sent the code verification to your mobile number</Text>        
+        <Text style={textStyles.PageSubHeading}>We have to sent the code verification to your mobile number {userData.contactno}</Text>        
         <View style={styles.otpContainer}>
         {otp.map((digit, index) => (
           <TextInput
@@ -94,36 +106,42 @@ export default function verifyotpScreen() {
           />
         ))}
       </View>
-      {displayMessage!='' && <Text style={{margin: 10, color: '#FF007F', fontSize: 16}}>{displayMessage}</Text>}
-      <Pressable style={[divStyles.submitButton, {marginTop: 60}]} onPress={()=>handleVerifyOtp()}>
+      {displayMessage!='' && <Text style={textStyles.errormessage}>{displayMessage}</Text>}
+      <Pressable style={[divStyles.submitButton, {marginTop: scale(60)}]} onPress={()=>handleVerifyOtp()}>
         <Text style={textStyles.buttonText}>Verify</Text>
       </Pressable>
       <Pressable onPress={() => handleResendOTP()}>
-        <Text style={{marginTop: 25, color: '#FF007F', fontSize: 16, textAlign: 'center'}}>Resend OTP</Text>
+        <Text style={styles.resendotp}>Resend OTP</Text>
       </Pressable>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  otpContainer: {
-    flexDirection: 'row',
+const styles = ScaledSheet.create({
+otpContainer: {
+  flexDirection: 'row',
 },
 otpInput: {
-  width: 50,
-  height: 50,
-  borderWidth: 1,
+  width: '50@s',
+  height: '50@s',
+  borderWidth: '1@s',
   color: '#000',
   borderColor: 'black',
   backgroundColor: '#E9E9E9',
-  borderRadius: 10,
+  borderRadius: '10@s',
   textAlign: 'center',
-  marginHorizontal: 10,
-  fontSize: 22,
+  marginHorizontal: '10@s',
+  fontSize: '22@s',
+},
+resendotp:{
+  marginTop: '25@s',
+  color: '#FF007F',
+  fontSize: '16@s',
+  textAlign: 'center'
 },
 phonenumber:{
-  marginVertical:30,
-  margin: 5,
-  fontSize:16,
+  marginVertical:'30@s',
+  margin: '5@s',
+  fontSize:'16@s',
 },
 });

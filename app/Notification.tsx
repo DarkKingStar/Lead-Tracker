@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { Platform, StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
+import { ScaledSheet } from 'react-native-size-matters';
 
 export default function ModalScreen() {
   return (
@@ -12,18 +13,18 @@ export default function ModalScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
   title: {
-    fontSize: 20,
+    fontSize: '20@s',
     fontWeight: 'bold',
   },
   separator: {
-    marginVertical: 30,
+    marginVertical: '30@s',
     height: 1,
     width: '80%',
   },

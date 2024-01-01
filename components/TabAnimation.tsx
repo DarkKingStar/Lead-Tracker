@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { ScrollView, ViewStyle } from 'react-native';
+import React from 'react';
+import {  ViewStyle } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 import { useFocusEffect } from '@react-navigation/native';
 

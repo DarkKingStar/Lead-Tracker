@@ -12,6 +12,7 @@ interface AuthProps {
    image:string| null; imageURL:string| null;
   };
   searchDataValue: [];
+  sessionLoading: boolean;
   OnAddNewLead : (leadSourceId:string|undefined,prefixId:string|undefined,firstName:string,middleName:string,lastName:string,phone:string,altPhone:string,
     email:string,modeOfBusinessId:string|undefined,leadLocationId:string|undefined,businessName:string,remarks:string,enquiryDate:Date|undefined) => Promise<{error:boolean; message: string}>;
   OnLeadUpdate: (clientId:string, leadStatusId:number, date:Date|undefined,time:Date|undefined,remark:string)=> Promise<{error:boolean; message: string}>;
@@ -34,6 +35,7 @@ const AuthContext = createContext<AuthProps>({
     fullname:null, contactno:null, email:null, username: null, image: null, imageURL: null
     },
   searchDataValue: [],
+  sessionLoading: true,
   OnAddNewLead : async(leadSourceId:string|undefined,prefixId:string|undefined,firstName:string,middleName:string,lastName:string,phone:string,altPhone:string,
     email:string,modeOfBusinessId:string|undefined,leadLocationId:string|undefined,businessName:string,remarks:string,enquiryDate:Date|undefined) => ({error:false, message: ''}),
   OnLeadUpdate: async(clientId:string, leadStatusId:number, date:Date|undefined,time:Date|undefined,remark:string)=> ({error: false, message: ''}),
@@ -58,7 +60,7 @@ export const AuthProvider = ({children}: any) =>{
   const  [authState,setAuthState] = useState<{token: string | null;authenticated: boolean | null;}>({token: null,authenticated: null});
   const [userData, setUserData] = useState<{userId: string| null; degid: string| null; degname: string| null;fullname: string| null; contactno: string| null; email:string| null; username: string| null;image:string| null; imageURL:string| null;}>({userId:  null, degid:  null, degname: null,fullname:null, contactno:null, email:null, username: null, image: null, imageURL: null});
   const [searchDataValue,setSearchDataValue] = useState<[]>([]);
-
+  const [sessionLoading,setSessionLoading] = useState<boolean>(true);
 
   // check whether the session persisted in memory and load the token and data from SecureStore
   useEffect(() => {
@@ -67,6 +69,8 @@ export const AuthProvider = ({children}: any) =>{
       const sessionAuthState = await fetchSessionJsonData('authState');
       setAuthState(sessionAuthState);
       setUserData(sessionUserData);
+      // Set loading to false once data is fetched
+      setSessionLoading(false);
     };
     getSecureStoreValue();
   }, []);
@@ -272,6 +276,7 @@ export const AuthProvider = ({children}: any) =>{
     authState,
     userData,
     searchDataValue,
+    sessionLoading,
     OnAddNewLead:AddNewLead,
     OnLeadUpdate: leadUpdate,
     OnProfileUpdate:profileUpdate,

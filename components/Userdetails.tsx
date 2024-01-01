@@ -3,11 +3,12 @@ import { Image } from 'expo-image';
 import { useAuth} from '../context/AuthContext';
 import { ImageBackground } from 'expo-image';
 import toplayerbgimg from '../assets/images/toplayerbgimg.png' 
+import { ScaledSheet } from 'react-native-size-matters';
 
 const UserDetails = () => {
    const {userData} = useAuth();
   return (
-      <ImageBackground source={toplayerbgimg} imageStyle={styles.bgimage} style={styles.detailscontainer}>    
+      <ImageBackground source={toplayerbgimg} style={styles.detailscontainer}>    
       <View style={styles.avatarholder}>
         <Image 
         source={userData?.imageURL}
@@ -22,63 +23,50 @@ const UserDetails = () => {
       </ImageBackground>
   )
 }
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   detailscontainer:{
-    borderBottomRightRadius: 50,
-    borderBottomLeftRadius: 50,
     display: 'flex',
     flexDirection: 'row',
-    padding: 18,
+    padding: '12@s',
     shadowOffset: { width: 0, height: 5 },
     shadowColor: '#C95293',
     shadowOpacity: 1,
     elevation: 5,
   },
-  bgimage:{
-   
-  },
   userContainer:{
-    marginLeft:10,
-    marginTop:10,
+    marginLeft:'10@s',
+    marginTop:'12@s',
   },
   avatarholder:{
-    backgroundColor: '#fff',
-    borderRadius: 50,
-    width:60,
-    height:60,
+    borderRadius: '100@s',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal:10,
-    paddingVertical:4,
     boxShadowColor: '#00000054',
     boxShadowOffset: { width: 4, height: 4 }, 
-    boxShadowRadius: 5,
+    boxShadowRadius: '5@s',
     borderColor:'#fff',
-    borderWidth: 5,
+    borderWidth: '5@s',
   },
   avatar:{
-    width:50,
-    height:50,
-    borderRadius: 50,
+    width:'48@s',
+    height:'48@s',
+    borderRadius: '100@s',
     backgroundColor: '#fff',
   },
   UserName:{
-    fontSize: 24,
+    fontSize: '19@s',
     textTransform: 'uppercase',
+    fontFamily: 'SpaceMono',
     fontWeight: '700',
     color: '#ffffff',
     letterSpacing: 1,
-    fontStyle: 'normal',
-    textShadowColor: '#00000059',
-    textShadowOffset: { width: 2, height: 2 }, 
-    textShadowRadius: 5,
   },
   Designation:{
     textTransform: 'uppercase',
     fontWeight: '800',
-    marginLeft: 2.5,
+    marginLeft: '1.5@s',
     fontStyle: 'normal',
-    fontSize: 16,
+    fontSize: '11@s',
     color: '#ffffaa',
   }
 });

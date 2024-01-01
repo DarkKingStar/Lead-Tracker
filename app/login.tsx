@@ -1,4 +1,4 @@
-import { Pressable } from 'react-native';
+import { Pressable, BackHandler } from 'react-native';
 import React,{useEffect, useState} from 'react';
 import { Text, View } from '../components/Themed';
 import { router } from 'expo-router';
@@ -9,6 +9,8 @@ import PasswordInputField from '../components/PasswordInputField';
 import { useAuth } from '../context/AuthContext';
 import icon from '../assets/images/icon.png';
 import { Image } from 'expo-image';
+import { StyleSheet } from 'react-native';
+import { ScaledSheet } from 'react-native-size-matters';
 
 export default function LoginScreen() {
   const [username, setUsername] = useState<string>('');
@@ -17,7 +19,18 @@ export default function LoginScreen() {
   const [isPasswordWrong, setIsPasswordWrong] =  useState<boolean>(false);
   const [isValidUsername, setIsValidUserName] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const {OnLogin,OnValidateUsername} = useAuth();
+  const {OnLogin,OnValidateUsername, authState} = useAuth();
+
+  useEffect(() => {
+    const backAction = () => {
+      // You can perform any action you want here before the back button is pressed
+      return true; // This will prevent the back button press
+    };
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+    return () => backHandler.remove(); // Don't forget to remove the event listener when the component unmounts
+  }, []);
 
   useEffect(()=>{
     const handleValidateUsername = async() =>{
@@ -30,6 +43,7 @@ export default function LoginScreen() {
     }
     handleValidateUsername();
   },[username]);
+
   
   const handleLogin = async() =>{
     const flag = await OnLogin(username, password);
@@ -37,6 +51,7 @@ export default function LoginScreen() {
       setErrorMessage("");
       setIsUsernameWrong(false);
       setIsPasswordWrong(false);
+      router.push('/otpverify');
     } 
     else{
       if(!isValidUsername){
@@ -76,13 +91,21 @@ export default function LoginScreen() {
       textValue={password}
       placeholdertext={"Password"}
       setTextValue={setPassword}/>
-      {errorMessage!='' && <Text style={{margin: 10, color: '#FF007F', fontSize: 16}}>{errorMessage}</Text>}
+      {errorMessage!='' && <Text style={textStyles.errormessage}>{errorMessage}</Text>}
       <Pressable style={divStyles.submitButton} onPress={()=> handleLogin()}>
         <Text style={textStyles.buttonText}>Login</Text>
       </Pressable>
       <Pressable onPress={()=> router.replace('/forgotpassword')}>
-        <Text style={{marginTop: 25, color: '#FF007F', fontSize: 16}}>Forgot Password?</Text>
+        <Text style={styles.forgotpass}>Forgot Password?</Text>
       </Pressable>
     </View>
   );
 }
+
+const styles = ScaledSheet.create({
+  forgotpass:{
+    marginTop: '25@s', 
+    color: '#FF007F', 
+    fontSize: '16@s'
+  }
+})

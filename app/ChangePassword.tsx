@@ -8,6 +8,7 @@ import { router } from 'expo-router';
 import { useAuth } from '../context/AuthContext';
 import { showMessage } from 'react-native-flash-message';
 import passresetimg from '../assets/images/passresetimg.png'
+import { ScaledSheet } from 'react-native-size-matters';
 
 const ChangePassword = () => {
   const [password, setPassword] = useState<string>('');
@@ -72,7 +73,7 @@ const ChangePassword = () => {
 
   return (
     
-      <ImageBackground source={passresetimg} imageStyle={styles.bgimage} style={{flex:1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 25}}>
+      <ImageBackground source={passresetimg} imageStyle={styles.bgimage} style={styles.bgimagecontainer}>
       <ScrollView contentContainerStyle={styles.container}>
       <Text style={textStyles.PageHeading}>Reset Your Password?</Text>
       <Text style={textStyles.PageSubHeading}>Your New Password Must Be Different from Previously Used Password</Text>
@@ -110,11 +111,17 @@ const ChangePassword = () => {
 
 export default ChangePassword
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   bgimage:{
     contentFit: 'contain',
     opacity: 0.05,
-    marginTop: -70
+    marginTop: '-70@s'
+  },
+  bgimagecontainer:{
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: '25@s'
   },
   container:{
     justifyContent: 'center',

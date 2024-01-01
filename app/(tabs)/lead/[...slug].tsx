@@ -6,6 +6,7 @@ import { useLocalSearchParams } from 'expo-router';
 import { TabAnimation } from '../../../components/TabAnimation';
 import bgimg from '../../../assets/images/bgimg.png';
 import { ImageBackground } from 'expo-image';
+import { ScaledSheet } from 'react-native-size-matters';
 
 
 
@@ -23,17 +24,18 @@ export default function LeadScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   container: {
     flex: 1
   },
   title: {
-    fontSize: 20,
+    fontSize: '20@s',
     fontWeight: 'bold',
   },
   separator: {
-    marginVertical: 30,
-    height: 1,
+    marginVertical: '30@s',
+    height: '1@s',
     width: '80%',
   },
 });
+

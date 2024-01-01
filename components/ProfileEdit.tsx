@@ -10,6 +10,7 @@ import { textStyles } from '../styles/TextElement'
 import { router } from 'expo-router'
 
 import * as ImagePicker from 'expo-image-picker';
+import { ScaledSheet, scale } from 'react-native-size-matters'
 
 
 const ProfileEdit = () => {
@@ -105,7 +106,7 @@ const ProfileEdit = () => {
       <Pressable style={styles.editimgbtn} onPress={()=>handleUploadImage()}>
         <FontAwesome name='pencil' size={20} color={'black'}/>
       </Pressable>
-      <View style={{width:"100%", marginVertical:34}}>
+      <View style={styles.inputholder}>
       <TextInputField 
       placeholder='Name'
        FocusColor={ '#426EB2'}
@@ -144,46 +145,49 @@ const ProfileEdit = () => {
       RightIconName='check'
       />
       </View>
-      
-      <Pressable style={[divStyles.submitButton,{ marginTop: -15 }]} onPress={()=>handleSubmit()}>
-                <Text style={[textStyles.buttonText,{paddingHorizontal: 30}]}>Submit</Text>
-            </Pressable>
+      <Pressable style={[divStyles.submitButton,{ marginTop: scale(-15) }]} onPress={()=>handleSubmit()}>
+        <Text style={[textStyles.buttonText,{paddingHorizontal: scale(30)}]}>Submit</Text>
+      </Pressable>
     </>
   )
 }
 
 export default ProfileEdit
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   avatarholder:{
     backgroundColor: '#fff',
-    borderRadius: 50,
-    width:106,
-    height:106,
+    borderRadius: '50@s',
+    width:'106@s',
+    height:'106@s',
     alignSelf: 'center',
-    marginTop: -50,
-    marginBottom: 15,
+    marginTop: '-50@s',
+    marginBottom: '15@s',
     alignItems: 'center',
     justifyContent: 'center',
     boxShadowColor: '#00000054',
     boxShadowOffset: { width: 4, height: 4 }, 
     boxShadowRadius: 5,
     borderColor:'#000',
-    borderWidth: 1,
+    borderWidth: '1@s',
   },
   avatar:{
-    width:100,
-    height:100,
-    borderRadius: 50,
+    width:'100@s',
+    height:'100@s',
+    borderRadius: '50@s',
     backgroundColor: '#fff',
     borderColor:'#000',
-    borderWidth: 1,
+    borderWidth: '1@s',
+  },
+  inputholder:{
+    width:"100%",
+    marginVertical:'34@s'
   },
   editimgbtn:{
     alignSelf: 'center',
-    marginTop: -75,
-    width: 50,
-    height: 50,
+    marginTop: '-75@s',
+    width: '50@s',
+    height: '50@s',
     justifyContent: 'flex-end',
     alignItems: 'center',
   },

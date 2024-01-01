@@ -5,6 +5,7 @@ import bgimg from '../../../assets/images/bgimg.png';
 import ContainPageSearch from '../../../components/ContainPageSearch';
 import { useAuth } from '../../../context/AuthContext';
 import ContainPage from '../../../components/ContainPage';
+import { ScaledSheet } from 'react-native-size-matters';
 
 export default function SearchLeadScreen() {
   const {searchDataValue, userData} = useAuth(); 
@@ -18,16 +19,16 @@ export default function SearchLeadScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   container: {
     flex: 1
   },
   title: {
-    fontSize: 20,
+    fontSize: '20@s',
     fontWeight: 'bold',
   },
   separator: {
-    marginVertical: 30,
+    marginVertical: '30@s',
     height: 1,
     width: '80%',
   },
