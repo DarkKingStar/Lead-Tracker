@@ -55,9 +55,9 @@ const ModalSetting: React.FC<ModalSettingProps> = ({setIsVisible, selectedClient
     (flagData.error == false)?Alert.alert("Lead Status Update Successful",`${flagData?.message}`,[{ text: 'OK', onPress: () => setIsVisible(false)}]):Alert.alert('Lead Status Update Unsuccessful',`${flagData?.message}`,);
   }
   return (
-    <View style={{ flex: 1, backgroundColor: '#00000066', justifyContent: 'flex-end'}}>
+    <Pressable style={{ flex: 1, backgroundColor: '#00000066', justifyContent: 'flex-end'}} onPress={()=>setIsVisible(false)}>
           <ModalAnimation>
-            <View style={styles.container}>
+            <Pressable style={styles.container} onPress={()=>{}}>
             <View style={[styles.row,styles.outercontainer]}>
             <Text style={styles.formHeading}>Conversation Update</Text>
             <Pressable onPress={()=> setIsVisible(false)} style={styles.closeBtnHolder}>
@@ -102,16 +102,16 @@ const ModalSetting: React.FC<ModalSettingProps> = ({setIsVisible, selectedClient
                 <TextInput
                     style={styles.inputtext}
                     multiline={true}
-                    placeholder="Write a Feedback"
+                    placeholder="Details of Lead Update"
                     value={feedback}
                     onChangeText={(inputText) => setFeedback(inputText)}
                 />
                 <Pressable onPress={()=>handleSubmit()} style={[divStyles.submitButton,{marginTop: scale(8)}]}>
-                  <Text style={textStyles.buttonText}>SUBMIT</Text>
+                  <Text style={textStyles.buttonText}>UPDATE</Text>
                 </Pressable>
-            </View>
+            </Pressable>
       </ModalAnimation>
-      </View>
+      </Pressable>
   )
 }
 

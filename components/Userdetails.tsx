@@ -17,8 +17,8 @@ const UserDetails = () => {
         style={styles.avatar}/>
       </View>
       <View style={styles.userContainer}>
-        <Text style={styles.UserName}>{userData?.fullname }</Text>
-        <Text style={styles.Designation}>{userData?.degname||'Designation'}</Text>
+        <Text style={styles.UserName}>{userData?.fullname?.toUpperCase() }</Text>
+        <Text style={styles.Designation}>{userData?.degname?.toUpperCase()||'Designation'}</Text>
       </View>
       </ImageBackground>
   )
@@ -54,18 +54,14 @@ const styles = ScaledSheet.create({
     backgroundColor: '#fff',
   },
   UserName:{
-    fontSize: '19@s',
-    textTransform: 'uppercase',
-    fontFamily: 'SpaceMono',
-    fontWeight: '700',
+    fontSize: '20@s',
+    fontFamily: 'Arbutus',
     color: '#ffffff',
-    letterSpacing: 1,
   },
   Designation:{
     textTransform: 'uppercase',
-    fontWeight: '800',
+    fontFamily: 'VastShadow',
     marginLeft: '1.5@s',
-    fontStyle: 'normal',
     fontSize: '11@s',
     color: '#ffffaa',
   }

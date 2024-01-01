@@ -89,7 +89,6 @@ export default function verifyotpScreen() {
             ref={(input) => (refs.current[index] = input!)}
             style={styles.otpInput}
             value={digit}
-            secureTextEntry
 
             autoComplete="sms-otp" // android
             textContentType="oneTimeCode" // ios
@@ -122,8 +121,8 @@ otpContainer: {
   flexDirection: 'row',
 },
 otpInput: {
-  width: '50@s',
-  height: '50@s',
+  width: '45@s',
+  height: '45@s',
   borderWidth: '1@s',
   color: '#000',
   borderColor: 'black',
@@ -135,9 +134,9 @@ otpInput: {
 },
 resendotp:{
   marginTop: '25@s',
-  color: '#FF007F',
-  fontSize: '16@s',
-  textAlign: 'center'
+  color: '#FF007F', 
+  fontSize: '11@s',
+  fontFamily: 'SeymourOne'
 },
 phonenumber:{
   marginVertical:'30@s',

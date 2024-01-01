@@ -117,9 +117,9 @@ const styles = ScaledSheet.create({
         marginHorizontal: '20@s', 
         marginVertical:'8@s', 
         paddingTop:0, 
-        borderRadius: '8@s', 
-        borderWidth:'1@s',
-        borderColor:'#435585' 
+        borderRadius: '9@s', 
+        borderWidth:'2@s',
+        borderColor:'#38419D' 
     },
     container:{
         flex: 1,
@@ -149,17 +149,17 @@ const styles = ScaledSheet.create({
     labeltext:{
         fontSize:'12@s',
         marginHorizontal: '4@s',
-        fontWeight: '600',
+        fontFamily:'NotoSerifCB',
         textAlign: 'left',
     },
     iconholder:{
         width:'28@s',
         height:'28@s',
         marginHorizontal:'5@s',
-        backgroundColor: 'white',
-        borderWidth:1,
-        borderColor:'#1E2022',
-        borderRadius: '5@s',
+        backgroundColor: '#F3F8FF',
+        borderWidth:1.5,
+        borderColor:'#38419D',
+        borderRadius: '8@s',
         alignItems:  'center',
         justifyContent: 'center',
     },
@@ -172,13 +172,13 @@ const styles = ScaledSheet.create({
     name:{
         color: '#fff',
         fontSize: '15@s',
-        fontWeight: '700',
+        fontFamily: 'SpaceMono',
         marginLeft:'6@s',
         padding:'8@s',
     },
     itemheading:{
         marginBottom: '4@s',
-        backgroundColor: '#1E2022',
+        backgroundColor: '#392467',
         borderTopLeftRadius: '7@s',
         borderTopRightRadius:'7@s'
     },

@@ -6,7 +6,7 @@ import { ScaledSheet } from 'react-native-size-matters';
 export default function ModalScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Notification</Text>
+      <Text style={styles.title}>Nothing to Show Here</Text>
 
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
     </View>

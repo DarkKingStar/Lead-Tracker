@@ -76,7 +76,9 @@ const SearchListModal:React.FC<SearchListModalProps> =
       </Modal>
       
       <Pressable onPress={() => setModalVisible(true)} style={[divStyles.EntryPageInputHolder, { borderColor: bordercolor, backgroundColor: bgcolor}]}>
+          <View style={{width:scale(18)}}>
           <FontAwesome name={LeftIconName} color={LeftIconColor} size={18}/>
+          </View>
           <Text numberOfLines={1} ellipsizeMode={'tail'} style={[textStyles.inputText,{color:'#808080',paddingVertical:scale(10)}]}>{searchText || placeholder}</Text>
       </Pressable>
     </View>

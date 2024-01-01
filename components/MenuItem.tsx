@@ -54,13 +54,13 @@ const styles = ScaledSheet.create({
   },
   heading:{
     color: '#4942E4',
-    fontSize: '15@s',
-    fontWeight: '700',
+    fontSize: '17@s',
+    fontFamily: 'BebasNeur',
     textAlign: 'left',
   },
   task:{
   fontSize: '16@s',
-  fontWeight: '700',
+  fontFamily: 'NotoSerif',
   textAlign: 'left',
   },
 });

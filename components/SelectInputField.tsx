@@ -19,19 +19,19 @@ interface SelectInputFieldProps {
 const SelectInputField: React.FC<SelectInputFieldProps> = ({selectedValue,setSelectedValue,setSelectedValueId, options, placeholder, bordercolor, bgcolor, LeftIconColor, LeftIconName}) => {
   return (
     <View style={[styles.inputholder,{backgroundColor:`${bgcolor}`, borderColor: `${bordercolor}`}]}>
-      <View style={{width: scale(15)}}>
+      <View style={{width: scale(18)}}>
         <FontAwesome name={LeftIconName} size={scale(18)} color={LeftIconColor}/>
       </View>
       <View style={{flex: 1}}>
         <Picker
-            style={{height:0}}
+            style={{height:0, marginLeft: scale(-8), backgroundColor: 'rgba(0,0,0,0)'}}
             selectedValue={selectedValue}
             onValueChange={(itemValue, itemIndex) => {
             if (itemIndex !== 0) {
             setSelectedValue(itemValue);
             setSelectedValueId(itemIndex);
             }}}>
-            <Picker.Item label={placeholder} style={{color:'#808080'}} />
+            <Picker.Item label={placeholder} style={{color:'#808080', fontFamily:'QuickSand'}} />
             {options.map((option: string | undefined, index: React.Key | null | undefined) => (
             <Picker.Item key={index} label={option} value={option?.toLowerCase()} />
             ))}

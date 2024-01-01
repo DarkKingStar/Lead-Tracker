@@ -9,30 +9,26 @@ export const textStyles = ScaledSheet.create({
     },
     buttonText:{
         color: 'white',
-        fontSize: '18@s',
+        fontSize: '15@s',
+        fontFamily: 'Arbutus',
         textAlign: 'center',
     },
-    labelText:{
-        fontSize: '18@s',
-        fontWeight: '700',
-        lineHeight: '28@s',
-        marginLeft:'5@s',
-        marginBottom:'5@s',
-    },
     PageHeading: {
-        fontWeight: '800',
         fontSize: '25@s',
         marginBottom: '10@s',
         color: '#0466AC',
+        fontFamily:'Arbutus'
       },
     PageSubHeading: {
         fontSize: '16@s',
-        textAlign: 'center',
         marginBottom:'30@s',
+        textAlign: 'center',
+        fontFamily: 'SpaceMono'
     },
     errormessage:{
         margin: '10@s',
-        color: '#FF007F',
-        fontSize: '16@s'
+        color: '#FF007F', 
+        fontSize: '11@s',
+        fontFamily: 'SeymourOne'
     }
 }) 

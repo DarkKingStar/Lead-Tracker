@@ -1,5 +1,5 @@
 import { ActivityIndicator, Text, FlatList, View, Modal } from 'react-native'
-import React, {  useCallback,  useState } from 'react'
+import React, {  useCallback,  useEffect,  useState } from 'react'
 import { AntDesign} from '@expo/vector-icons';
 import { showMessage } from 'react-native-flash-message';
 import ModalChat from './ModalChat';
@@ -10,11 +10,11 @@ import ContainListItem from './ContainListItem';
 
 interface ContainPageItemProps{
     leadlist: any;
-    loading : boolean;
+
     setPagination:React.Dispatch<React.SetStateAction<number>>;
     hasPageNext: boolean;
 }
-const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, loading , setPagination, hasPageNext }) => {
+const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, setPagination, hasPageNext }) => {
     const [isChatVisible, setIsChatVisible] = useState<boolean>(false);
     const [isSettingVisible,setIsSettingVisible] = useState<boolean>(false);
     const [listProcessingmsg,setListProcessingmsg] = useState<string>('')
@@ -22,6 +22,11 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, loading , s
     const [ClientName, setClientName] = useState<string>("");
     const [ClientPhoneNumber,setClientPhoneNumber] = useState<string>("");
     
+    useEffect(()=>{
+      if(!hasPageNext){
+        setListProcessingmsg('- End of List -');
+      }
+    },[hasPageNext])
     const renderItem = useCallback(
         ({ item, index }: { item: any; index: number }) => {
           return <ContainListItem 
@@ -37,7 +42,7 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, loading , s
       );
     const noDataFound = ()=>{
         return(<>
-            {leadlist.length == 0 &&
+            {leadlist?.length == 0 &&
             <View style={divStyles.errordiv}>
                 <AntDesign name="frown" size={54} color="black" />
                 <Text style={styles.title}>Oops! no record found</Text>
@@ -49,18 +54,13 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, loading , s
 
     return (
       <>
-        {loading ? (
-          <View style={styles.loadingdiv}>
-            <ActivityIndicator size="large" color="#183399" />
-          </View>
-        ) : (<>
           <FlatList
             data={leadlist}
             renderItem={renderItem}
             ListEmptyComponent={noDataFound}
             keyExtractor={(item, index) => index.toString()}
             initialNumToRender={3}
-            decelerationRate={0.9}
+            decelerationRate={0.85}
             showsVerticalScrollIndicator={false}
             ListFooterComponent={<View style={{ marginBottom: scale(20), alignContent: 'center',justifyContent: 'center', alignItems: 'center' }}><Text style={{fontSize: scale(14), fontWeight: '700'}}>{listProcessingmsg}</Text></View>}
             onEndReached={()=>{
@@ -73,9 +73,8 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, loading , s
                         position: 'center',
                       })
                     setListProcessingmsg('- Loading -');
-                }else if(leadlist.length>0  && !hasPageNext){
-                    setListProcessingmsg('- End of List -');
-                }else{
+                }
+                else{
                     setListProcessingmsg('');
                 }
                 
@@ -101,9 +100,7 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, loading , s
           </Modal>
           }
           </>
-        )}
-      </>
-    );
+    )
   };
 export default ContainPageItem
 const styles = ScaledSheet.create({

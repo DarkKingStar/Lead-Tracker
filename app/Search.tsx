@@ -56,7 +56,7 @@ const Search = () => {
             <Pressable style={styles.container} 
               onPress={()=>{}}>
             <View style={[styles.row,{marginVertical: scale(10), marginBottom:0, justifyContent:'space-between'}]}>
-            <Text style={styles.formHeading}>Search Date-wise Leads</Text>
+            <Text style={styles.formHeading}>Search Leads</Text>
             <Pressable onPress={()=> router.back()} style={styles.closeBtnHolder}>
               <Feather name="x-circle" size={20} color="black" />
             </Pressable>
@@ -120,7 +120,7 @@ const Search = () => {
                 </View>
             </View>
               <Pressable onPress={()=>handleSubmit()} style={[divStyles.submitButton,{marginTop:scale(15)}]}>
-                  <Text style={textStyles.buttonText}>SUBMIT</Text>
+                  <Text style={textStyles.buttonText}>SEARCH</Text>
               </Pressable>
             </Pressable>
           </ModalAnimation>
