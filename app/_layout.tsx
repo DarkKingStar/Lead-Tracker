@@ -28,9 +28,7 @@ export default function RootLayout() {
 
   const [loaded, error] = useFonts({
     'SpaceMono': require('../assets/fonts/SpaceMono.ttf'),
-    'RubikMaps': require('../assets/fonts/RubikMaps.ttf'),
     'QuickSand': require('../assets/fonts/Quicksand.ttf'),
-    'RubikDoodle': require('../assets/fonts/RubikDoodle.ttf'),
     'SeymourOne': require('../assets/fonts/SeymourOne.ttf'),
     'BebasNeur': require('../assets/fonts/BebasNeur.ttf'),
     'VastShadow': require('../assets/fonts/VastShadow.ttf'),
