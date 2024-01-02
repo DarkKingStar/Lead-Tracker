@@ -55,9 +55,9 @@ const Menu = () => {
             <View key={index} style={styles.row}>
                 {chunk?.map((item: any, itemIndex: number) => (
                     <LinearGradient 
-                    colors={['#FFDDD2','#FF8DC7']}
-                    start={{x:0,y:1}}
-                    end={{x:1,y:0}}
+                    colors={['#FFEEF7','#F4BEDC']}
+                    start={{x:0,y:0}}
+                    end={{x:0,y:1}}
                     key={itemIndex} 
                     style={styles.item}>
                         <Pressable onPress={()=>gotoPage(item.lead_status_id, userData.userId)}>{/* {userData.userId} */}
@@ -74,7 +74,7 @@ const Menu = () => {
 const styles = ScaledSheet.create({
     container: {
       flex: 1,
-      padding: '12@s',
+      padding: '8@s',
     },
     row: {
       flexDirection: 'row',
@@ -86,12 +86,9 @@ const styles = ScaledSheet.create({
     item: {
       flex: 0.5,
       borderRadius: '10@s',
-      borderWidth: '2.5@s',
+      borderWidth: '3@s',
       borderColor: '#fff',
-      shadowOffset: {width: 0, height: 4},
-      shadowColor: '#0000002B',
-      shadowOpacity: 0.8,
-      padding: '12@s',
+      padding: '8@s',
     },
   });
 

@@ -21,6 +21,7 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, setPaginati
     const [selectedClientId,setSelectedClientId] = useState<string>("");
     const [ClientName, setClientName] = useState<string>("");
     const [ClientPhoneNumber,setClientPhoneNumber] = useState<string>("");
+    const [ClientPhoneNumber2,setClientPhoneNumber2] = useState<string>("");
     
     useEffect(()=>{
       if(!hasPageNext){
@@ -33,6 +34,7 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, setPaginati
           item={item} 
           index={index} 
           setClientPhoneNumber={setClientPhoneNumber} 
+          setClientPhoneNumber2={setClientPhoneNumber2} 
           setClientName={setClientName} 
           setSelectedClientId={setSelectedClientId} 
           setIsChatVisible={setIsChatVisible} 
@@ -86,7 +88,7 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, setPaginati
           animationType="fade" 
           visible={isChatVisible} 
           onRequestClose={()=>setIsChatVisible(false)}>
-            <ModalChat ClientPhoneNumber={ClientPhoneNumber} setIsVisible={setIsChatVisible} selectedClientId={selectedClientId} ClientName={ClientName} isSettingVisible={isSettingVisible} setIsSettingVisible={setIsSettingVisible}/>
+            <ModalChat ClientPhoneNumber={ClientPhoneNumber} ClientPhoneNumber2={ClientPhoneNumber2} setIsVisible={setIsChatVisible} selectedClientId={selectedClientId} ClientName={ClientName} isSettingVisible={isSettingVisible} setIsSettingVisible={setIsSettingVisible}/>
           </Modal>
           }
 

@@ -267,7 +267,7 @@ export const AuthProvider = ({children}: any) =>{
     formData.append("ddl_lead_location_id", leadLocationId||'');
     formData.append("txt_business_name", businessName);
     formData.append("txt_remarks", remarks);
-    formData.append("txt_enq_date", enquiryDate?.toLocaleDateString()||'');
+    formData.append("txt_enq_date", enquiryDate?.toLocaleString()||'');
     formData.append("txt_user_details_id", userData?.userId || '');
     const fetchData = await fetchAPIPostData(ADDNEWLEAD, formData);
     return {error:  fetchData?.error || false , message : fetchData?.message || 'Unable to Add new Lead'};

@@ -46,7 +46,7 @@ export default function ProfileScreen() {
         contentFit="cover"
         style={styles.avatar}/>
       </View>
-
+        <View style={{paddingHorizontal: scale(20), backgroundColor: 'transparent'}}>
         <ProfileInfo/>
         <Pressable style={[divStyles.submitButton, styles.allBtn, {marginTop:scale(15)}]} onPress={()=>router.push("/EditProfile")}>
           <Text style={textStyles.buttonText}>Edit Profile</Text>
@@ -55,9 +55,10 @@ export default function ProfileScreen() {
           <Text style={textStyles.buttonText}>Change Password</Text>
         </Pressable>
         <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-        <Pressable style={[divStyles.submitButton,styles.allBtn,{marginVertical:0, backgroundColor:"#A3B8C5"}]} onPress={()=>handleLogout()}>
-          <Text style={[textStyles.buttonText,{color: '#ff0000'}]}>Logout</Text>
+        <Pressable style={[divStyles.submitButton,styles.allBtn,{marginVertical:0, backgroundColor: '#cc0000'}]} onPress={()=>handleLogout()}>
+          <Text style={[textStyles.buttonText]}>Logout</Text>
         </Pressable>
+        </View>
         </ImageBackground>
       </ScrollView>
       </TabAnimation>
@@ -70,9 +71,6 @@ const styles = ScaledSheet.create({
   },
   allBtn:{
     marginVertical:'5@s', 
-    padding: '6@s',
-    borderRadius: '25@s',
-    width: '80%',
   },
   separator: {
     marginVertical: '10@s',

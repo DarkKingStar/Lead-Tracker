@@ -4,7 +4,7 @@ import FontAwesome  from '@expo/vector-icons/FontAwesome';
 import Entypo  from '@expo/vector-icons/Entypo';
 
 import { useAuth } from '../context/AuthContext';
-import { ScaledSheet } from 'react-native-size-matters';
+import { ScaledSheet, scale } from 'react-native-size-matters';
 
 const ProfileInfo = () => {
     const {userData} = useAuth();
@@ -21,7 +21,7 @@ const ProfileInfo = () => {
         </View>
         <View style={styles.itemdiv}>
           <View style={styles.icon}>
-            <Entypo name="v-card" size={24} color="#9100ce"/>
+            <Entypo name="v-card" size={scale(20)} color="#9100ce"/>
           </View>
           <View style={styles.detailsdiv}>
             <Text style={styles.title}>{"Username"}</Text>
@@ -30,7 +30,7 @@ const ProfileInfo = () => {
         </View>
         <View style={styles.itemdiv}>
           <View style={styles.icon}>
-            <FontAwesome name="briefcase" size={24} color="#fb7805" />
+            <FontAwesome name="briefcase" size={scale(20)} color="#fb7805" />
           </View>
           <View style={styles.detailsdiv}>
           <Text style={styles.title}>{"Designation"}</Text>
@@ -39,7 +39,7 @@ const ProfileInfo = () => {
         </View>
         <View style={styles.itemdiv}>
           <View style={styles.icon}>
-            <FontAwesome name="envelope" size={24} color="#ff0044" />
+            <FontAwesome name="envelope" size={scale(20)} color="#ff0044" />
           </View>
           <View style={styles.detailsdiv}>
           <Text style={styles.title}>{"Email"}</Text>
@@ -48,7 +48,7 @@ const ProfileInfo = () => {
         </View>
         <View style={styles.itemdiv}>
         <View style={styles.icon}>
-          <FontAwesome name="phone-square" size={24} color="#08bb0a" />
+          <FontAwesome name="phone-square" size={scale(20)} color="#08bb0a" />
         </View>
           <View style={styles.detailsdiv}>
           <Text style={styles.title}>{"Phone"}</Text>
@@ -68,19 +68,21 @@ const styles = ScaledSheet.create({
         flexDirection:'row',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingVertical: '8@s',
         borderRadius: '8@s',
         marginBottom: '6@s',
-        marginHorizontal:'20@s',
         borderColor: '#e1e1e1',
         backgroundColor: '#ffffff',
         borderWidth:1,
       },
       icon:{
-        marginHorizontal:'10@s',
-        width: '25@s',
+        paddingHorizontal:'10@s',
+        width: '45@s',
+        height: '35@s',
+        borderTopLeftRadius: '7@s',
+        borderBottomLeftRadius: '7@s',
         alignItems: 'center',
-        alignContent: 'center'
+        justifyContent: 'center',
+        marginRight: '5@s',
       },
       detailsdiv:{
         flex:1,
@@ -88,11 +90,11 @@ const styles = ScaledSheet.create({
       title: {
         fontSize: '10@s',
         marginBottom: '-4@s',
-        fontFamily: 'RubikMediumItalic',
+        fontFamily: 'RubikExtraBold',
         color: '#3559E0'
       },
       uservalue:{
         fontSize: '15@s',
-        fontFamily: 'RubikSemiBold'
+        fontFamily: 'RubikMedium'
       },
 })

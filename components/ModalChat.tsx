@@ -16,9 +16,10 @@ interface ModalChatProps{
     selectedClientId: string;
     ClientName: string;
     ClientPhoneNumber: string;
+    ClientPhoneNumber2: string;
 }
 
-const ModalChat:React.FC<ModalChatProps> = ({setIsVisible, setIsSettingVisible, isSettingVisible, selectedClientId, ClientName,ClientPhoneNumber}) => {
+const ModalChat:React.FC<ModalChatProps> = ({setIsVisible, setIsSettingVisible, isSettingVisible, selectedClientId, ClientName,ClientPhoneNumber,ClientPhoneNumber2}) => {
     const [conversation,setConversation] = useState<any>([]);
     const [loading, setLoading] = useState<boolean>(true);
     useEffect(()=>{
@@ -41,11 +42,11 @@ const ModalChat:React.FC<ModalChatProps> = ({setIsVisible, setIsSettingVisible, 
             <Pressable onPress={()=>setIsVisible(false)} style={styles.closebtn}>
               <FontAwesome name="chevron-left" size={scale(18)} color="#fff" />
             </Pressable>
-            {/* <View style={styles.avaterHolder}>
-              <Image style={styles.avater} source={'https://www.w3schools.com/howto/img_avatar.png'}/>
-            </View> */}
             <Text style={styles.username}>{ClientName}</Text>
-            <Pressable style={styles.callbtn} onPress={()=>Linking.openURL(`tel:${ClientPhoneNumber}`)}>
+            <Pressable style={styles.callbtn1} onPress={()=>Linking.openURL(`tel:${ClientPhoneNumber}`)}>
+              <FontAwesome name="phone" size={scale(20)} color="#000" />
+            </Pressable>
+            <Pressable style={styles.callbtn2} onPress={()=>Linking.openURL(`tel:${ClientPhoneNumber2}`)}>
               <FontAwesome name="phone" size={scale(20)} color="#000" />
             </Pressable>
           </View>
@@ -101,13 +102,22 @@ const styles = ScaledSheet.create({
       color: '#fff',
       width: '60%',
     },
-    callbtn:{
+    callbtn1:{
       width: '30@s',
       height: '30@s',
       marginRight: '6@s',
       paddingVertical: '5@s',
       borderRadius:'100@s',
       backgroundColor: '#6096B4',
+      alignItems: 'center',
+    },
+    callbtn2:{
+      width: '30@s',
+      height: '30@s',
+      marginRight: '6@s',
+      paddingVertical: '5@s',
+      borderRadius:'100@s',
+      backgroundColor: '#7360DF',
       alignItems: 'center',
     },
     messageboxdiv:{

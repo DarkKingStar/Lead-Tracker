@@ -12,9 +12,10 @@ interface ContainListItemProps {
     setSelectedClientId: React.Dispatch<React.SetStateAction<string>>;
     setClientName: React.Dispatch<React.SetStateAction<string>>;
     setClientPhoneNumber: React.Dispatch<React.SetStateAction<string>>;
+    setClientPhoneNumber2: React.Dispatch<React.SetStateAction<string>>;
 }
 
-  const ContainListItem: React.FC<ContainListItemProps> = ({ item, index, setIsChatVisible, setIsSettingVisible, setSelectedClientId, setClientName,setClientPhoneNumber }) => {
+  const ContainListItem: React.FC<ContainListItemProps> = ({ item, index, setIsChatVisible, setIsSettingVisible, setSelectedClientId, setClientName,setClientPhoneNumber,setClientPhoneNumber2 }) => {
     const memoizedItem = useMemo(() => {
       return (
         <LinearGradient 
@@ -68,13 +69,13 @@ interface ContainListItemProps {
                 <View style={styles.btndiv}>
                     <View>
                     <Pressable style={styles.iconholder} onPress={()=>Linking.openURL(`tel:${item?.contact_no}`)}>
-                        <FontAwesome name='phone' size={16} color='#0f79bd' />            
+                        <Ionicons name="ios-call-sharp" size={16} color='#0f79bd' />
                     </Pressable>
                     </View>
                     {item?.contact_no2 !='' &&
                     <View>
                     <Pressable style={styles.iconholder} onPress={()=>Linking.openURL(`tel:${item?.contact_no2}`)}>
-                        <Entypo name='old-mobile' size={16} color='#000000' />            
+                        <Ionicons name="ios-call-sharp" size={16} color='#00cc00' />   
                     </Pressable>
                     </View>}
                     <View>
@@ -92,6 +93,7 @@ interface ContainListItemProps {
                         setSelectedClientId(item?.client_details_id);
                         setClientName(item?.name)
                         setClientPhoneNumber(item?.contact_no)
+                        setClientPhoneNumber(item?.contact_no2)
                         setIsChatVisible(true)}}>
                         <Ionicons name='chatbox-ellipses-sharp' size={16} color='#A020F0'/>
                     </Pressable>

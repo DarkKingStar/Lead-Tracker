@@ -65,7 +65,7 @@ const Search = () => {
               placeholder='Name'
               FocusColor={ 'transparent'}
               NotFocusColor={ 'transparent'}
-              LeftIconColor={ "#0000fe"}
+              LeftIconColor={ "#3081D0"}
               bgcolor='#ffffff'
               RightIconColor={ "transparent"} 
               textValue={name}

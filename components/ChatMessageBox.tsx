@@ -56,13 +56,13 @@ const styles = ScaledSheet.create({
     },
     chatheading:{
         color: '#FF008C',
-        fontWeight: '800',
+        fontFamily: 'RubikExtraBold',
         textAlign: 'right',
         fontSize: '11@s',
     },
     dateandtime:{
         fontSize: '10@s',
-        fontWeight: '600',
+        fontFamily: 'RubikBold',
     },
     updatedatetime:{
         color: '#382ADD',
@@ -71,7 +71,8 @@ const styles = ScaledSheet.create({
         alignSelf: 'flex-end',
     },
     chattext:{
-        fontSize: '15@s',
+        fontSize: '14@s',
+        fontFamily: 'RubikRegular',
         color: 'black',
         width:'70%',
     },

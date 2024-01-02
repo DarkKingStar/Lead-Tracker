@@ -1,4 +1,4 @@
-import {FontAwesome, Ionicons, MaterialCommunityIcons,MaterialIcons,Entypo,AntDesign,Feather, EvilIcons, Octicons,FontAwesome5,Fontisto,Foundation,SimpleLineIcons,Zocial} from '@expo/vector-icons';
+import {FontAwesome, MaterialCommunityIcons} from '@expo/vector-icons';
 import NetInfo,{NetInfoState} from '@react-native-community/netinfo';
 import icon from '../assets/images/icon.png';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
@@ -17,7 +17,7 @@ export {ErrorBoundary} from 'expo-router';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+  initialRouteName: 'login',
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -39,7 +39,7 @@ export default function RootLayout() {
     'RubikRegular': require('../assets/fonts/Rubik-Regular.ttf'),
     'RubikSemiBold': require('../assets/fonts/Rubik-SemiBold.ttf'),    
     'RubikSemiBoldItalic': require('../assets/fonts/Rubik-SemiBoldItalic.ttf'),
-    ...FontAwesome.font, ...Ionicons.font, ...MaterialCommunityIcons.font,...MaterialIcons.font,...Entypo.font,...AntDesign.font,...Feather.font, ...EvilIcons.font, ...Octicons.font,...FontAwesome5.font,...Fontisto.font,...Foundation.font,...SimpleLineIcons.font,...Zocial.font 
+    ...FontAwesome.font, ...MaterialCommunityIcons.font
   });
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
@@ -52,10 +52,6 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
-
-  if(error){
-    return Unmatched
-  }
 
   if (!loaded) {
     return null;

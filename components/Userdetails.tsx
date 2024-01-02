@@ -28,7 +28,7 @@ const styles = ScaledSheet.create({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
-    padding: '12@s',   
+    padding: '18@s',   
   },
   userContainer:{
     marginLeft:'10@s',

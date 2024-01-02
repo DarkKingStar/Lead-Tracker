@@ -8,6 +8,7 @@ import icon from '../../assets/images/icon.png';
 import { Image } from 'expo-image';
 import { scale } from 'react-native-size-matters';
 import { useEffect, useRef } from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 
@@ -110,9 +111,12 @@ function TabBarMiddleIcon(props: {
   color: string;
   title: string;
 }) {
-  return (<><View style={{marginTop: scale(-15), display:'flex', justifyContent:'center',borderWidth: scale(2),borderColor:`${props.color=='#fff'?'#FF008C':props.color}`, alignItems: 'center',borderRadius:scale(100),width:scale(55),height:scale(55), backgroundColor:"#ffffff" }}>
-  <FontAwesome size={scale(28)} color={props.color=='#fff'?'#FF008C':props.color} name={props.name} /> 
-  </View>
+  return (<>
+  <LinearGradient 
+    colors={['#E3651D','#FFF78A']}
+  style={{marginTop: scale(-15), display:'flex', justifyContent:'center', alignItems: 'center',borderRadius:scale(100),width:scale(55),height:scale(55)}}>
+  <FontAwesome size={scale(28)} color={props.color=='#fff'?'#FF008C':'#183399'} name={props.name} /> 
+  </LinearGradient>
   {/* <Text style={{color:`${props.color}`, fontSize: 11,marginTop: 5,}}>{props.title}</Text> */}
   </>);
 }
