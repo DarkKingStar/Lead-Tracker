@@ -41,7 +41,6 @@ export default function RootLayout() {
     'RubikSemiBoldItalic': require('../assets/fonts/Rubik-SemiBoldItalic.ttf'),
     ...FontAwesome.font, ...Ionicons.font, ...MaterialCommunityIcons.font,...MaterialIcons.font,...Entypo.font,...AntDesign.font,...Feather.font, ...EvilIcons.font, ...Octicons.font,...FontAwesome5.font,...Fontisto.font,...Foundation.font,...SimpleLineIcons.font,...Zocial.font 
   });
-
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error)
