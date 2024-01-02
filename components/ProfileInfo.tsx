@@ -88,11 +88,11 @@ const styles = ScaledSheet.create({
       title: {
         fontSize: '10@s',
         marginBottom: '-4@s',
-        fontFamily: 'NotoSerif',
+        fontFamily: 'RubikMediumItalic',
         color: '#3559E0'
       },
       uservalue:{
         fontSize: '15@s',
-        fontFamily: 'NotoSerifCB'
+        fontFamily: 'RubikSemiBold'
       },
 })

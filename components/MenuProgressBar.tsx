@@ -23,7 +23,7 @@ const styles = ScaledSheet.create({
     overflow: 'hidden',
   },
   progressBar: {
-    height: '10@s',
+    height: '8@s',
     backgroundColor: '#11009E',
     borderRadius: '10@s',
     overflow: 'hidden',

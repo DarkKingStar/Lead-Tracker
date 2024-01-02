@@ -27,16 +27,18 @@ export default function RootLayout() {
   const queryClient = new QueryClient()
 
   const [loaded, error] = useFonts({
-    'SpaceMono': require('../assets/fonts/SpaceMono.ttf'),
-    'RubikMaps': require('../assets/fonts/RubikMaps.ttf'),
-    'QuickSand': require('../assets/fonts/Quicksand.ttf'),
-    'RubikDoodle': require('../assets/fonts/RubikDoodle.ttf'),
-    'SeymourOne': require('../assets/fonts/SeymourOne.ttf'),
-    'BebasNeur': require('../assets/fonts/BebasNeur.ttf'),
-    'VastShadow': require('../assets/fonts/VastShadow.ttf'),
-    'Arbutus': require('../assets/fonts/Arbutus.ttf'),
-    'NotoSerif': require('../assets/fonts/NotoSerif.ttf'),
-    'NotoSerifCB': require('../assets/fonts/NotoSerif_Condensed-Bold.ttf'),
+    'RubikBlack': require('../assets/fonts/Rubik-Black.ttf'),
+    'RubikBlackItalic': require('../assets/fonts/Rubik-BlackItalic.ttf'),
+    'RubikBold': require('../assets/fonts/Rubik-Bold.ttf'),
+    'RubikExtraBold': require('../assets/fonts/Rubik-ExtraBold.ttf'),
+    'RubikExtraBoldItalic': require('../assets/fonts/Rubik-ExtraBoldItalic.ttf'),
+    'RubikItalic': require('../assets/fonts/Rubik-Italic.ttf'),
+    'RubikLight': require('../assets/fonts/Rubik-Light.ttf'),
+    'RubikMedium': require('../assets/fonts/Rubik-Medium.ttf'),
+    'RubikMediumItalic': require('../assets/fonts/Rubik-MediumItalic.ttf'),
+    'RubikRegular': require('../assets/fonts/Rubik-Regular.ttf'),
+    'RubikSemiBold': require('../assets/fonts/Rubik-SemiBold.ttf'),    
+    'RubikSemiBoldItalic': require('../assets/fonts/Rubik-SemiBoldItalic.ttf'),
     ...FontAwesome.font, ...Ionicons.font, ...MaterialCommunityIcons.font,...MaterialIcons.font,...Entypo.font,...AntDesign.font,...Feather.font, ...EvilIcons.font, ...Octicons.font,...FontAwesome5.font,...Fontisto.font,...Foundation.font,...SimpleLineIcons.font,...Zocial.font 
   });
 

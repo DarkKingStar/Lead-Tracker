@@ -56,7 +56,7 @@ export default DateInputField;
 
 const styles = ScaledSheet.create({
   inputholder:{
-    borderWidth:'2@s',
+    borderWidth:'1@s',
     display: 'flex',
     justifyContent:'flex-start',
     alignItems:'center',

@@ -41,10 +41,11 @@ const styles = ScaledSheet.create({
   },
   iconholder:{
     width: '35@s',
-    height: '28@s',
+    height: '35@s',
     borderRadius: '5@s',
     alignItems: 'center',
     justifyContent: 'center',
+    alignContent: 'center',
     borderColor:'#4942E4',
     borderWidth: '1.5@s',
   },
@@ -53,14 +54,14 @@ const styles = ScaledSheet.create({
     width:'20@s',
   },
   heading:{
-    color: '#4942E4',
     fontSize: '17@s',
-    fontFamily: 'BebasNeur',
+    fontFamily: 'RubikMedium',
     textAlign: 'left',
   },
   task:{
+  color: '#4942E4',
   fontSize: '16@s',
-  fontFamily: 'NotoSerif',
+  fontFamily: 'RubikMedium',
   textAlign: 'left',
   },
 });

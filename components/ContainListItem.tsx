@@ -149,7 +149,7 @@ const styles = ScaledSheet.create({
     labeltext:{
         fontSize:'12@s',
         marginHorizontal: '4@s',
-        fontFamily:'NotoSerifCB',
+        fontFamily:'RubikSemiBold',
         textAlign: 'left',
     },
     iconholder:{
@@ -172,7 +172,7 @@ const styles = ScaledSheet.create({
     name:{
         color: '#fff',
         fontSize: '15@s',
-        fontFamily: 'SpaceMono',
+        fontFamily: 'RubikRegular',
         marginLeft:'6@s',
         padding:'8@s',
     },

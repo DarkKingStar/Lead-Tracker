@@ -107,6 +107,6 @@ const styles = ScaledSheet.create({
     marginTop: '25@s', 
     color: '#FF007F', 
     fontSize: '11@s',
-    fontFamily: 'SeymourOne'
+    fontFamily: 'RubikExtraBold'
   }
 })

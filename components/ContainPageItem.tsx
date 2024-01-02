@@ -43,7 +43,7 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, setPaginati
     const noDataFound = ()=>{
         return(<>
             {leadlist?.length == 0 &&
-            <View style={divStyles.errordiv}>
+            <View style={[divStyles.errordiv,{marginTop: '50%'}]}>
                 <AntDesign name="frown" size={54} color="black" />
                 <Text style={styles.title}>Oops! no record found</Text>
                 <Text>Go to home screen!</Text>

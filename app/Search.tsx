@@ -2,7 +2,6 @@ import { StyleSheet, Text,Pressable, View, TextInput } from 'react-native';
 import React, { useState } from 'react';
 import Feather from '@expo/vector-icons/Feather';
 
-import {Picker} from '@react-native-picker/picker';
 import DateInputField from '../components/DateInputField';
 import { router } from 'expo-router';
 import { ModalAnimation } from '../components/ModalAnimation';
@@ -38,7 +37,7 @@ const Search = () => {
 
   const handleSubmit = async() =>{
     await OnSearchData(name,phone,selectedValueId,selectedStartDate,selectedEndDate);
-    router.back();
+    router.push('/(tabs)/lead/search');
   }
 
   const handleStartDateChange = (date: Date) => {

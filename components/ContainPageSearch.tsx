@@ -7,11 +7,11 @@ import { AntDesign } from '@expo/vector-icons';
 import { ScaledSheet } from 'react-native-size-matters';
 
 const ContainPageSearch  = () => {
-  const [pagination,setPagination] = useState<number>(1);
+  const [pagination,setPagination] = useState<number>(0);
   const {searchDataValue} = useAuth();  
   return (
     <>{searchDataValue.length>0?
-      <ContainPageItem leadlist={searchDataValue} loading={false} setPagination={setPagination} hasPageNext={false}/>:
+      <ContainPageItem leadlist={searchDataValue} setPagination={setPagination} hasPageNext={false}/>:
       <View style={{flex:1, justifyContent: 'center',alignSelf:'center', alignItems: 'center'}}>
         <AntDesign name="frown" size={54} color="black" />
         <Text style={styles.title}>Oops! no record found</Text>

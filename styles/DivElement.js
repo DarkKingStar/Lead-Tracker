@@ -18,7 +18,7 @@ export const divStyles = ScaledSheet.create({
         flexDirection: 'row',
         width: '100%',
         alignItems: 'center',
-        borderWidth: '2@s',
+        borderWidth: '1@s',
         borderRadius: '8@s',
         marginBottom: '10@s',
         paddingHorizontal:'10@s',
@@ -33,7 +33,6 @@ export const divStyles = ScaledSheet.create({
     },
     errordiv:{
         flex:1,
-        marginTop: '50%',
         justifyContent: 'center',
         alignSelf:'center',
         alignItems: 'center'
