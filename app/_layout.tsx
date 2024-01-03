@@ -5,7 +5,7 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack, Unmatched, router } from 'expo-router';
 import react,{ useEffect, useState} from 'react';
-import { SafeAreaView, Text, View, useColorScheme } from 'react-native';
+import { ActivityIndicator, SafeAreaView, Text, View, useColorScheme } from 'react-native';
 import { AuthProvider, useAuth } from '../context/AuthContext';
 import FlashMessage, { showMessage } from "react-native-flash-message";
 import { QueryClient, QueryClientProvider} from '@tanstack/react-query'
@@ -17,7 +17,7 @@ export {ErrorBoundary} from 'expo-router';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: 'login',
+  initialRouteName: '(tabs)',
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -27,6 +27,7 @@ export default function RootLayout() {
   const queryClient = new QueryClient()
 
   const [loaded, error] = useFonts({
+    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     'RubikBlack': require('../assets/fonts/Rubik-Black.ttf'),
     'RubikBlackItalic': require('../assets/fonts/Rubik-BlackItalic.ttf'),
     'RubikBold': require('../assets/fonts/Rubik-Bold.ttf'),
@@ -39,7 +40,7 @@ export default function RootLayout() {
     'RubikRegular': require('../assets/fonts/Rubik-Regular.ttf'),
     'RubikSemiBold': require('../assets/fonts/Rubik-SemiBold.ttf'),    
     'RubikSemiBoldItalic': require('../assets/fonts/Rubik-SemiBoldItalic.ttf'),
-    ...FontAwesome.font, ...MaterialCommunityIcons.font
+    ...FontAwesome.font, 
   });
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
@@ -49,12 +50,12 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (loaded) {
-      SplashScreen.hideAsync();
+    // console.log('assest loaded');
     }
   }, [loaded]);
 
   if (!loaded) {
-    return null;
+    return (<SafeAreaView><View style={{flex:1, justifyContent:'center',alignItems:'center'}}><ActivityIndicator size={'large'}  color="#183399"/></View></SafeAreaView>)
   }
 
   return (
@@ -80,6 +81,7 @@ export default function RootLayout() {
     };
   }, []);
   if(networkState?.isInternetReachable){
+    
     return(<RootLayoutNav/>)
   }
   else if(!isLoading){
@@ -100,7 +102,7 @@ function RootLayoutNav() {
   const {authState, sessionLoading} = useAuth();
   useEffect(() => {
     if (sessionLoading) {
-      // Still loading authState, do nothing or show a loading indicator
+      SplashScreen.hideAsync();
       return;
     }
     // Check if the token is not null and the user is authenticated
@@ -111,7 +113,10 @@ function RootLayoutNav() {
     }else{
       router.push('/login')
     }
-  }, [authState.token, authState.authenticated]); 
+  }, [authState.token, authState.authenticated]);
+  if(sessionLoading){
+    return <SafeAreaView><View style={{flex:1, justifyContent:'center',alignItems:'center'}}><ActivityIndicator size={'large'}  color="#183399"/></View></SafeAreaView>
+  }
   return (
     <>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>

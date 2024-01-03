@@ -1,4 +1,4 @@
-import {  View } from 'react-native';
+import {  ScrollView, View } from 'react-native';
 import UserDetails from '../../components/Userdetails'
 import Menu from '../../components/Menu';
 import React from 'react';
@@ -12,9 +12,12 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <ImageBackground  source={bgimg} style={{flex:1}}>
-      <UserDetails/>
+
         <TabAnimation style={{flex:1}}>
+        <ScrollView contentContainerStyle={styles.scrollcontainer}>
+          <UserDetails/>
           <Menu/>
+        </ScrollView>
         </TabAnimation>
       </ImageBackground>
     </View>
@@ -26,6 +29,10 @@ HomeScreen.navigationOptions = {
 const styles = ScaledSheet.create({
   container: {
     flex: 1,
+  },
+  scrollcontainer:{
+      paddingBottom: '8@s',
+      paddingHorizontal: '8@s',  
   },
   title: {
     fontSize: '20@s',

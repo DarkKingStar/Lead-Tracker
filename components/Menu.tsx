@@ -26,7 +26,7 @@ const Menu = () => {
     const gotoPage = ( leadid: string, userid: string | null) =>{
         router.push(`/(tabs)/lead/${leadid}/${userid}`)
     }
-    const {isPending, isError, data, refetch} = useQuery({ 
+    const {isPending,isLoading, isError, data, refetch} = useQuery({ 
         queryKey: ['dashboard'],
         queryFn: ()=>fetchMenuData(userData.userId,authState.token),
         enabled: false, // Disable initial fetch
@@ -42,7 +42,7 @@ const Menu = () => {
         setDashboard(convertArray(data));
     },[data])
 
-    if(isPending){
+    if(isPending || isLoading){
         return(<ActivityIndicator size="large" color="#183399" />)    
     }
     else if(isError){
@@ -50,14 +50,16 @@ const Menu = () => {
     }
     else{
     return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <>
         {dashboard?.map((chunk: any, index: number) => (
             <View key={index} style={styles.row}>
-                {chunk?.map((item: any, itemIndex: number) => (
+                {chunk?.length==2 && chunk?.map((item: any, itemIndex: number) => (
                     <LinearGradient 
-                    colors={['#FFEEF7','#F4BEDC']}
-                    start={{x:0,y:0}}
-                    end={{x:0,y:1}}
+                    colors={[
+                        '#B9D7EA', '#99DDCC',
+                      ]}
+                      start={{ x: 0, y: 1 }}
+                      end={{ x: 1, y: 0 }}
                     key={itemIndex} 
                     style={styles.item}>
                         <Pressable onPress={()=>gotoPage(item.lead_status_id, userData.userId)}>{/* {userData.userId} */}
@@ -67,13 +69,12 @@ const Menu = () => {
                 ))}
             </View>
         ))}
-        </ScrollView>
+      </>
     )}
 }
 
 const styles = ScaledSheet.create({
     container: {
-      flex: 1,
       padding: '8@s',
     },
     row: {

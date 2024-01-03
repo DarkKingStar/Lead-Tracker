@@ -1,10 +1,7 @@
-import { StyleSheet, Text,Pressable, View, TextInput, Alert } from 'react-native';
+import { Text,Pressable, View, TextInput, Alert } from 'react-native';
 import React, { useState } from 'react';
 import Feather from '@expo/vector-icons/Feather';
-
-import {Picker} from '@react-native-picker/picker';
 import DateInputField from './DateInputField';
-import { router } from 'expo-router';
 import { ModalAnimation } from './ModalAnimation';
 import { useAuth } from '../context/AuthContext';
 import { useQuery } from '@tanstack/react-query';

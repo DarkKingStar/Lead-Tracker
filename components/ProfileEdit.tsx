@@ -118,6 +118,7 @@ const ProfileEdit = () => {
        setTextValue={setName}
       LeftIconName='user'
       RightIconName='check'
+      keyboardType="default"
       />
       <TextInputField 
       placeholder='Email'
@@ -130,6 +131,7 @@ const ProfileEdit = () => {
        setTextValue={setEmail}
       LeftIconName='envelope'
       RightIconName='check'
+      keyboardType="email-address"
       />
       
       <TextInputField 
@@ -143,6 +145,7 @@ const ProfileEdit = () => {
        setTextValue={setPhone}
       LeftIconName='phone'
       RightIconName='check'
+      keyboardType='numeric'
       />
       </View>
       <Pressable style={[divStyles.submitButton,{ marginTop: scale(-15) }]} onPress={()=>handleSubmit()}>

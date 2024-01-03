@@ -73,7 +73,9 @@ export default function ForgotPassswordScreen() {
       placeholder='Username'
       LeftIconName='user'
       RightIconName='check-circle'
-      setTextValue={setUsername}/>
+      setTextValue={setUsername}
+      keyboardType='default'
+      />
       {errorMessage!='' && <Text style={textStyles.errormessage}>{errorMessage}</Text>}
       <View style={{width: '100%'}}>
       <Pressable style={divStyles.submitButton} onPress={() => handleForgotPassword()} >

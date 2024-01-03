@@ -19,7 +19,7 @@ interface MenuItemProps {
     <View>
     <View style={styles.container}>
     <View style={styles.menuDesc}>
-      <Text numberOfLines={1} ellipsizeMode='tail' style={styles.heading}>{heading}</Text>
+      <Text style={styles.heading}>{heading}</Text>
       <Text style={styles.task}>{taskdone} of {totallead}</Text>
     </View>
     <View style={[styles.iconholder,{backgroundColor: `${Colors[colorScheme ?? 'light'].white}`}]}>
@@ -46,22 +46,23 @@ const styles = ScaledSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     alignContent: 'center',
-    borderColor:'#4942E4',
+    borderColor:'#183399',
     borderWidth: '1.5@s',
   },
   icon:{
-    height:'20@s',
-    width:'20@s',
+    height:'15@s',
+    width:'15@s',
   },
   heading:{
     fontSize: '14@s',
-    color:'#FF008C',
-    fontFamily: 'RubikExtraBold',
+    color:'#183399',
+    fontFamily: 'RubikBold',
     textAlign: 'left',
+    height: '42@s',
   },
   task:{
   color: '#000',
-  fontSize: '12@s',
+  fontSize: '20@s',
   fontFamily: 'RubikBold',
   textAlign: 'left',
   },

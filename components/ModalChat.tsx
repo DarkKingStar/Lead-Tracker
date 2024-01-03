@@ -50,7 +50,7 @@ const ModalChat:React.FC<ModalChatProps> = ({setIsVisible, setIsSettingVisible, 
               <FontAwesome name="phone" size={scale(20)} color="#000" />
             </Pressable>
           </View>
-          <ImageBackground source={bgimg} style={{flex:1}} imageStyle={{opacity:0.3}}>
+          <ImageBackground source={bgimg} style={{flex:1}} >
           <ScrollView contentContainerStyle={styles.messageboxdiv}>
             <ChatMessageBox conversation={conversation} loading={loading}/>
           </ScrollView>

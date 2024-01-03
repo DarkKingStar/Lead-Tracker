@@ -1,37 +1,26 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Pressable, Text, View } from 'react-native';
+import { ImageBackground } from 'expo-image';
 import { router } from 'expo-router';
 import { Link, Tabs } from 'expo-router';
-import { useColorScheme, Animated } from 'react-native';
+import { useColorScheme } from 'react-native';
 import Colors from '../../constants/Colors';
 import icon from '../../assets/images/icon.png';
 import { Image } from 'expo-image';
 import { scale } from 'react-native-size-matters';
-import { useEffect, useRef } from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
+import btnimg from '../../assets/images/middle-btn.png'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
-const fadeIn = (value:any, duration:any) => {
-  return Animated.timing(value, {
-    toValue: 1,
-    duration: duration,
-    useNativeDriver: true,
-  });
-};
+
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  const fadeInValue = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    fadeIn(fadeInValue, 500).start();
-  }, []);
   return (
-    <Animated.View style={{ flex: 1, opacity: fadeInValue }}>
     <Tabs  screenOptions={{
       tabBarInactiveTintColor: Colors[colorScheme ?? 'dark'].tint, 
       tabBarActiveTintColor: Colors[colorScheme ?? 'light'].background,
@@ -85,14 +74,12 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: '',
-          
           tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} title='PROFILE' />,
           headerRight: () => (<HeaderRight/>),
           headerLeft: () => (<HeaderLeft/>),
         }}
       />
     </Tabs>
-    </Animated.View>
   );
 }
 
@@ -112,12 +99,9 @@ function TabBarMiddleIcon(props: {
   title: string;
 }) {
   return (<>
-  <LinearGradient 
-    colors={['#E3651D','#FFF78A']}
-  style={{marginTop: scale(-15), display:'flex', justifyContent:'center', alignItems: 'center',borderRadius:scale(100),width:scale(55),height:scale(55)}}>
-  <FontAwesome size={scale(28)} color={props.color=='#fff'?'#FF008C':'#183399'} name={props.name} /> 
-  </LinearGradient>
-  {/* <Text style={{color:`${props.color}`, fontSize: 11,marginTop: 5,}}>{props.title}</Text> */}
+  <ImageBackground source={btnimg} imageStyle={{borderRadius:scale(100)}}
+  style={{marginTop: scale(-15),borderRadius:scale(100),width:scale(55),height:scale(55)}}>
+  </ImageBackground>
   </>);
 }
 

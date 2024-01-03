@@ -72,6 +72,7 @@ const Search = () => {
               setTextValue={setName}
               LeftIconName='user'
               RightIconName='check'
+              keyboardType='default'
               />
               <TextInputField
               placeholder='Phone no.'
@@ -84,6 +85,7 @@ const Search = () => {
               setTextValue={setPhone}
               LeftIconName='phone'
               RightIconName='check'
+              keyboardType='numeric'
               />
             <SelectInputField
                     selectedValue={selectedValue}

@@ -80,6 +80,12 @@ const AddLeadbyUser = () => {
         setDateFlag(true);
         setSelectedDate(date);
     };
+    useEffect(()=>{
+        const limitedResult = phone.slice(0, 10);
+        setPhone(limitedResult);
+        const limitedResult2 = phoneAlt.slice(0, 10);
+        setPhoneAlt(limitedResult2);
+    },[phone,phoneAlt]);
 
     const handleSubmit = async() =>{
         const flagData = await OnAddNewLead(selectedLeadSource?.key,prefixId.toString(),firstName,middleName,lastName,
@@ -140,6 +146,7 @@ const AddLeadbyUser = () => {
                     setTextValue={setFirstName}
                     LeftIconName='user'
                     RightIconName='check'
+                    keyboardType="default"
                     />
                 </View>
             </View>
@@ -156,6 +163,7 @@ const AddLeadbyUser = () => {
                     setTextValue={setMiddleName}
                     LeftIconName='user'
                     RightIconName='check'
+                    keyboardType="default"
                     />
                 </View>
                 <View style={{flex:1}}>
@@ -170,6 +178,7 @@ const AddLeadbyUser = () => {
                     setTextValue={setLastName}
                     LeftIconName='user'
                     RightIconName='check'
+                    keyboardType="default"
                     />
                 </View>
             </View>
@@ -186,6 +195,7 @@ const AddLeadbyUser = () => {
                     setTextValue={setPhone}
                     LeftIconName='phone'
                     RightIconName='check'
+                    keyboardType="numeric"
                     />
                 </View>
                 <View style={{flex:1}}>
@@ -200,6 +210,7 @@ const AddLeadbyUser = () => {
                     setTextValue={setPhoneAlt}
                     LeftIconName='mobile-phone'
                     RightIconName='check'
+                    keyboardType="numeric"
                     />
                 </View>
             </View>
@@ -216,6 +227,7 @@ const AddLeadbyUser = () => {
                     setTextValue={setEmail}
                     LeftIconName='envelope'
                     RightIconName='check'
+                    keyboardType="email-address"
                     />
                 </View>
             </View>
@@ -260,6 +272,7 @@ const AddLeadbyUser = () => {
                     setTextValue={setBusinessName}
                     LeftIconName='briefcase'
                     RightIconName='check'
+                    keyboardType="default"
                     />
                 </View>
             </View>
@@ -301,6 +314,7 @@ const AddLeadbyUser = () => {
                     setTextValue={setRemarks}
                     LeftIconName='info-circle'
                     RightIconName='check'
+                    keyboardType="default"
                     />
                 </View>
             </View>

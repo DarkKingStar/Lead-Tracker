@@ -19,12 +19,12 @@ const styles = ScaledSheet.create({
     width: '100%',
     marginTop: '12@s',
     backgroundColor: '#ffffff',
-    borderRadius: '8@s',
+    borderRadius: '3@s',
     overflow: 'hidden',
   },
   progressBar: {
-    height: '15@s',
-    backgroundColor: '#0047FF',
+    height: '10@s',
+    backgroundColor: '#FF008C',
     overflow: 'hidden',
   },
   progressText: {

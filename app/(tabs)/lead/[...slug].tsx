@@ -1,5 +1,4 @@
 import { StyleSheet, View  } from 'react-native';
-import UserDetails from '../../../components/Userdetails';
 import ContainPage from '../../../components/ContainPage';
 
 import { useLocalSearchParams } from 'expo-router';
@@ -7,6 +6,8 @@ import { TabAnimation } from '../../../components/TabAnimation';
 import bgimg from '../../../assets/images/bgimg.png';
 import { ImageBackground } from 'expo-image';
 import { ScaledSheet } from 'react-native-size-matters';
+import { ScrollView } from 'react-native-gesture-handler';
+import UserDetails from '../../../components/Userdetails';
 
 
 
@@ -14,10 +15,9 @@ export default function LeadScreen() {
   const { slug } = useLocalSearchParams();
   return (
     <View style={styles.container}>
-      <UserDetails/>
         <ImageBackground  source={bgimg} style={{flex:1}}>
           <TabAnimation>
-        <ContainPage leadId={slug[0]} userId={slug[1]}/>
+              <ContainPage leadId={slug[0]} userId={slug[1]}/>
       </TabAnimation>
         </ImageBackground>
     </View>

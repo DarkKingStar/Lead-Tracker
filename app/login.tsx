@@ -82,7 +82,9 @@ export default function LoginScreen() {
       LeftIconName='user'
       RightIconName='check-circle'
       placeholder='Username'
-      setTextValue={setUsername}/>
+      setTextValue={setUsername}
+      keyboardType='default'
+      />
       <PasswordInputField 
       FocusColor={isPasswordWrong ? '#ff0000': '#426EB2'}
       NotFocusColor={isPasswordWrong ? '#ff0000': '#c9c9c9'}

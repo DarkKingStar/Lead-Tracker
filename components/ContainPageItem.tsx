@@ -7,6 +7,8 @@ import ModalSetting from './ModalSetting';
 import { divStyles } from '../styles/DivElement';
 import { ScaledSheet, scale } from 'react-native-size-matters';
 import ContainListItem from './ContainListItem';
+import UserDetails from './Userdetails';
+import UserDetailsLeadPage from './UserDetailsLeadPage';
 
 interface ContainPageItemProps{
     leadlist: any;
@@ -64,6 +66,7 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, setPaginati
             initialNumToRender={3}
             decelerationRate={0.85}
             showsVerticalScrollIndicator={false}
+            ListHeaderComponent={<UserDetailsLeadPage/>}
             ListFooterComponent={<View style={{ marginBottom: scale(20), alignContent: 'center',justifyContent: 'center', alignItems: 'center' }}><Text style={{fontSize: scale(14), fontWeight: '700'}}>{listProcessingmsg}</Text></View>}
             onEndReached={()=>{
                 if(hasPageNext){

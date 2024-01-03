@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View } from 'react-native';
-import UserDetails from '../../../components/Userdetails';
 import { ImageBackground } from 'expo-image';
 import bgimg from '../../../assets/images/bgimg.png';
 import ContainPageSearch from '../../../components/ContainPageSearch';
@@ -13,7 +12,6 @@ export default function SearchLeadScreen() {
   const {searchDataValue, userData} = useAuth(); 
   return (
     <View style={styles.container}>
-      <UserDetails/>
       <ImageBackground  source={bgimg} style={{flex:1}}>
         {searchDataValue.length>0?<ContainPageSearch/>: <><View style={divStyles.errordiv}>
                 <AntDesign name="frown" size={54} color="black" />

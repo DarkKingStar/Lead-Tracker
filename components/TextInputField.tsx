@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput } from 'react-native'
+import { StyleSheet, Text, View, TextInput, KeyboardType } from 'react-native'
 import React,{ Dispatch, SetStateAction, useState } from 'react'
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { divStyles } from '../styles/DivElement'
@@ -15,10 +15,11 @@ interface TextInputFieldProps{
     textValue: string;
     bgcolor: string;
     placeholder: string;
+    keyboardType: KeyboardType;
     setTextValue: Dispatch<SetStateAction<string>>;
 }
 
-const TextInputField: React.FC<TextInputFieldProps> = ({FocusColor,NotFocusColor, bgcolor, LeftIconColor, RightIconColor,LeftIconName, RightIconName, textValue, placeholder, setTextValue}) => {
+const TextInputField: React.FC<TextInputFieldProps> = ({FocusColor,NotFocusColor, bgcolor, LeftIconColor, RightIconColor,LeftIconName, RightIconName, textValue, keyboardType, placeholder, setTextValue}) => {
     const [InputIsFocus,setInputIsFocus] = useState<boolean>(false);
     return (
     <View style={[divStyles.EntryPageInputHolder, { borderColor: InputIsFocus?FocusColor:NotFocusColor, backgroundColor: bgcolor}]}>
@@ -33,6 +34,7 @@ const TextInputField: React.FC<TextInputFieldProps> = ({FocusColor,NotFocusColor
           onFocus={() => setInputIsFocus(true)}
           onBlur={() => setInputIsFocus(false)}
           underlineColorAndroid="transparent"
+          keyboardType={keyboardType}
         />
         {RightIconColor != 'transparent' && <FontAwesome name={RightIconName} size={20} color={RightIconColor}/>}
       </View>
