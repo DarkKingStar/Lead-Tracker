@@ -6,7 +6,7 @@ TuRain Lead Management System is a React Native Expo project designed for effici
 
 ## Project Overview
 
-TuRain Lead Management System simplifies lead tracking and management, providing a user-friendly interface for businesses to organize and follow up on leads effectively.
+Lead Management System simplifies lead tracking and management, providing a user-friendly interface for businesses to organize and follow up on leads effectively.
 
 ## Getting Started 
 
