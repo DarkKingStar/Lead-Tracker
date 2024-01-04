@@ -8,7 +8,7 @@ import AddLeadbyUser from '../../components/AddLeadbyUser';
 const leadupdate = () => {
   return (
     <ImageBackground  source={bgimg} style={{flex:1}}>
-        <TabAnimation style={{flex:1}}>
+        <TabAnimation>
           <AddLeadbyUser/>        
         </TabAnimation>
     </ImageBackground>

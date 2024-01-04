@@ -141,7 +141,7 @@ const styles = ScaledSheet.create({
     },
     formHeading: {
         fontSize: '18@s',
-        fontWeight: '800',
+        fontFamily: 'RubikBold',
         textAlign: 'left',
     },
     closeBtnHolder: {

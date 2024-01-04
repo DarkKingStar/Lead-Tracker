@@ -67,7 +67,7 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, setPaginati
             decelerationRate={0.85}
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={<UserDetailsLeadPage/>}
-            ListFooterComponent={<View style={{ marginBottom: scale(20), alignContent: 'center',justifyContent: 'center', alignItems: 'center' }}><Text style={{fontSize: scale(14), fontWeight: '700'}}>{listProcessingmsg}</Text></View>}
+            ListFooterComponent={<View style={{ marginBottom: scale(20), alignContent: 'center',justifyContent: 'center', alignItems: 'center' }}><Text style={{fontSize: scale(14), fontFamily: 'RubikMedium'}}>{listProcessingmsg}</Text></View>}
             onEndReached={()=>{
                 if(hasPageNext){
                     setPagination(prev=>prev+1);
@@ -118,6 +118,6 @@ const styles = ScaledSheet.create({
     },
     title: {
         fontSize: '20@s',
-        fontWeight: 'bold',
+        fontFamily: 'RubikBold',
     },
 });

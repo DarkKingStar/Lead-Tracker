@@ -10,25 +10,25 @@ export const textStyles = ScaledSheet.create({
     buttonText:{
         color: 'white',
         fontSize: '15@s',
-        fontFamily: 'RubikBold',
+        fontFamily: 'RubikMedium',
         textAlign: 'center',
     },
     PageHeading: {
         fontSize: '25@s',
         marginBottom: '10@s',
         color: '#0466AC',
-        fontFamily:'RubikBold'
+        fontFamily: 'RubikExtraBold',
       },
     PageSubHeading: {
         fontSize: '16@s',
         marginBottom:'30@s',
         textAlign: 'center',
-        fontFamily: 'RubikRegular'
+        fontFamily: 'RubikExtraBold',
     },
     errormessage:{
         margin: '10@s',
         color: '#FF007F', 
         fontSize: '11@s',
-        fontFamily: 'RubikBold'
+        fontFamily: 'RubikMedium',
     }
 }) 

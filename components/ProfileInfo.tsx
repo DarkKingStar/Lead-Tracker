@@ -95,6 +95,6 @@ const styles = ScaledSheet.create({
       },
       uservalue:{
         fontSize: '15@s',
-        fontFamily: 'RubikMedium'
+        fontFamily: 'RubikMedium',
       },
 })

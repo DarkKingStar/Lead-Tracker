@@ -18,7 +18,7 @@ export default function LeadScreen() {
         <ImageBackground  source={bgimg} style={{flex:1}}>
           <TabAnimation>
               <ContainPage leadId={slug[0]} userId={slug[1]}/>
-      </TabAnimation>
+          </TabAnimation>
         </ImageBackground>
     </View>
   );
@@ -30,7 +30,7 @@ const styles = ScaledSheet.create({
   },
   title: {
     fontSize: '20@s',
-    fontWeight: 'bold',
+    fontFamily: 'RubikBold',
   },
   separator: {
     marginVertical: '30@s',

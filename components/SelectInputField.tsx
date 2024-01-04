@@ -31,7 +31,7 @@ const SelectInputField: React.FC<SelectInputFieldProps> = ({selectedValue,setSel
             setSelectedValue(itemValue);
             setSelectedValueId(itemIndex);
             }}}>
-            <Picker.Item label={placeholder} style={{color:'#808080', fontFamily:'RubikLight'}} />
+            <Picker.Item label={placeholder} style={{color:'#808080',fontFamily: 'RubikLight',}} />
             {options.map((option: string | undefined, index: React.Key | null | undefined) => (
             <Picker.Item key={index} label={option} value={option?.toLowerCase()} />
             ))}

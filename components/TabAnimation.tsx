@@ -1,6 +1,5 @@
-import React from 'react';
-import {  ViewStyle } from 'react-native';
-import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
+import React, { useCallback } from 'react';
+import { View, ViewStyle, Animated } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 
 interface TabAnimationProps {
@@ -9,26 +8,31 @@ interface TabAnimationProps {
 }
 
 export const TabAnimation: React.FC<TabAnimationProps> = ({ children, style }) => {
-   const opacity = useSharedValue(0);
+  const opacity = React.useRef(new Animated.Value(0)).current;
 
   useFocusEffect(
-    React.useCallback(() => {
-      opacity.value = withTiming(1, { duration: 800 });
+    useCallback(() => {
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 800,
+        useNativeDriver: true,
+      }).start();
 
       return () => {
-        opacity.value = 0;
+        Animated.timing(opacity, {
+          toValue: 0,
+          duration: 800,
+          useNativeDriver: true,
+        }).start();
       };
     }, [])
   );
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      opacity: opacity.value,
-    };
-  });
+
+  const animatedStyle = { opacity };
 
   return (
     <Animated.View style={[animatedStyle, style]}>
       {children}
     </Animated.View>
   );
-}
+};

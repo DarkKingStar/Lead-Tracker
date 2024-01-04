@@ -13,12 +13,12 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <ImageBackground  source={bgimg} style={{flex:1}}>
 
-        <TabAnimation style={{flex:1}}>
         <ScrollView contentContainerStyle={styles.scrollcontainer}>
+        <TabAnimation>
           <UserDetails/>
           <Menu/>
-        </ScrollView>
         </TabAnimation>
+        </ScrollView>
       </ImageBackground>
     </View>
   );
@@ -36,7 +36,7 @@ const styles = ScaledSheet.create({
   },
   title: {
     fontSize: '20@s',
-    fontWeight: 'bold',
+    fontFamily: 'RubikBold',
     textAlign: 'center',
   },
   separator: {

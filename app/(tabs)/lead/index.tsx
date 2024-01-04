@@ -25,7 +25,7 @@ const styles = ScaledSheet.create({
   },
   title: {
     fontSize: '20@s',
-    fontWeight: 'bold',
+    fontFamily: 'RubikBold',
   },
   separator: {
     marginVertical: '30@s',

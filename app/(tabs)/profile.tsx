@@ -35,8 +35,8 @@ export default function ProfileScreen() {
 
 
   return (
-    <TabAnimation>
     <ScrollView contentContainerStyle={[styles.container,{paddingBottom:scale(25)}]}>
+    <TabAnimation>
       <ImageBackground  source={bgimg} style={{flex:1}}>
         <ImageBackground source={toplayerbgimg} style={styles.pinklayer}/>
       <View style={styles.avatarholder}>
@@ -60,8 +60,8 @@ export default function ProfileScreen() {
         </Pressable>
         </View>
         </ImageBackground>
-      </ScrollView>
       </TabAnimation>
+      </ScrollView>
   );
 }
 

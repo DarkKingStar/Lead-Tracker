@@ -67,8 +67,8 @@ export const AuthProvider = ({children}: any) =>{
     const getSecureStoreValue = async () : Promise<void> => {
       const sessionUserData = await fetchSessionJsonData('userData');
       const sessionAuthState = await fetchSessionJsonData('authState');
-      setAuthState(sessionAuthState);
-      setUserData(sessionUserData);
+      sessionAuthState?.authenticated && setAuthState(sessionAuthState);
+      sessionUserData?.userId && setUserData(sessionUserData);
       // Set loading to false once data is fetched
       setSessionLoading(false);
     };

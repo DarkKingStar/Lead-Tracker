@@ -98,7 +98,7 @@ const styles = ScaledSheet.create({
     },
     username:{
       fontSize:'18@s',
-      fontWeight: '600',
+      fontFamily: 'RubikMedium',
       color: '#fff',
       width: '60%',
     },

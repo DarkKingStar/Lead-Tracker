@@ -21,6 +21,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 export default function TabLayout() {
   const colorScheme = useColorScheme();
   return (
+    <View style={{flex: 1}} collapsable={false}>
     <Tabs  screenOptions={{
       tabBarInactiveTintColor: Colors[colorScheme ?? 'dark'].tint, 
       tabBarActiveTintColor: Colors[colorScheme ?? 'light'].background,
@@ -80,6 +81,7 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
+    </View>
   );
 }
 

@@ -35,7 +35,7 @@ const styles = ScaledSheet.create({
   },
   UserId:{
     fontSize: '12@s',
-    fontFamily: 'RubikBlack',
+    fontFamily: 'RubikExtraBold',
     color: '#FF008C',
   },
   middlebox:{

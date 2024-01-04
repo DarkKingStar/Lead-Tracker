@@ -331,43 +331,43 @@ const AddLeadbyUser = () => {
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <View style={[styles.row,styles.detailslabel]}>
-                            <Text style={{fontWeight: '800'}}>Full Name:</Text>
+                            <Text style={{fontFamily: 'RubikBold'}}>Full Name:</Text>
                             <Text>{prefix} {firstName} {middleName} {lastName}</Text>
                         </View>    
                         <View style={[styles.row,styles.detailslabel]}>
-                            <Text style={{fontWeight: '800'}}>Contact no.:</Text>
+                            <Text style={{fontFamily: 'RubikBold'}}>Contact no.:</Text>
                             <Text>{phone}</Text>    
                         </View>
                         <View style={[styles.row,styles.detailslabel]}>
-                            <Text style={{fontWeight: '800'}}>Contact no. 2:</Text>
+                            <Text style={{fontFamily: 'RubikBold'}}>Contact no. 2:</Text>
                             <Text>{phoneAlt}</Text>    
                         </View>
                         <View style={[styles.row,styles.detailslabel]}>
-                            <Text style={{fontWeight: '800'}}>Email:</Text>
+                            <Text style={{fontFamily: 'RubikBold'}}>Email:</Text>
                             <Text>{email}</Text>    
                         </View>
                         <View style={[styles.row,styles.detailslabel]}>
-                            <Text style={{fontWeight: '800'}}>Lead Source:</Text>
+                            <Text style={{fontFamily: 'RubikBold'}}>Lead Source:</Text>
                             <Text>{selectedLeadSource?.value}</Text>    
                         </View>
                         <View style={[styles.row,styles.detailslabel]}>
-                            <Text style={{fontWeight: '800'}}>Mode of Business:</Text>
+                            <Text style={{fontFamily: 'RubikBold'}}>Mode of Business:</Text>
                             <Text>{selectedModeOfBusiness?.value}</Text>    
                         </View>
                         <View style={[styles.row,styles.detailslabel]}>
-                            <Text style={{fontWeight: '800'}}>Business Name:</Text>
+                            <Text style={{fontFamily: 'RubikBold'}}>Business Name:</Text>
                             <Text>{businessName}</Text>    
                         </View>
                         <View style={[styles.row,styles.detailslabel]}>
-                            <Text style={{fontWeight: '800'}}>Location of the Lead:</Text>
+                            <Text style={{fontFamily: 'RubikBold'}}>Location of the Lead:</Text>
                             <Text>{selectedLocation?.value}</Text>
                         </View>
                         <View style={[styles.row,styles.detailslabel]}>
-                            <Text style={{fontWeight: '800'}}>Enquiry Date:</Text>
+                            <Text style={{fontFamily: 'RubikBold'}}>Enquiry Date:</Text>
                             <Text>{selectedDate?.toLocaleDateString()}</Text>
                         </View>
                         <View style={[styles.row,styles.detailslabel]}>
-                            <Text style={{fontWeight: '800'}}>Remarks:</Text>
+                            <Text style={{fontFamily: 'RubikBold'}}>Remarks:</Text>
                             <Text>{remarks}</Text>
                         </View>
                         <View style={[styles.row,{marginTop: scale(20)}]}>

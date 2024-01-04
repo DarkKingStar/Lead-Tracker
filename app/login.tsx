@@ -108,7 +108,7 @@ const styles = ScaledSheet.create({
   forgotpass:{
     marginTop: '25@s', 
     color: '#FF007F', 
-    fontSize: '11@s',
-    fontFamily: 'RubikExtraBold'
+    fontSize: '12@s',
+    fontFamily: 'RubikExtraBold',
   }
 })

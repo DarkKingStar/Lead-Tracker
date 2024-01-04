@@ -58,16 +58,17 @@ const styles = ScaledSheet.create({
         color: '#FF008C',
         fontFamily: 'RubikExtraBold',
         textAlign: 'right',
-        fontSize: '13@s',
+        marginRight: '1@s',
+        fontSize: '12@s',
     },
     dateandtime:{
         fontSize: '10@s',
-        fontFamily: 'RubikBold',
+        fontFamily: 'RubikMedium',
     },
     updatedatetime:{
         color: '#382ADD',
         fontSize: '12@s',
-        fontWeight: '800',
+        fontFamily: 'RubikBold',
         alignSelf: 'flex-end',
     },
     chattext:{
@@ -79,11 +80,11 @@ const styles = ScaledSheet.create({
     
     chatby:{
         fontSize: '14@s',
-        fontWeight: '700',
+        fontFamily: 'RubikMedium',
         color: '#000',
     },
     title: {
         fontSize: '18@s',
-        fontWeight: 'bold',
+        fontFamily: 'RubikBold'
     },
 })
