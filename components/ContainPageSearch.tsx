@@ -11,7 +11,7 @@ const ContainPageSearch  = () => {
   const {searchDataValue} = useAuth();  
   return (
     <>{searchDataValue.length>0?
-      <ContainPageItem leadlist={searchDataValue} setPagination={setPagination} hasPageNext={false}/>:
+      <ContainPageItem leadCount={searchDataValue?.length.toString()} leadStatus='Search Result' leadlist={searchDataValue} setPagination={setPagination} hasPageNext={false}/>:
       <View style={{flex:1, justifyContent: 'center',alignSelf:'center', alignItems: 'center'}}>
         <AntDesign name="frown" size={54} color="black" />
         <Text style={styles.title}>Oops! no record found</Text>

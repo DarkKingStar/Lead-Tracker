@@ -12,11 +12,12 @@ import UserDetailsLeadPage from './UserDetailsLeadPage';
 
 interface ContainPageItemProps{
     leadlist: any;
-
+    leadCount: string;
+    leadStatus: string;
     setPagination:React.Dispatch<React.SetStateAction<number>>;
     hasPageNext: boolean;
 }
-const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, setPagination, hasPageNext }) => {
+const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, leadCount, leadStatus, setPagination, hasPageNext }) => {
     const [isChatVisible, setIsChatVisible] = useState<boolean>(false);
     const [isSettingVisible,setIsSettingVisible] = useState<boolean>(false);
     const [listProcessingmsg,setListProcessingmsg] = useState<string>('')
@@ -66,7 +67,7 @@ const ContainPageItem: React.FC<ContainPageItemProps> = ({ leadlist, setPaginati
             initialNumToRender={3}
             decelerationRate={0.85}
             showsVerticalScrollIndicator={false}
-            ListHeaderComponent={<UserDetailsLeadPage/>}
+            ListHeaderComponent={<UserDetailsLeadPage leadCount={leadCount} leadStatus={leadStatus}/>}
             ListFooterComponent={<View style={{ marginBottom: scale(20), alignContent: 'center',justifyContent: 'center', alignItems: 'center' }}><Text style={{fontSize: scale(14), fontFamily: 'RubikMedium'}}>{listProcessingmsg}</Text></View>}
             onEndReached={()=>{
                 if(hasPageNext){

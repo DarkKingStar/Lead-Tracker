@@ -3,13 +3,18 @@ import { useAuth} from '../context/AuthContext';
 
 import { ScaledSheet } from 'react-native-size-matters';
 
-const UserDetailsLeadPage = () => {
+interface UserDetailsLeadPageProps{
+  leadStatus:string;
+  leadCount:string;
+}
+
+const UserDetailsLeadPage: React.FC<UserDetailsLeadPageProps> = ({leadStatus, leadCount}) => {
    const {userData} = useAuth();
   return (
       <View style={styles.container}>
       <View style={styles.userContainer}>
-        <Text style={styles.UserName}>HELLO {userData?.fullname?.toUpperCase() }</Text>
-        <Text style={styles.UserId}>{userData?.username?.toUpperCase()} #{userData?.userId}</Text>
+        <Text style={styles.UserName}>{leadStatus.toUpperCase() }</Text>
+        <Text style={styles.UserId}>Lead Count: {leadCount.toUpperCase()}</Text>
       </View>
       </View>
   )

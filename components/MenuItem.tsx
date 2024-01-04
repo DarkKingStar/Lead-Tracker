@@ -56,13 +56,13 @@ const styles = ScaledSheet.create({
   heading:{
     fontSize: '14@s',
     color:'#183399',
-    fontFamily: 'RubikMedium',
+    fontFamily: 'RubikBold',
     textAlign: 'left',
     height: '42@s',
   },
   task:{
   color: '#000',
-  fontSize: '20@s',
+  fontSize: '18@s',
   fontFamily: 'RubikMedium',
   textAlign: 'left',
   },

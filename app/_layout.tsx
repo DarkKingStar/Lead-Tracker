@@ -6,7 +6,8 @@ import { useFonts } from 'expo-font';
 import { SplashScreen, Stack, router } from 'expo-router';
 import react,{ useEffect, useState} from 'react';
 import { ActivityIndicator, SafeAreaView, Text, View, useColorScheme } from 'react-native';
-import { AuthProvider, useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/AuthContext';
+import { AuthProvider } from '../context/AuthProvider';
 import FlashMessage from "react-native-flash-message";
 import { QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import { scale } from 'react-native-size-matters';

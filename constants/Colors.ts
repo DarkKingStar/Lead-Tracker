@@ -12,7 +12,7 @@ export default {
     text: '#000',
     background: '#fff',
     tint: '#ccc7c6',
-    white: '#cccccc',
+    white: '#8f8f8f',
     tabIconDefault: '#ccc',
     tabIconSelected: '#ccc7c6',
     navbarColor: '#183399',

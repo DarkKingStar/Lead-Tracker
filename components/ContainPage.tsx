@@ -17,6 +17,8 @@ interface ContainPageProps{
 
 const ContainPage: React.FC<ContainPageProps>  = ({leadId, userId}) => {
   const [leadList,setLeadList] = useState<any>([]);
+  const [leadStatus,setLeadStatus] = useState<string>('');
+  const [leadCount,setLeadCount] = useState<string>('');
   const [pagination,setPagination] = useState<number>(0);
   const [hasPageNext,setHasPageNext] = useState<boolean>(true);
   const { isPending, isError, data, refetch } = useQuery({
@@ -39,12 +41,17 @@ const ContainPage: React.FC<ContainPageProps>  = ({leadId, userId}) => {
       if(data?.['client-list']?.length==0){
         setHasPageNext(false);
       }
+      if(!isPending && pagination==0 && data?.lead_status && data?.lead_count){
+        setLeadCount(data?.lead_count);
+        setLeadStatus(data?.lead_status);
+      }
     }
   },[data])
 
   if(isPending && pagination==0){
     return(<ActivityIndicator size="large" color="#183399" />)    
   }
+  
   if(isError){
     return(<View style={divStyles.errordiv}>
     <AntDesign name="frown" size={54} color="black" />
@@ -54,7 +61,8 @@ const ContainPage: React.FC<ContainPageProps>  = ({leadId, userId}) => {
   }else{
   return (
     <>
-      <ContainPageItem leadlist={leadList} setPagination={setPagination} hasPageNext={hasPageNext}/>
+      {/* <Text>{data?.lead_status}</Text> */}
+      <ContainPageItem leadlist={leadList} leadStatus={data?.lead_status || leadStatus} leadCount={ data?.lead_count || leadCount} setPagination={setPagination} hasPageNext={hasPageNext}/>
     </>
   )}
 }

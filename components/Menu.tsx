@@ -53,7 +53,7 @@ const Menu = () => {
     <>
         {dashboard?.map((chunk: any, index: number) => (
             <View key={index} style={styles.row}>
-                {chunk?.length==2 && chunk?.map((item: any, itemIndex: number) => (
+                {chunk?.map((item: any, itemIndex: number) => (
                     <LinearGradient 
                     colors={[
                         '#B9D7EA', '#99DDCC',

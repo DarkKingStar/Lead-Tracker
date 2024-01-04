@@ -1,4 +1,4 @@
-const BASE_URL= 'https://lms.turaingrp.com/webservice';
+const BASE_URL= process.env.EXPO_PUBLIC_API_URL;
 
 export const LOGIN = `${BASE_URL}/login`;
 export const OTP_VERIFY = `${BASE_URL}/otp_verify`;
